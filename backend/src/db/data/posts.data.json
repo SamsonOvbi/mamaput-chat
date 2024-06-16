@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Beauty And The Beast",
+    "content": "Beauty And The Beast Beauty And The Beast",
+    "description": "Beauty And The Beast Beauty And The Beast",
+    "image": "http://localhost:5000/img/51eg55uWmdL._AC_UX679_.jpg",
+    "user": "66167fc14f0e5aad6aab1b03",
+    "createdAt": "2024-04-19T10:53:16.540Z",
+    "updatedAt": "2024-04-19T10:53:16.540Z"
+  },
+  {
+    "title": "Oliver Twist",
+    "content": "Oliver Twist Oliver Twist Oliver Twist Oliver Twist Oliver Twist",
+    "description": "Beauty And The Beast Beauty And The Beast",
+    "image": "http://localhost:5000/img/51eg55uWmdL._AC_UX679_.jpg",
+    "user": "66167fc14f0e5aad6aab1b03",
+    "createdAt": "2024-04-19T10:53:16.540Z",
+    "updatedAt": "2024-04-19T10:53:16.540Z"
+  }
+]

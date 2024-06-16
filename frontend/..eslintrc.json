@@ -1,0 +1,20 @@
+{
+  "extends": [
+    "plugin:@angular-eslint/recommended"
+  ],
+  "rules": {
+    "@angular-eslint/component-selector": ["error", {
+      "type": "element",
+      "prefix": "app",
+      "style": "kebab-case"
+    }],
+    "@angular-eslint/directive-selector": ["error", {
+      "type": "attribute",
+      "prefix": "app",
+      "style": "camelCase"
+    }]
+  }
+}
+ 
+// npm install eslint @angular-eslint/eslint-plugin @angular-eslint/template-parser --save-dev
+// npm install eslint @angular-eslint/eslint-plugin @angular-eslint/template-parser --save-dev

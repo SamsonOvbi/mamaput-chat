@@ -1,0 +1,17 @@
+.amazon-1, .blog-1 {
+  margin-left: 0.2rem;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+@media only screen and (max-width: 480px) {
+  .hide-small-screen {
+    display: none;
+  }
+  .mat-vertical-content {
+    padding: 0 !important;
+  }
+}

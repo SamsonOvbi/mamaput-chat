@@ -1,0 +1,50 @@
+<mat-toolbar class="fixed top-0 left-0 right-0 z-50 flex justify-between mb-2 flex-wrap " color="primary">
+  <div>
+    <button *ngIf="!isLargeScreen" (click)="sidenav.toggle()" mat-icon-button aria-label="open menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a class="ml-1 text-wrap text-white text-lg py-1 " mat-button routerLink="/home">{{appName}}</a>
+  </div>
+
+  <div class="flex-1 min-w-32">
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="flex justify-center items-center ">
+      <mat-form-field floatLabel="auto" class="mx-auto w-full">
+        <input matInput type="query" placeholder="Search..." formControlName="query">
+      </mat-form-field>
+      <button class=" bg-secondary hover:bg-secondary-dark text-white font-bold p-1 rounded" mat-button type="submit"
+        color="secondary">
+        <mat-icon>search</mat-icon>
+      </button>
+    </form>
+  </div>
+
+  <!-- <div class="bg-blue-700">
+    <a mat-button routerLink="cart" class="relative">
+      <mat-icon *ngIf="itemsCount > 0" [matBadge]="itemsCount" matBadgePosition="after" matBadgeOverlap="false" l
+        matBadgeColor="accent" class="text-white">shopping_cart</mat-icon>
+      <mat-icon *ngIf="itemsCount === 0" class="text-white">shopping_cart</mat-icon>
+    </a>
+    <a mat-button *ngIf="!currentUser" routerLink="login" class="text-white">
+      <mat-icon>login</mat-icon>Login
+    </a>
+
+    <ng-container *ngIf="currentUser">
+      <button mat-button [matMenuTriggerFor]="userMenu" class="text-white justify-end">
+        <mat-icon>account_circle</mat-icon>
+        <span>{{currentUser.username}}</span>
+        <span><mat-icon>expand_more</mat-icon></span>
+      </button>
+      <mat-menu #userMenu="matMenu">
+        <a mat-menu-item routerLink="profile"><mat-icon>person_pin</mat-icon> Profile</a>
+        <a mat-menu-item routerLink="order-history"><mat-icon>history</mat-icon>Order History</a>
+        <a *ngIf="currentUser.isAdmin" mat-menu-item routerLink="admin/dashboard">
+          <mat-icon>supervisor_account</mat-icon>Admin
+        </a>
+        <button *ngIf="currentUser" mat-menu-item (click)="logout()" class="text-red-500 hover:text-red-700">
+          <mat-icon>logout</mat-icon> LogOut
+        </button>
+      </mat-menu>
+
+    </ng-container>
+  </div> -->
+</mat-toolbar>

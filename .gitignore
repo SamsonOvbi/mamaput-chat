@@ -1,0 +1,50 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+.env
+# compiled output
+.angular
+build
+dist
+tmp
+out-tsc
+# Only exists if Bazel was run
+bazel-out
+
+# dependencies
+node_modules
+
+# profiling files
+chrome-profiler-events*.json
+
+# IDEs and editors
+.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# misc
+*-cache
+coverage
+libpeerconnection.log
+*.log
+typings
+*.bak
+*.tmp
+npm-debug.log*
+
+# System Files
+.DS_Store
+Thumbs.db
+frontend/.angular/cache/16.2.0/babel-webpack/0ab0cbbcfa9c00532afc5cb98e4733f48ab9a9c4057e9a631f66f23fabde3943.json
+frontend/.angular/cache/16.2.0/angular-webpack/83d094a08b7099ba189175f3b670558592cdc5ba/5.pack
+frontend/.angular/cache/16.2.0/babel-webpack/0ab7ed8685b411aff90d51f7f30c71e5efa1ff68d85a3e70aae75f94fe13653e.json

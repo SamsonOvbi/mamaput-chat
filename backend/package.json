@@ -1,0 +1,43 @@
+{
+  "name": "mean-stack-blog",
+  "version": "1.0.0",
+  "description": "Backend for blog app",
+  "main": "server.js",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/server",
+    "build": "yarn && babel src -d build && node copy-env.js",
+    "dev": "nodemon --trace-warnings src/server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^1.6.8",
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.2.0",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.1.4",
+    "express-rate-limit": "^7.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.9",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "multer-storage-cloudinary": "^4.0.0",
+    "node-cron": "^3.0.3",    
+    "nodemailer": "^6.9.9",
+    "protonmail-api": "^2.2.0",
+    "streamifier": "^0.1.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.5",
+    "@babel/core": "^7.24.5",
+    "@babel/preset-env": "^7.24.5",
+    "nodemon": "^2.0.22",
+    "shx": "^0.3.4"
+  }
+}
