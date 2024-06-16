@@ -6,9 +6,9 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BlogService } from '../services/blog.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-import { DialogComponent } from '../../dialog';
 import { modulesQuill } from 'src/app/models/types';
 import { BlogData } from '../models/blog-model';
+import { MessageDialogComponent } from '../../dialogs';
 
 @Component({
   selector: 'app-editblog',
@@ -110,15 +110,12 @@ export class EditblogComponent implements OnInit {
   }
 
   openDialog(): void {
-    let dialogRef = this.dialog.open(DialogComponent, {
+    const dialogOptions = {
       width: '100%',
       height: 'auto',
-      data: {
-        title: this.title,
-        content: this.content,
-        thumbnailImage: this.imageSrc,
-      },
-    });
+      data: { title: this.title, content: this.content, thumbnailImage: this.imageSrc, },
+    }
+    const dialogRef = this.dialog.open(MessageDialogComponent, dialogOptions);
 
     dialogRef.afterClosed().subscribe((result) => {
       // console.log('The dialog was closed');

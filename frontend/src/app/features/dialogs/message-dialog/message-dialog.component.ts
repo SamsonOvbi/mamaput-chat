@@ -4,14 +4,14 @@ import { DomSanitizer } from '@angular/platform-browser';
 // import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
-  selector: 'app-dialog',
-  templateUrl: './dialog.component.html',
+  selector: 'app-message-dialog',
+  templateUrl: './message-dialog.component.html',
   styleUrls: ['../dialog.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class DialogComponent implements OnInit {
+export class MessageDialogComponent implements OnInit {
   constructor(
-    public dialogRef: MatDialogRef<DialogComponent>,
+    public dialogRef: MatDialogRef<MessageDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public sanitizer: DomSanitizer
   ) {}

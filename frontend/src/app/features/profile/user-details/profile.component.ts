@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { EmailChangeDialogComponent, PasswordChangeDialogComponent, } from '../../dialog';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { BlogService } from '../../blogs/services/blog.service';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../auth/services/auth.service';
 import { SharedService } from '../../../shared/services/shared.service';
+import { PasswordChangeDialogComponent } from '../../dialogs';
 
 @Component({
   selector: 'app-profile',
@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   public file: any;
   profileForm: FormGroup;
   public apiUrl = environment.apiUrl;
+
   constructor(
     private _fb: FormBuilder,
     private dialog: MatDialog,
@@ -110,11 +111,8 @@ export class ProfileComponent implements OnInit {
   }
 
   openPassworChangeDialog() {
-    let dialogRef = this.dialog.open(PasswordChangeDialogComponent, {
-      width: '50%',
-      height: 'auto',
-      backdropClass: 'bgClass',
-    });
+    const dialogOptions = { width: '50%', height: 'auto', backdropClass: 'bgClass', }
+    const dialogRef = this.dialog.open(PasswordChangeDialogComponent, dialogOptions);
     dialogRef.afterClosed().subscribe((result) => {
       // console.log('closed password dialog', result);
     });

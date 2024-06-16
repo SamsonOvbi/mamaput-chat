@@ -7,12 +7,9 @@ import { ProfileComponent } from './user-details/profile.component';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { SharedNavBarModule } from '../blogs/SharedNavBar/shard-navbar.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import {
-  EmailChangeDialogComponent,
-  PasswordChangeDialogComponent,
-} from '../dialog';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MaterialModule } from '../../shared/MaterialModule/material.module';
+import { EmailChangeDialogComponent, PasswordChangeDialogComponent } from '../dialogs';
 
 @NgModule({
   declarations: [

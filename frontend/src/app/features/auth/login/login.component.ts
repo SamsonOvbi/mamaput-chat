@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
           }
           this.sharedService.setProfileImage(res.imageUrl);
           localStorage.setItem('token', res.token);
-          this.router.navigate(['/creators']);
+          this.router.navigate(['/landing']);
         },
         error: (error: any) => {
           Swal.fire({ icon: 'error', title: 'Oops...', text: `${error.message} Please try again!!`, });

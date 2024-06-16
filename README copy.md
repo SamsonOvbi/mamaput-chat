@@ -29,7 +29,7 @@ Frontend
 
 The frontend is an Angular application. Here's a breakdown of the relevant components and services:
 
-Login Component (login.component.ts): This component handles user login functionality. It has a login form and sends a POST request to /auth/login with the user's credentials. If the login is successful, it stores the authentication token in localStorage and navigates to the /creators route.
+Login Component (login.component.ts): This component handles user login functionality. It has a login form and sends a POST request to /auth/login with the user's credentials. If the login is successful, it stores the authentication token in localStorage and navigates to the /landing route.
 
 Data Service (data.service.ts): This service is responsible for making HTTP requests to the backend API. It has methods for:
 

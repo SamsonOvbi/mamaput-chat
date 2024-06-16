@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router, } from '@angular/router';
-import { ResetPasswordDialComponent } from '../../dialog';
+import { ResetPasswordDialComponent } from '../../dialogs';
 
 @Component({
   selector: 'app-password-reset',
@@ -29,15 +29,11 @@ export class PasswordResetComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params: any) => {
       this.token = params.get('token');
     });
-    let dialogRef = this.dialog.open(ResetPasswordDialComponent, {
-      width: '50%',
-      height: 'auto',
-      backdropClass: 'bgClass',
-      data: { token: this.token },
-    });
+    const dialogOptions = { width: '50%', height: 'auto', backdropClass: 'bgClass', data: { token: this.token }, }
+    const dialogRef = this.dialog.open(ResetPasswordDialComponent, dialogOptions);
     dialogRef.afterClosed().subscribe((result) => {
       // console.log('closed password dialog', result);
-      result ? this.router.navigate(['/auth/login']) : this.router.navigate(['/creators']);
+      result ? this.router.navigate(['/auth/login']) : this.router.navigate(['/landing']);
     });
   }
 }

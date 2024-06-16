@@ -6,7 +6,7 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { IDeactivateGuard } from '../../auth/helpers/deactivate.guard';
 import Swal from 'sweetalert2';
-import { DialogComponent } from '../../dialog';
+import { MessageDialogComponent } from '../../dialogs';
 import Quill from 'quill';
 import { BlogData } from '../models/blog-model';
 import { BlogService } from '../services/blog.service';
@@ -125,11 +125,12 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
   }
 
   openDialog(): void {
-    let dialogRef = this.dialog.open(DialogComponent, {
+    const dialogOptions = {
       width: '100%',
       height: 'auto',
       data: { title: this.title, content: this.content, thumbnailImage: this.imageSrc, },
-    });
+    }
+    const dialogRef = this.dialog.open(MessageDialogComponent, dialogOptions);
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');

@@ -27,7 +27,7 @@ export class BlogService {
         let temp = localStorage.getItem('token');
         if (temp) {
           localStorage.clear();
-          this.router.navigate(['/creators']);
+          this.router.navigate(['/landing']);
         }
         break;
       case 500:        console.log(500);

@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
-import { DialogComponent } from '../../dialog';
+import { MessageDialogComponent } from '../../dialogs';
 import { DraftService } from '../../../shared/services/draft.service';
 import { environment } from '../../../../environments/environment';
 import { modulesQuill } from '../../../models/types';
@@ -120,15 +120,12 @@ export class EditdraftComponent implements OnInit {
   }
 
   openDialog(): void {
-    let dialogRef = this.dialog.open(DialogComponent, {
+    const dialogOptions = {
       width: '100%',
       height: 'auto',
-      data: {
-        title: this.title,
-        content: this.content,
-        thumbnailImage: this.imageSrc,
-      },
-    });
+      data: { title: this.title, content: this.content, thumbnailImage: this.imageSrc, },
+    }
+    const dialogRef = this.dialog.open(MessageDialogComponent, dialogOptions);
 
     dialogRef.afterClosed().subscribe((result) => {
       // console.log('The dialog was closed');
