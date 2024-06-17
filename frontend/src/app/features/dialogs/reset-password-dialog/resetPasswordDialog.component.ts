@@ -37,8 +37,8 @@ export class ResetPasswordDialComponent implements OnInit {
   savePassword(): void {
     if (this.changePassword.valid) {
       this.authService.resetPassword(this.changePassword.value, this.data.token)
-        .subscribe(
-          (res: any) => {
+        .subscribe({
+        next: (res: any) => {
             const Toast = Swal.mixin({
               toast: true,
               position: 'top-end',
@@ -49,7 +49,7 @@ export class ResetPasswordDialComponent implements OnInit {
             Toast.fire({ icon: 'success', title: 'Password Update successfully', });
             this.dialogRef.close(true);
           },
-          ({ error }) => {
+          error: (err: any) => {
             const Toast = Swal.mixin({
               toast: true,
               position: 'top-end',
@@ -57,9 +57,9 @@ export class ResetPasswordDialComponent implements OnInit {
               timer: 2500,
               timerProgressBar: true,
             });
-            Toast.fire({ icon: 'error', title: `${error.message}`, });
+            Toast.fire({ icon: 'error', title: `${err.message}`, });
           }
-        );
+    });
     } else {
       Swal.fire({ icon: 'error', title: 'Oops...', text: `Invalid Form`, });
     }

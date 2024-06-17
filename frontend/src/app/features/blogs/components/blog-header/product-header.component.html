@@ -1,0 +1,23 @@
+<!-- <div class="header-padding"></div> -->
+<mat-card class="mb-1 pt-1">
+  <div class="flex justify-between">
+    <button mat-button (click)="drawer.toggle()">
+      <!-- <mat-icon>menu</mat-icon> -->
+      <div *ngIf="totalProducts">{{category | titlecase }} ({{totalProducts}})</div>
+      <div *ngIf="!totalProducts">Products View</div>
+    </button>
+
+    <div class="flex items-center">
+      <!-- <button class="bg-green-600 text-white w-9 h-9 rounded-full"></button> -->
+      <button (click)="onColumnsUpdated(1)">
+        <mat-icon class="bg-green-600 text-white">view_list</mat-icon>
+      </button>
+      <button (click)="onColumnsUpdated(2)">
+        <mat-icon class="bg-yellow-600 text-white">view_module</mat-icon>
+      </button>
+      <button (click)="onColumnsUpdated(4)">
+        <mat-icon class="bg-blue-600 text-white">view_comfy</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-card>

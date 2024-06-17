@@ -6,21 +6,11 @@
           <div class="writer-info-container">
             <div class="info">
               <div class="profile-image">
-                <ngx-skeleton-loader
-                  *ngIf="!contentLoaded"
-                  appearance="circle"
-                  [theme]="{ width: '20px', height: '20px' }"
-                ></ngx-skeleton-loader>
-                <img 
-                  src="/assets/images/secure_login.svg"
-                  alt=""
-                  *ngIf="contentLoaded"
-                />
+                <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle"
+                  [theme]="{ width: '20px', height: '20px' }"></ngx-skeleton-loader>
+                <img src="/assets/images/secure_login.svg" alt="" *ngIf="contentLoaded" />
               </div>
-              <ngx-skeleton-loader
-                *ngIf="!contentLoaded"
-                class="writer-name"
-              ></ngx-skeleton-loader>
+              <ngx-skeleton-loader *ngIf="!contentLoaded" class="writer-name"></ngx-skeleton-loader>
               <h4 class="writer-name" *ngIf="contentLoaded">Mean Stack Blog</h4>
             </div>
           </div>
@@ -41,18 +31,14 @@
           </div>
         </div>
         <div class="right-div">
-          <ngx-skeleton-loader
-            *ngIf="!contentLoaded"
-            appearance="circle"
-            [theme]="{
+          <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle" [theme]="{
               width: '88%',
               height: '100%',
               'border-radius': '29px',
               display: 'flex',
               'justify-content': 'centre',
               margin: '0 auto'
-            }"
-          ></ngx-skeleton-loader>
+            }"></ngx-skeleton-loader>
           <img src="/assets/images/loginBg.png" alt="" *ngIf="contentLoaded" />
         </div>
       </div>
@@ -67,26 +53,12 @@
           <div class="writer-info-container">
             <div class="info">
               <div class="profile-image">
-                <ngx-skeleton-loader
-                  *ngIf="!contentLoaded"
-                  appearance="circle"
-                  [theme]="{ width: '20px', height: '20px' }"
-                ></ngx-skeleton-loader>
-                <img
-                  src="/assets/images/secure_login.svg"
-                  alt=""
-                  *ngIf="!myBlog.image"
-                />
-                <img
-                  src="{{ apiUrl }}/img/{{ myBlog.image }}"
-                  alt=""
-                  *ngIf="contentLoaded && myBlog.image"
-                />
+                <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle"
+                  [theme]="{ width: '20px', height: '20px' }"></ngx-skeleton-loader>
+                <img src="/assets/images/secure_login.svg" alt="" *ngIf="!myBlog.image" />
+                <img src="{{ apiUrl }}/img/{{ myBlog.image }}" alt="" *ngIf="contentLoaded && myBlog.image" />
               </div>
-              <ngx-skeleton-loader
-                *ngIf="!contentLoaded"
-                class="writer-name"
-              ></ngx-skeleton-loader>
+              <ngx-skeleton-loader *ngIf="!contentLoaded" class="writer-name"></ngx-skeleton-loader>
               <h4 class="writer-name" *ngIf="contentLoaded">
                 {{ myBlog?.name }}
               </h4>
@@ -102,12 +74,9 @@
             <div class="blog-content">
               <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
               <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-              <div
-                *ngIf="contentLoaded"
-                [innerHTML]="
+              <div *ngIf="contentLoaded" [innerHTML]="
                   sanitizer.bypassSecurityTrustHtml(data?.description)
-                "
-              ></div>
+                "></div>
             </div>
             <div class="date-time">
               <span>{{ data?.createdAt | date }}</span>
@@ -115,21 +84,13 @@
           </a>
         </div>
         <div class="right-div">
-          <ngx-skeleton-loader
-            *ngIf="!contentLoaded"
-            appearance="circle"
-            [theme]="{
+          <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle" [theme]="{
               width: '40%',
               height: '100%',
               'border-radius': '29px',
               'margin-left': '12%'
-            }"
-          ></ngx-skeleton-loader>
-          <img
-            src="{{ apiUrl }}/img/{{ data.image }}"
-            alt=""
-            *ngIf="contentLoaded"
-          />
+            }"></ngx-skeleton-loader>
+          <img src="{{ apiUrl }}/img/{{ data?.image }}" alt="" *ngIf="contentLoaded" />
         </div>
 
         <div class="more">

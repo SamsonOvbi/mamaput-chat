@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
-import { environment } from 'src/environments/environment';
 import { BlogService } from '../services/blog.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'app-read-single-blog',
-  templateUrl: './read-single-blog.component.html',
-  styleUrls: ['./read-single-blog.component.css'],
+  selector: 'app-blog-detail',
+  templateUrl: './blog-detail.component.html',
+  styleUrls: ['./blog-detail.component.css'],
 })
-export class ReadSingleBlogComponent implements OnInit {
-  public data: any;
+export class BlogDetailComponent implements OnInit {
+  public data: any; 
   public id: string | null | undefined;
   contentLoaded = false;
   constructor(

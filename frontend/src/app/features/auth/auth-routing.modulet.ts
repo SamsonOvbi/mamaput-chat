@@ -5,21 +5,15 @@ import { ResetpasswordComponent } from './forgotPassword/resetpassword.component
 import { SignupComponent } from './signup/signup.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 
-const route: Routes = [
+const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  {
-    path: 'forgot',
-    component: ResetpasswordComponent,
-  },
-  {
-    path: 'resetPassword/:token',
-    component: PasswordResetComponent,
-  },
+  { path: 'forgot', component: ResetpasswordComponent, },
+  { path: 'resetPassword/:token', component: PasswordResetComponent, },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(route)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AuthRoutingModule {}
+export class AuthRoutingModule { }

@@ -34,8 +34,8 @@ export class SignupComponent implements OnInit {
     if (this.signUpForm.valid) {
       this.http
         .post(`${this.apiUrl}/auth/signup`, this.signUpForm.value)
-        .subscribe(
-          (res: any) => {
+        .subscribe({
+          next: (res: any) => {
             this.router.navigate(['/auth/login']);
             const Toast = Swal.mixin({
               toast: true,
@@ -48,19 +48,19 @@ export class SignupComponent implements OnInit {
             // console.log('res...', res);
             localStorage.setItem('token', res.token);
           },
-          ({ error }) => {
-            Swal.fire({              icon: 'error',              title: 'Oops...',              text: `${error.message} Please try again!!`,            });
-            // console.log('err.message', error.message);
-          }
-        );
-    }
+          error: (err: any) => {
+          Swal.fire({ icon: 'error', title: 'Oops...', text: `${err.message} Please try again!!`, });
+          // console.log('err.message', error.message);
+        }
+    });
   }
+}
 
   get username() {
-    return this.signUpForm.controls['username'];
-  }
+  return this.signUpForm.controls['username'];
+}
 
   get email() {
-    return this.signUpForm.controls['email'];
-  }
+  return this.signUpForm.controls['email'];
+}
 }

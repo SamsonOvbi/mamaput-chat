@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DraftComponent } from '../draft/draft.component';
+import { DraftComponent } from '../drafts/draft/draft.component';
 import { MainProfileComponent } from './main-profile-leftNav/main-profile.component';
-import { MyblogComponent } from '../blogs/myblog/myblog.component';
+import { MyblogComponent } from './myblog/myblog.component';
 import { ProfileComponent } from './user-details/profile.component';
 import { AuthGuard } from '../auth/helpers/auth.guard';
 

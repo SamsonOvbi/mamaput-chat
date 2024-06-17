@@ -8,8 +8,8 @@
         'error-class': editorForm.controls.description.touched && editorForm.controls.description.errors?.required
       }" placeholder="Write Short description in less then 50 words.."></textarea>
     <div id="mapid" style="height: 24px;"></div>
-    <div class="thumbnailImage mt-2">
-      <div class="preview-image">
+    <div class="thumbnailImage mb-2">
+      <div class="preview-image-self">
         <img [src]="imageSrc || '/assets/images/avatar.svg'" id="image" #normal />
       </div>
       <input type="file" name="" accept="image/*" id="" (change)="uploadFile($event)" #file #normal />
@@ -18,14 +18,15 @@
         Choose Thumbnail Image
       </button>
     </div>
-    <textarea matInput formControlName="content" id="content" cols="30" rows="4" [ngClass]="{
+    <textarea matInput formControlName="content" id="content" cols="30" rows="5" [ngClass]="{
       'error-class': editorForm.controls.content.touched && editorForm.controls.content.errors?.required
-    }" placeholder="Write Short content in less then 250 words.."></textarea>
-    <div class=" mb-4">
+    }" placeholder="Write Short content in less then 250 words..">
+    </textarea>
+    <!-- <div class=" mb-4">
       <quill-editor formControlName="content" [(ngModel)]="editorValue" [styles]="{ height: '300px' }" 
         (blur)="onEditorBlured($event)" [modules]="modules">
       </quill-editor>
-    </div>
+    </div> -->
   </form>
   <div class="editor-buttons">
     <button mat-raised-button color="primary" (click)="saveAsDraft()">

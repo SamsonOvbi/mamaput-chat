@@ -11,15 +11,15 @@ import { MaterialModule } from '../../shared/MaterialModule/material.module';
 
 import { LandingComponent } from './landing/landing.component';
 import { WriteblogComponent } from './writeblog/writeblog.component';
-import { ReadblogComponent } from './readblog/readblog.component';
-import { ReadSingleBlogComponent } from './read-single-blog/read-single-blog.component';
+import { BlogListComponent } from './blog-list/blog-list.component';
+import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 import { EditblogComponent } from './editblog/editblog.component';
-import { EditdraftComponent } from './editdraft/editdraft.component';
+import { EditdraftComponent } from '../drafts/editdraft/editdraft.component';
 import { MessageDialogComponent } from '../dialogs';
 
 const componentsList = [
-  LandingComponent, WriteblogComponent, MessageDialogComponent, ReadblogComponent,
-  ReadSingleBlogComponent, EditblogComponent, EditdraftComponent,
+  LandingComponent, WriteblogComponent, MessageDialogComponent, BlogListComponent,
+  BlogDetailComponent, EditblogComponent, EditdraftComponent,
 ];
 
 const modulesList = [

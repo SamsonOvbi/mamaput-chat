@@ -12,10 +12,7 @@ import { modulesQuill } from '../../../models/types';
 @Component({
   selector: 'app-editdraft',
   templateUrl: './editdraft.component.html',
-  styleUrls: [
-    './editdraft.component.css',
-    '../writeblog/writeblog.component.css',
-  ],
+  styleUrls: ['./editdraft.component.css', '../../blogs/writeblog/writeblog.component.css',],
 })
 export class EditdraftComponent implements OnInit {
   public modules = modulesQuill;

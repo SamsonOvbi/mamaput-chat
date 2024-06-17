@@ -2,8 +2,6 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, } from '@angular/common/htt
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-// import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { environment } from '../../../../environments/environment';
 
@@ -44,7 +42,7 @@ export class AuthService {
       timer: 2500,
       timerProgressBar: true,
     });
-    Toast.fire({ icon: 'success', title: 'Logout successfully', });
+    Toast.fire({ icon: 'success', title: 'Logout successful', });
   }
 
   checkLogin() {

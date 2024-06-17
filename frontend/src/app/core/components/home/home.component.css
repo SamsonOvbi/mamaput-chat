@@ -138,6 +138,7 @@ img {
   }
   .links {
     margin: 2.5rem 0;
+    color: green
   }
   .links:hover {
     color: white;

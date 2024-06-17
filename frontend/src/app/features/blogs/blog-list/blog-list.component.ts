@@ -6,11 +6,11 @@ import { delay } from 'rxjs/operators';
 import { BlogService } from '../services/blog.service';
 
 @Component({
-  selector: 'app-readblog',
-  templateUrl: './readblog.component.html',
-  styleUrls: ['./readblog.component.css'],
+  selector: 'app-blog-list',
+  templateUrl: './blog-list.component.html',
+  styleUrls: ['./blog-list.component.css'],
 })
-export class ReadblogComponent implements OnInit {
+export class BlogListComponent implements OnInit {
   constructor(
     private router: Router,
     private blogService: BlogService,
@@ -22,8 +22,8 @@ export class ReadblogComponent implements OnInit {
   apiUrl = environment.apiUrl;
   noDataFound = false;
   ngOnInit(): void {
-    this.blogService.getBlogData().pipe(delay(100)).subscribe(
-      (res: any) => {
+    this.blogService.getBlogData().pipe(delay(100)).subscribe({
+    next: (res: any) => {
         this.blogDetails = res.data.data;
         if (this.blogDetails.length === 0) {
           this.noDataFound = true;
@@ -36,11 +36,11 @@ export class ReadblogComponent implements OnInit {
         // console.log('the Blog Data response', this.blogDetails);
         this.contentLoaded = true;
       },
-      (err) => {
+      error: (err: any) => {
         this.contentLoaded = true;
         this.noDataFound = true;
       }
-    );
+  });
   }
 
   counter(i: number) {

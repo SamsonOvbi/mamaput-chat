@@ -72,6 +72,11 @@ input[type="text"]:focus {
   height: 150px;
   margin: 0 auto;
 }
+.preview-image-self {
+  width: 50%;
+  height: 100px;
+  margin: 0 auto;
+}
 #image {
   object-fit: contain;
   width: 100%;

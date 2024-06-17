@@ -1,0 +1,23 @@
+<div class="bg-white">
+  <swiper *ngIf="products2.length > 0" [config]="config">
+    <ng-template swiperSlide *ngFor="let product of products2 | slice:0:9; let idx = index">
+      <div class="p-1 shadow-lg rounded-lg max-h-[300px] flex flex-row ">
+        <a [routerLink]="'/product-details/' + product.slug" class="max-h-56 ">
+          <img [src]="product.image" alt="slide {{ product.name }}"
+            class="min-w-[120px] h-[150px] object-contain rounded-t-lg mx-auto" />
+        </a>
+
+        <a [routerLink]="'/product-details/' + product.slug" class="p-1 ">
+          <p class="truncate text-wrap hover:whitespace-normal text-sm font-semibold">Title: {{ product.name }}</p>
+          <p class="text-md">Price: {{product.price | currency}}</p>
+          <app-rating [rating]="product.rating" [numReviews]="product.numReviews"></app-rating>
+        </a>
+      </div>
+    </ng-template>
+  </swiper>
+  <swiper *ngIf="products2.length === 0" [config]="config">
+    <ng-template swiperSlide *ngFor="let image of images | slice:3:11; let idx = index">
+      <img [src]="image" alt="slide {{ idx + 1 }}" class="w-full h-auto object-cover" />
+    </ng-template>
+  </swiper>
+</div>

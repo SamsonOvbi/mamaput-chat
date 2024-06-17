@@ -1,0 +1,46 @@
+<h2 class="text-2xl font-bold mb-4">Reviews</h2>
+<p *ngIf="product.reviews.length === 0" class="text-gray-600">No review submitted</p>
+<div class="space-y-4" *ngFor="let review of product.reviews; let idx = index">
+  <div class="bg-white p-4 rounded-lg shadow">
+    <p class="font-semibold">
+      {{ review.name }}
+    </p>
+    <app-rating [rating]="review.rating"></app-rating>
+    <p class="mt-2">
+      {{ review.comment }}
+    </p>
+    <div class="border-t border-gray-200 my-2"></div>
+  </div>
+</div>
+<p *ngIf="!currentUser" class="text-gray-600">
+  Please
+  <a routerLink="/login" [queryParams]="{ returnUrl: '/product-details/' + product.slug }" class="text-blue-600 hover:underline">login</a>
+  to leave a review
+</p>
+
+<div class="bg-white p-4 rounded-lg shadow mt-4" *ngIf="currentUser">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+    <h2 class="text-2xl font-bold mb-4">Leave a review</h2>
+    <div class="flex flex-col">
+      <input matInput placeholder="Comment" formControlName="comment" required class="border border-gray-300 p-2 rounded-md" />
+      <span *ngIf="form.get('comment')?.errors" class="text-red-500 text-sm"> Please provide a comment </span>
+    </div>
+    <div class="flex flex-col">
+      <label class="block mb-2">Choose an option</label>
+      <select formControlName="rating" class="border border-gray-300 p-2 rounded-md">
+        <option value=""></option>
+        <option value="1">1-Poor</option>
+        <option value="2">2-Fair</option>
+        <option value="3">3-Good</option>
+        <option value="4">4-Very good</option>
+        <option value="5">5-Excellent</option>
+      </select>
+    </div>
+    <div class="flex items-center space-x-2">
+      <button [disabled]="createReviewLoading" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 disabled:opacity-50" type="submit">
+        Submit
+      </button>
+      <div *ngIf="createReviewLoading" class="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  </form>
+</div>
