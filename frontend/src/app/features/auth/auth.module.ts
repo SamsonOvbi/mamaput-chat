@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthRoutingModule } from './auth-routing.modulet';
+import { AuthRoutingModule } from './auth-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from 'src/app/shared/MaterialModule/material.module';
-import { LoginComponent } from './login/login.component';
+import { MaterialModule } from 'src/app/shared/material.module';
+import { LoginComponent } from './pages/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { SignupComponent } from './signup/signup.component';
+import { SignupComponent } from './pages/signup/signup.component';
 import { ResetPasswordDialComponent } from '../dialogs';
-import { ResetpasswordComponent } from './forgotPassword/resetpassword.component';
+import { ResetpasswordComponent } from './pages/forgotPassword/resetpassword.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ResetpasswordComponent } from './forgotPassword/resetpassword.component
     ResetpasswordComponent,
     LoginComponent,
     ResetPasswordDialComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,

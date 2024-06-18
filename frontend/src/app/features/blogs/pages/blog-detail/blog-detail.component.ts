@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
-import { BlogService } from '../services/blog.service';
-import { environment } from '../../../../environments/environment';
+import { BlogService } from '../../services/blog.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-blog-detail',

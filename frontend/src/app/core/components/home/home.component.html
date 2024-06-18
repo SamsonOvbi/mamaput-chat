@@ -12,7 +12,7 @@
   <ng-container *ngIf="loggedIn; else loggedOutMenu">
     <!-- Menu items for logged in users -->
     <mat-menu #userMenu="matMenu">
-      <button mat-menu-item routerLink="/profile/me">
+      <button mat-menu-item routerLink="/auth/me">
         <mat-icon>person_pin</mat-icon> Profile
       </button>
       <button mat-menu-item routerLink="/profile/myblog" routerLinkActive="active">
@@ -31,7 +31,7 @@
       <div style="display: flex; align-items: end;">
         <span class="mr-2 text-wrap max-w-[120px]">{{userName.split(' ')[0]}}</span>
         <div class="profile-image">
-          <img [src]="profileImage || '/frontend/src/assets/images/avatar.svg'" alt="" id="profile-image"
+          <img [src]="profileImage || '/frontend/src/assets/images/avatar.svg'" alt="profile-image" id="profile-image"
             id="profile_img" />
           <mat-icon>arrow_drop_down</mat-icon>
         </div>
@@ -57,4 +57,4 @@
 
 </mat-toolbar>
 <div class="h-[30px]"></div>
-<router-outlet *ngIf="routerOutlet"></router-outlet>
+<!-- <router-outlet *ngIf="routerOutlet"></router-outlet> -->

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router, } from '@angular/router';
-import { ResetPasswordDialComponent } from '../../dialogs';
+import { ResetPasswordDialComponent } from '../../../dialogs';
 
 @Component({
   selector: 'app-password-reset',

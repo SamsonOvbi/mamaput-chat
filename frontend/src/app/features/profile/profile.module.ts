@@ -3,30 +3,23 @@ import { CommonModule } from '@angular/common';
 import { MainProfileComponent } from './main-profile-leftNav/main-profile.component';
 import { MyblogComponent } from './myblog/myblog.component';
 import { DraftComponent } from '../drafts/draft/draft.component';
-import { ProfileComponent } from './user-details/profile.component';
 import { ProfileRoutingModule } from './profile-routing.module';
-import { SharedNavBarModule } from '../blogs/SharedNavBar/shard-navbar.module';
+import { SharedNavBarModule } from '../../shared/shared-navbar.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { MaterialModule } from '../../shared/MaterialModule/material.module';
+import { MaterialModule } from '../../shared/material.module';
 import { EmailChangeDialogComponent, PasswordChangeDialogComponent } from '../dialogs';
 
+const componentsList = [
+  MainProfileComponent, MyblogComponent, DraftComponent,
+  PasswordChangeDialogComponent, EmailChangeDialogComponent,
+];
+const modulesList = [
+  CommonModule, ProfileRoutingModule, SharedNavBarModule,
+  MaterialModule, ReactiveFormsModule, NgxSkeletonLoaderModule,
+];
 @NgModule({
-  declarations: [
-    MainProfileComponent,
-    MyblogComponent,
-    DraftComponent,
-    ProfileComponent,
-    PasswordChangeDialogComponent,
-    EmailChangeDialogComponent,
-  ],
-  imports: [
-    CommonModule,
-    ProfileRoutingModule,
-    SharedNavBarModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    NgxSkeletonLoaderModule,
-  ],
+  declarations: [componentsList,],
+  imports: [modulesList,],
 })
 export class ProfileModule { }

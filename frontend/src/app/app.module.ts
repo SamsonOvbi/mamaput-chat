@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './shared/MaterialModule/material.module';
+import { MaterialModule } from './shared/material.module';
 import { QuillModule } from 'ngx-quill';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
@@ -15,7 +15,6 @@ import { PageNotFoundComponent } from './core/page-not-found/page-not-found.comp
 import { DeactivateServiceGuard } from './features/auth/helpers/deactivate.guard';
 import { AuthGuard } from './features/auth/helpers/auth.guard';
 import { InterceptorService } from './features/auth/helpers/interceptor.service';
-// import { HomeComponent } from './core/components/home/home.component';
 import { CoreModule } from './core/core.module';
 
 @NgModule({

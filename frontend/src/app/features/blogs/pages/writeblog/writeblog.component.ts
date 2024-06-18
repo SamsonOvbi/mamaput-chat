@@ -4,14 +4,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
-import { IDeactivateGuard } from '../../auth/helpers/deactivate.guard';
+import { IDeactivateGuard } from '../../../auth/helpers/deactivate.guard';
 import Swal from 'sweetalert2';
-import { MessageDialogComponent } from '../../dialogs';
+import { MessageDialogComponent } from '../../../dialogs';
 import Quill from 'quill';
-import { BlogData } from '../models/blog-model';
-import { BlogService } from '../services/blog.service';
-import { modulesQuill } from '../../../models/types';
-import { DraftService } from '../../../shared/services/draft.service';
+import { BlogData } from '../../models/blog-model';
+import { BlogService } from '../../services/blog.service';
+import { modulesQuill } from '../../../../models/types';
+import { DraftService } from '../../../drafts/services/draft.service';
 
 @Component({
   selector: 'app-writeblog',

@@ -5,14 +5,14 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { MessageDialogComponent } from '../../dialogs';
-import { DraftService } from '../../../shared/services/draft.service';
+import { DraftService } from '../services/draft.service';
 import { environment } from '../../../../environments/environment';
 import { modulesQuill } from '../../../models/types';
 
 @Component({
   selector: 'app-editdraft',
   templateUrl: './editdraft.component.html',
-  styleUrls: ['./editdraft.component.css', '../../blogs/writeblog/writeblog.component.css',],
+  styleUrls: ['./editdraft.component.css', '../../blogs/pages/writeblog/writeblog.component.css',],
 })
 export class EditdraftComponent implements OnInit {
   public modules = modulesQuill;

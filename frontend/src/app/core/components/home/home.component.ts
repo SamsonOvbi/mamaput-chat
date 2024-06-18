@@ -44,7 +44,6 @@ export class HomeComponent implements OnInit {
     this.authService.checkLogin();
 
     this.authService.isLoggedIn.subscribe((val) => {
-      // console.log('islogged behav', val);
       this.loggedIn = val;
       if (this.loggedIn) {
         this.blogService.getMe().subscribe({

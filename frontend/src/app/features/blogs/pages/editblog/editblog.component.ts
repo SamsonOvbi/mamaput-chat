@@ -3,12 +3,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BlogService } from '../services/blog.service';
+import { BlogService } from '../../services/blog.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { modulesQuill } from 'src/app/models/types';
-import { BlogData } from '../models/blog-model';
-import { MessageDialogComponent } from '../../dialogs';
+import { BlogData } from '../../models/blog-model';
+import { MessageDialogComponent } from '../../../dialogs';
 
 @Component({
   selector: 'app-editblog',

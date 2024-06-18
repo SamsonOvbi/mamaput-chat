@@ -118,12 +118,13 @@ img {
     flex-direction: column;
     right: -100%;
     top: 5rem;
-    width: 100%;
+    /* width: 100%; */
     width: 160px;
     text-align: center;
     transition: 0.3s;
-    height: 100vh;
-    /* box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05); */
+    height: 60vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
   }
   .nav-links.active {
     right: 0;

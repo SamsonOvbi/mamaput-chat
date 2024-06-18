@@ -3,7 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { delay } from 'rxjs/operators';
-import { BlogService } from '../services/blog.service';
+import { BlogService } from '../../services/blog.service';
 
 @Component({
   selector: 'app-blog-list',

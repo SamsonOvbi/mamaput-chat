@@ -5,9 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 // import { SharedService } from 'src/app/shared/services/shared.service';
 // import { environment } from 'src/environments/environment';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
-import { AuthService } from '../services/auth.service';
-import { SharedService } from '../../../shared/services/shared.service';
-import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../services/auth.service';
+import { SharedService } from '../../../../shared/services/shared.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-login',

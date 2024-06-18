@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
-import { DraftService } from '../../../shared/services/draft.service';
+import { DraftService } from '../services/draft.service';
 import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-draft',

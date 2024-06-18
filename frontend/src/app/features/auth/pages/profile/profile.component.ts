@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
-import { BlogService } from '../../blogs/services/blog.service';
-import { environment } from '../../../../environments/environment';
-import { AuthService } from '../../auth/services/auth.service';
-import { SharedService } from '../../../shared/services/shared.service';
-import { PasswordChangeDialogComponent } from '../../dialogs';
+import { AuthService } from '../../services/auth.service';
+import { BlogService } from 'src/app/features/blogs/services/blog.service';
+import { environment } from 'src/environments/environment';
+import { SharedService } from 'src/app/shared/services/shared.service';
+import { PasswordChangeDialogComponent } from 'src/app/features/dialogs';
 
 @Component({
   selector: 'app-profile',

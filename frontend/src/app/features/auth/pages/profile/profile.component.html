@@ -20,13 +20,11 @@
         <div class="inner-form justify-end">
           <mat-form-field appearance="outline" class="input">
             <mat-label>Full Name</mat-label>
-
             <input type="text" matInput formControlName="username" />
             <mat-error *ngIf="profileForm.controls.username?.errors?.required">Name is required</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="input">
             <mat-label>Email address*</mat-label>
-
             <input type="email" matInput formControlName="email" readonly="true" />
             <mat-icon matSuffix class="edit-icon">edit</mat-icon>
             <mat-error *ngIf="profileForm.controls.email?.errors?.required">Email is required</mat-error>
