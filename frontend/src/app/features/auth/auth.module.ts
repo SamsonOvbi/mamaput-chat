@@ -9,7 +9,6 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { SignupComponent } from './pages/signup/signup.component';
 import { ResetPasswordDialComponent } from '../dialogs';
 import { ResetpasswordComponent } from './pages/forgotPassword/resetpassword.component';
-import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,6 @@ import { ProfileComponent } from './pages/profile/profile.component';
     ResetpasswordComponent,
     LoginComponent,
     ResetPasswordDialComponent,
-    ProfileComponent,
   ],
   imports: [
     CommonModule,

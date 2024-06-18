@@ -53,14 +53,17 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
   }
 
   ngOnInit(): void {
-    const container = document.getElementById('quill-editor');
-    if (container) {
-      this.quill = new Quill(container, { theme: 'snow', modules: modulesQuill, });
-    } else {
-      console.error('Failed to find Quill container element');
-    }
+    this.initQuillContainer();
   }
 
+  initQuillContainer(): void {
+    // const container = document.getElementById('quill-editor');
+    // if (container) {
+    //   this.quill = new Quill(container, { theme: 'snow', modules: modulesQuill, });
+    // } else {
+    //   console.error('Failed to find Quill container element');
+    // }
+  }
   publishBlog() {
     try {
       const blogData: BlogData = {

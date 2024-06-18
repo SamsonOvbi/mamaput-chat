@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../auth/services/auth.service';
 import { BlogService } from 'src/app/features/blogs/services/blog.service';
 import { environment } from 'src/environments/environment';
 import { SharedService } from 'src/app/shared/services/shared.service';

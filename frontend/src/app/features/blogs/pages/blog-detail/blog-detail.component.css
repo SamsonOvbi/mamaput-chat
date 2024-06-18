@@ -1,6 +1,5 @@
 .thumbnailImage {
   height: 50%;
-  width: 50%;
   margin: 0 auto;
 }
 img {
@@ -22,8 +21,8 @@ img {
   justify-content: center;
   margin: 0 auto;
   word-break: break-word;
-  width: 60%;
-  text-align: center;
+  width: 90%;
+  text-align: left;
   align-items: center;
   line-height: 2;
   margin-bottom: 0;
