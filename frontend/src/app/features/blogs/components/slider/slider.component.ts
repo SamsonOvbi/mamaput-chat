@@ -1,6 +1,6 @@
 // import { Component, Input, OnInit } from '@angular/core';
 // import { Title } from '@angular/platform-browser';
-// import { Product } from 'src/app/features/products/models/product';
+// import { Blog } from 'src/app/features/blogs/models/blog';
 // import { SharedService } from 'src/app/shared/services/shared.service';
 // import Swiper, { Autoplay, Controller, FreeMode, Keyboard, Scrollbar, Zoom } from 'swiper';
 // import SwiperCore, { Navigation, Pagination, Virtual } from 'swiper';
@@ -16,11 +16,11 @@
 //   styleUrls: ['./slider.component.scss']
 // })
 // export class SliderComponent implements OnInit {
-//   @Input() products!: Product[];
+//   @Input() blogs!: Blog[];
 //   @Input() loading?: boolean;
 //   @Input() showSlides?: boolean;
 //   @Input() playInterval = 3000;
-//   products2: Product[] = [];
+//   blogs2: Blog[] = [];
 
 //   appTitle = '';
 
@@ -46,13 +46,13 @@
  
 //   ngOnInit() {
 //     this.appTitle = this.sharedService.appTitle;
-//     this.titleService.setTitle(`Slide Products - ${this.appTitle}`);
+//     this.titleService.setTitle(`Slide Blogs - ${this.appTitle}`);
 //     this.loadImage();
 //   }
 
 //   loadImage(): void {
-//     for (let product of this.products) {
-//       if(product.image) this.products2.push(product);
+//     for (let blog of this.blogs) {
+//       if(blog.image) this.blogs2.push(blog);
 //     }
 //   }
 // }

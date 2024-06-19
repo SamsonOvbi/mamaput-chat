@@ -1,36 +1,36 @@
 // import { ComponentFixture, TestBed } from '@angular/core/testing';
-// import { ProductBoxComponent } from './product-box.component';
-// import { ProductService } from 'src/app/features/products/services/product.service'; 
+// import { BlogBoxComponent } from './blog-box.component';
+// import { BlogService } from 'src/app/features/blogs/services/blog.service'; 
 // import { CartService } from 'src/app/shared/services/cart.service';
 // import { Title } from '@angular/platform-browser';
 // import { SharedService } from 'src/app/shared/services/shared.service';
 // import { of, throwError } from 'rxjs';
 // import { NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
-// import { Product } from 'src/app/features/products/models/product';
+// import { Blog } from 'src/app/features/blogs/models/blog';
 // import { Item } from 'src/app/features/cart/models/cart';
 // import { MessageDialogService } from 'src/app/shared/dialogs/message-dialog/message-dialog.service';
 
-// describe('ProductBoxComponent', () => {
-//   let component: ProductBoxComponent;
-//   let fixture: ComponentFixture<ProductBoxComponent>;
+// describe('BlogBoxComponent', () => {
+//   let component: BlogBoxComponent;
+//   let fixture: ComponentFixture<BlogBoxComponent>;
 //   let titleService: Title;
-//   let productServiceMock: any;
+//   let blogServiceMock: any;
 //   let cartServiceMock: any;
 //   let messageDialogServiceMock: any;
 //   let titleServiceMock: any;
 //   let sharedServiceMock: any;
-//   let productsList: Product[] = [];
-//   let product: Product;
+//   let blogsList: Blog[] = [];
+//   let blog: Blog;
 
 //   beforeEach(async () => {
-//     productServiceMock = { getAllProducts: jasmine.createSpy('getAllProducts') };
+//     blogServiceMock = { getAllBlogs: jasmine.createSpy('getAllBlogs') };
 //     messageDialogServiceMock = { openMessageDlg: jasmine.createSpy('openMessageDlg') };
 //     cartServiceMock = { addItem: jasmine.createSpy('addItem') };
 //     titleServiceMock = { setTitle: jasmine.createSpy('setTitle') };
 //     sharedServiceMock = { appTitle: 'MamaPut eShop' };
 
-//     component = new ProductBoxComponent(
-//       productServiceMock,
+//     component = new BlogBoxComponent(
+//       blogServiceMock,
 //       messageDialogServiceMock,
 //       cartServiceMock,
 //       titleServiceMock,
@@ -38,9 +38,9 @@
 //     );
 
 //     await TestBed.configureTestingModule({
-//       declarations: [ProductBoxComponent],
+//       declarations: [BlogBoxComponent],
 //       providers: [
-//         { provide: ProductService, useValue: { getAllProducts: () => of([]) } },
+//         { provide: BlogService, useValue: { getAllBlogs: () => of([]) } },
 //         { provide: MessageDialogService, useValue: messageDialogServiceMock },
 //         { provide: CartService, useValue: cartServiceMock },
 //         { provide: Title, useValue: titleServiceMock },
@@ -53,18 +53,18 @@
 
 //   beforeEach(() => {
 
-//     fixture = TestBed.createComponent(ProductBoxComponent);
+//     fixture = TestBed.createComponent(BlogBoxComponent);
 //     component = fixture.componentInstance;
 //     titleService = TestBed.inject(Title);
 //     fixture.detectChanges();
-//     productsList = [
+//     blogsList = [
 //       {
-//         _id: '1', id: 1, name: 'Test Product', slug: '', price: 100, image: '', brand: '',
+//         _id: '1', id: 1, name: 'Test Blog', slug: '', price: 100, image: '', brand: '',
 //         category: '', description: '', countInStock: 0, rating: 0, numReviews: 0, reviews: [],
 //       },
 //     ];
-//     product = {
-//       _id: '1', id: 1, name: 'Test Product', slug: '', price: 100, image: '', brand: '',
+//     blog = {
+//       _id: '1', id: 1, name: 'Test Blog', slug: '', price: 100, image: '', brand: '',
 //       category: '', description: '', countInStock: 0, rating: 0, numReviews: 0, reviews: [],
 //     };
 
@@ -75,11 +75,11 @@
 //   });
 
 //   it('should set title on init', () => {
-//     expect(titleServiceMock.setTitle).toHaveBeenCalledWith('Product List - MamaPut eShop');
+//     expect(titleServiceMock.setTitle).toHaveBeenCalledWith('Blog List - MamaPut eShop');
 //   });
 
-//   it('should correctly update the number of products to display when onItemsCountChange is called', () => {
-//     const spy = spyOn(component, 'getProductList').and.callThrough();
+//   it('should correctly update the number of blogs to display when onItemsCountChange is called', () => {
+//     const spy = spyOn(component, 'getBlogList').and.callThrough();
 //     component.onItemsCountChange(30);
 //     expect(spy).toHaveBeenCalledWith(30);
 //   });
@@ -92,56 +92,56 @@
 
 
 //   it('test_onAddToCart_success', () => {
-//     cartServiceMock.addItem = jasmine.createSpy('addItem').and.returnValue(of('Test Product'));
-//     component.onAddToCart(product);
+//     cartServiceMock.addItem = jasmine.createSpy('addItem').and.returnValue(of('Test Blog'));
+//     component.onAddToCart(blog);
 //     expect(cartServiceMock.addItem).toHaveBeenCalledWith({
-//       _id: '1', image: '', name: 'Test Product', slug: '', price: 100, quantity: 1
+//       _id: '1', image: '', name: 'Test Blog', slug: '', price: 100, quantity: 1
 //     });
-//     expect(messageDialogServiceMock.openMessageDlg).toHaveBeenCalledWith({message: 'Test Product added to the cart', type: 'success'});    
+//     expect(messageDialogServiceMock.openMessageDlg).toHaveBeenCalledWith({message: 'Test Blog added to the cart', type: 'success'});    
 //   });
 
 //   it('test_onAddToCart_error', () => {
 
-//     const error = { message: 'Error adding product' };
+//     const error = { message: 'Error adding blog' };
 //     cartServiceMock.addItem.and.returnValue(throwError(() => error));
-//     component.onAddToCart(product);
-//     expect(messageDialogServiceMock.openMessageDlg).toHaveBeenCalledWith({message: 'Error adding product \n Product Not added', type: 'error'});    
+//     component.onAddToCart(blog);
+//     expect(messageDialogServiceMock.openMessageDlg).toHaveBeenCalledWith({message: 'Error adding blog \n Blog Not added', type: 'error'});    
 //   });
 
 
-//   it('test_onAddToCart_extract_product_details', () => {
+//   it('test_onAddToCart_extract_blog_details', () => {
 //     cartServiceMock.addItem.and.callFake((item: Item) => {
 //       expect(item).toEqual(jasmine.objectContaining({
-//         _id: '1', image: '', name: 'Test Product', slug: '', price: 100, quantity: 1
+//         _id: '1', image: '', name: 'Test Blog', slug: '', price: 100, quantity: 1
 //       }));
-//       return of('Test Product');
+//       return of('Test Blog');
 //     });
-//     component.onAddToCart(product);
+//     component.onAddToCart(blog);
 //   });
 
 
-//   it('test_onChanges_updates_products_list', () => {    
+//   it('test_onChanges_updates_blogs_list', () => {    
 //     const changesObj = {
-//       productsList: new SimpleChange(null, productsList, true)
+//       blogsList: new SimpleChange(null, blogsList, true)
 //     };
 //     component.ngOnChanges(changesObj);
-//     expect(component.products).toEqual(productsList);
+//     expect(component.blogs).toEqual(blogsList);
 //   });
 
-//   it('test_onChanges_does_not_update_products_list_when_no_changes', () => {
-//     component.products = productsList;
+//   it('test_onChanges_does_not_update_blogs_list_when_no_changes', () => {
+//     component.blogs = blogsList;
 //     const changesObj = {};
 //     component.ngOnChanges(changesObj);
-//     expect(component.products).toEqual(productsList);
+//     expect(component.blogs).toEqual(blogsList);
 //   });
 
 //   it('test_onChanges_handles_undefined_inputs', () => {
 //     const changesObj = {
-//       productsSearch: new SimpleChange([], undefined, false),
-//       productsList: new SimpleChange([], undefined, false)
+//       blogsSearch: new SimpleChange([], undefined, false),
+//       blogsList: new SimpleChange([], undefined, false)
 //     };
 //     component.ngOnChanges(changesObj);
-//     expect(component.products).toEqual([]);
+//     expect(component.blogs).toEqual([]);
 //   });
 
 // });

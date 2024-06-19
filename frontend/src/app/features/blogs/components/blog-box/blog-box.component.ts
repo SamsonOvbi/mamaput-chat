@@ -3,26 +3,26 @@
 // import { MatDrawer, MatDrawerMode } from '@angular/material/sidenav';
 
 // import { Title } from '@angular/platform-browser';
-// // import { Product } from 'src/app/models/product';
+// // import { Blog } from 'src/app/models/blog';
 // // import { CartService } from 'src/app/shared/services/cart.service';
-// // import { ProductService } from 'src/app/shared/services/product.service';
+// // import { BlogService } from 'src/app/shared/services/blog.service';
 // import { SharedService } from 'src/app/shared/services/shared.service';
 
 // import { ROW_HEIGHT } from '../../../../models/types';
 // import { MessageDialogService } from 'src/app/shared/dialogs/message-dialog/message-dialog.service';
-// import { ProductService } from '../../services/product.service';
+// import { BlogService } from '../../services/blog.service';
 // import { CartService } from 'src/app/features/cart/services/cart.service';
-// import { Product } from '../../models/product';
+// import { Blog } from '../../models/blog';
 
 // @Component({
-//   selector: 'app-product-box',
-//   templateUrl: './product-box.component.html',
-//   styleUrls: ['./product-box.component.scss']
+//   selector: 'app-blog-box',
+//   templateUrl: './blog-box.component.html',
+//   styleUrls: ['./blog-box.component.scss']
 // })
-// export class ProductBoxComponent implements OnInit, OnChanges, OnDestroy {
-//   @Input() productsList!: Product[];
-//   @Input() productsSearch!: Product[];
-//   products!: Product[];
+// export class BlogBoxComponent implements OnInit, OnChanges, OnDestroy {
+//   @Input() blogsList!: Blog[];
+//   @Input() blogsSearch!: Blog[];
+//   blogs!: Blog[];
 
 //   @Input() showSlides!: boolean;
 //   @ViewChild(MatDrawer) drawer!: MatDrawer;
@@ -33,7 +33,7 @@
 //   rowHeight = ROW_HEIGHT[this.cols];
 //   @Input() category?: string;
 
-//   totalProducts = 20;
+//   totalBlogs = 20;
 //   itemsPerPage = 20;
 //   rating = 0;
 //   order = 'lowest';
@@ -51,7 +51,7 @@
 //   private subscriptions: Subscription[] = [];
 
 //   constructor(
-//     private productService: ProductService,
+//     private blogService: BlogService,
 //     private messageDialogService: MessageDialogService,
 //     private cartService: CartService,
 //     private titleService: Title,
@@ -61,20 +61,20 @@
 
 //   ngOnInit() {
 //     this.appTitle = this.sharedService.appTitle;
-//     this.titleService.setTitle(`Product Box - ${this.appTitle}`);
+//     this.titleService.setTitle(`Blog Box - ${this.appTitle}`);
 //   }
 
-//   onAddToCart(product: Product) {
+//   onAddToCart(blog: Blog) {
 //     let message;
-//     const { _id, image, name, slug, price } = product;
+//     const { _id, image, name, slug, price } = blog;
 //     const item = { _id, image, name, slug, price, quantity: 1 };
 //     this.cartSubscription = this.cartService.addItem(item).subscribe({
-//       next: (productName) => {
-//         message = `Item added to the cart:   ${productName}`;
+//       next: (blogName) => {
+//         message = `Item added to the cart:   ${blogName}`;
 //         this.messageDialogService.openMessageDlg({ message: message, type: 'success' });
 //       },
 //       error: (err: any) => {
-//         message = `${err.message} \n Product Not added`;
+//         message = `${err.message} \n Blog Not added`;
 //         this.messageDialogService.openMessageDlg({ message: message, type: 'error' });
 //       },
 
@@ -84,7 +84,7 @@
 
 //   /**
 //    * Updates page layout
-//    * @param colsCount is the number of columns to display the product list per row
+//    * @param colsCount is the number of columns to display the blog list per row
 //    */
 //   onColumnsCountUpdate(colsCount: number): void {
 //     this.cols = colsCount;
@@ -92,9 +92,9 @@
 //   }
 
 //   ngOnChanges(changes: SimpleChanges): void {
-//     if (changes.productsSearch || changes.productsList) {
-//       this.products = changes.productsSearch?.currentValue || changes.productsList?.currentValue;
-//       this.totalProducts = this.productsSearch?.length || this.productsList?.length;
+//     if (changes.blogsSearch || changes.blogsList) {
+//       this.blogs = changes.blogsSearch?.currentValue || changes.blogsList?.currentValue;
+//       this.totalBlogs = this.blogsSearch?.length || this.blogsList?.length;
 //     }  
 //   }
 

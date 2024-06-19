@@ -54,25 +54,19 @@ export class AuthService {
   }
 
   forgotPassword(email: any) {
-    return this.http.post(
-      `${this.apiUrl}/auth/forgotPassowrd`,
-      email,
+    return this.http.post(`${this.apiUrl}/auth/forgotPassowrd`, email,
       this.setHeader()
     );
   }
 
   updatePassword(data: any) {
-    return this.http.put(
-      `${this.apiUrl}/auth/upate-password`,
-      data,
+    return this.http.put(`${this.apiUrl}/auth/upate-password`, data,
       this.setHeader()
     );
   }
 
   resetPassword(data: any, id: any) {
-    return this.http.put(
-      `${this.apiUrl}/auth/resetpassword/${id}`,
-      data,
+    return this.http.put(`${this.apiUrl}/auth/resetpassword/${id}`, data,
       this.setHeader()
     );
   }

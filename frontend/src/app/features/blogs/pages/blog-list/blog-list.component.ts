@@ -11,16 +11,18 @@ import { BlogService } from '../../services/blog.service';
   styleUrls: ['./blog-list.component.css'],
 })
 export class BlogListComponent implements OnInit {
-  constructor(
-    private router: Router,
-    private blogService: BlogService,
-    public sanitizer: DomSanitizer
-  ) { }
   contentLoaded = false;
   title = 'ngx-skeleton-loader-demo';
   blogDetails: any;
   apiUrl = environment.apiUrl;
   noDataFound = false;
+  
+  constructor(
+    private router: Router,
+    private blogService: BlogService,
+    public sanitizer: DomSanitizer
+  ) { }
+
   ngOnInit(): void {
     this.blogService.getBlogData().pipe(delay(100)).subscribe({
     next: (res: any) => {

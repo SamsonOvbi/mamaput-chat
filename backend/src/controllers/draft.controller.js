@@ -8,9 +8,11 @@ const draftPostContr = {};
 draftPostContr.getAllPosts = async (req, res, next) => {
   const id = req.user.id;
   try {
-    let blog = await User.findById(id).populate({
-      path: "drafts",
-    });
+    const blog = await User.findById(id).populate({ path: "drafts", });
+    if (!blog) {
+      return res.status(400).json({ success: false, message: "Blog Not Found", });
+    }
+    console.log({ success: true, blog, });
     res.status(200).json({ success: true, blog, });
   } catch (err) {
     if (!err.statusCode) {
@@ -42,7 +44,7 @@ draftPostContr.getSinglePost = async (req, res, next) => {
 
 draftPostContr.savePost = async (req, res, next) => {
   const { content, title, description, image } = req.body;
-  console.log({reqBody: req.body})
+  console.log({ reqBody: req.body })
   if (!content || !title || !description || !image) {
     const error = new Error("Missing required fields.");
     error.statusCode = 422;

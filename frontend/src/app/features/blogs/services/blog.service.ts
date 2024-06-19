@@ -13,26 +13,26 @@ import { AuthService } from '../../auth/services/auth.service';
 export class BlogService {
   apiUrl = environment.apiUrl;
   public isLoggedIn = new BehaviorSubject<boolean>(false);
+
   constructor(
     private http: HttpClient, private router: Router,
     private authService: AuthService,
   ) { };
 
-  
   private handleError = (error: HttpErrorResponse | any): any => {
     switch (error.status) {
-      case 400:      console.log(400);
+      case 400: console.log(400);
         break;
-      case 401:        console.log(401);
+      case 401: console.log(401);
         let temp = localStorage.getItem('token');
         if (temp) {
           localStorage.clear();
           this.router.navigate(['/landing']);
         }
         break;
-      case 500:        console.log(500);
+      case 500: console.log(500);
         break;
-      case 503:        console.log(503);
+      case 503: console.log(503);
         break;
       // case 429:
       //
@@ -46,8 +46,7 @@ export class BlogService {
    * Get All Blogs
    */
   getBlogData() {
-    return this.http
-      .get(`${this.apiUrl}/blog`, this.authService.setHeader())
+    return this.http.get(`${this.apiUrl}/blog`, this.authService.setHeader())
       .pipe(catchError(this.handleError));
   }
 

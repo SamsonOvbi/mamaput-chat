@@ -40,10 +40,9 @@ postContr.postBlog = async (req, res, next) => {
 postContr.getAllBlogData = async (req, res, next) => {
   try {
     let find = await Post.find({}).sort({ _id: -1 }).populate({
-      path: "user",
-      select: "username image",
+      path: "user", select: "username image",
     });
-    // console.error({ find: find });
+    // console.error({ find: find[0] });
     res.status(200).json({
       success: true,
       message: "Blog Data Found",
@@ -59,19 +58,16 @@ postContr.getSingleBlog = async (req, res, next) => {
   const { id } = req.params;
   try {
     const singleBlog = await Post.findById(id).populate({
-      path: "user",
-      select: "username",
+      path: "user", select: "username",
     });
 
     if (!singleBlog) {
       return res.status(400).json({
-        success: false,
-        message: "Blog Not Found",
+        success: false, message: "Blog Not Found",
       });
     }
     res.status(200).json({
-      success: true,
-      data: singleBlog,
+      success: true, data: singleBlog,
     });
   } catch (err) {
     console.error({ error: err });
@@ -131,7 +127,7 @@ postContr.updateBlog = async (req, res, next) => {
     if (post.user.toString() !== req.user.id) {
       const error = new Error("Not Authorized!");
       error.statusCode = 403;
-      throw error; 
+      throw error;
     }
     if (image !== post.image) {
       clearImage(post.image);

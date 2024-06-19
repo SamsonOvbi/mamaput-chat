@@ -3,8 +3,8 @@
   <div class="flex justify-between">
     <button mat-button (click)="drawer.toggle()">
       <!-- <mat-icon>menu</mat-icon> -->
-      <div *ngIf="totalProducts">{{category | titlecase }} ({{totalProducts}})</div>
-      <div *ngIf="!totalProducts">Products View</div>
+      <div *ngIf="totalBlogs">{{category | titlecase }} ({{totalBlogs}})</div>
+      <div *ngIf="!totalBlogs">Blogs View</div>
     </button>
 
     <div class="flex items-center">

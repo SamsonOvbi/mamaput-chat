@@ -25,45 +25,37 @@ export class DraftService {
    */
 
   saveAsDraft(data: any) {
-    return this.http.post(
-      `${this.apiUrl}/draft/save-draft`,
-      data,
-      this.authService.setHeader()
+    return this.http.post(`${this.apiUrl}/draft/save-draft`, data, this.authService.setHeader()
     );
   }
 
   getDraftById(id: any) {
-    return this.http.get(
-      `${this.apiUrl}/draft/get-single-draft/${id}`,
+    return this.http.get(`${this.apiUrl}/draft/get-single-draft/${id}`,
       this.authService.setHeader()
     );
   }
 
   getAllDraft() {
-    return this.http.get(
-      `${this.apiUrl}/draft/get-all-draft`,
+    return this.http.get(`${this.apiUrl}/draft/get-all-draft`,
       this.authService.setHeader()
     );
   }
 
   updateDraft(data: any, id: any) {
-    return this.http.put(
-      `${this.apiUrl}/draft/update-draft/${id}`,
+    return this.http.put(`${this.apiUrl}/draft/update-draft/${id}`,
       data,
       this.authService.setHeader()
     );
   }
 
   deleteDraft(id: string) {
-    return this.http.delete(
-      `${this.apiUrl}/draft/delete-draft/${id}`,
+    return this.http.delete(`${this.apiUrl}/draft/delete-draft/${id}`,
       this.authService.setHeader()
     );
   }
 
   publishDraft(id: any, data?: any) {
-    return this.http.post(
-      `${this.apiUrl}/draft/publish-draft/${id}`,
+    return this.http.post(`${this.apiUrl}/draft/publish-draft/${id}`,
       data,
       this.authService.setHeader()
     );

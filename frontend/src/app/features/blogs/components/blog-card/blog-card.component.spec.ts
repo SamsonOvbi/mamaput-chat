@@ -1,10 +1,10 @@
 // import { ComponentFixture, TestBed } from '@angular/core/testing';
-// import { ProductCardComponent } from './product-card.component';
+// import { ProductCardComponent } from './blog-card.component';
 // import { Title } from '@angular/platform-browser';
 // import { SharedService } from 'src/app/shared/services/shared.service';
 // import { NO_ERRORS_SCHEMA } from '@angular/core';
 // import { By } from '@angular/platform-browser';
-// import { Product } from 'src/app/features/products/models/product';
+// import { Blog } from 'src/app/features/blogs/models/blog';
 // import { environment } from 'src/environments/environment';
 
 // describe('ProductCardComponent', () => {
@@ -35,12 +35,12 @@
 //   });
 
 //   it('should correctly set the title of the page using the shared service\'s appTitle property', () => {
-//     expect(mockTitleService.setTitle).toHaveBeenCalledWith(`Product Box - ${mockSharedService.appTitle}`);
+//     expect(mockTitleService.setTitle).toHaveBeenCalledWith(`Blog Box - ${mockSharedService.appTitle}`);
 //   });
 
-//   it('should correctly emit the product when the onAddToCart method is called', () => {
+//   it('should correctly emit the blog when the onAddToCart method is called', () => {
 //     spyOn(component.addToCart, 'emit');
-//     const testProduct = { id: 1, name: 'Test Product' } as Product;
+//     const testProduct = { id: 1, name: 'Test Blog' } as Blog;
 //     component.onAddToCart(testProduct);
 //     expect(component.addToCart.emit).toHaveBeenCalledWith(testProduct);
 //   });

@@ -92,23 +92,23 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
   }
 
   saveAsDraft() {
-    const blogData: BlogData = {
-      title: this.title, content: this.content, image: this.file.name, description: this.description,
+    try {
+      const blogData: BlogData = {
+        title: this.title, content: this.content, image: this.file.name, description: this.description,
+      }
+      if (this.editorForm.valid) {
+        this.draftService.saveAsDraft(blogData).subscribe((res: any) => {
+          this.resetBlog();
+          Swal.fire({ 
+            position: 'center', icon: 'success', title: 'Saved in Draft  SuccessFully', showConfirmButton: false, timer: 1500, 
+          });
+          this.router.navigate(['/profile/draft']);
+        });
+      }
+      console.log(this.editorForm.value);
+    } catch (error) {
+      console.error('An error occurred:', error);
     }
-    // console.log('for', this.editorForm.controls);
-    const formData = new FormData();
-    formData.append('title', this.title);
-    formData.append('content', this.content);
-    formData.append('image', this.file);
-    formData.append('description', this.description);
-    if (this.editorForm.valid) {
-      this.draftService.saveAsDraft(blogData).subscribe((res: any) => {
-        this.resetBlog();
-        Swal.fire({ position: 'center', icon: 'success', title: 'Saved in Draft  SuccessFully', showConfirmButton: false, timer: 1500, });
-        this.router.navigate(['/profile/draft']);
-      });
-    }
-    console.log(this.editorForm.value);
   }
 
   get title() {

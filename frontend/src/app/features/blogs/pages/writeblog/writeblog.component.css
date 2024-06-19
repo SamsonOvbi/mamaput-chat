@@ -19,10 +19,10 @@ input {
   display: flex;
   justify-content: space-evenly;
   width: 50%;
-  margin-top: 20xp;
-  margin-top: 20px;
-  /* background-color: blue; */
   margin: 0 auto;
+  margin-top: 20xp;
+  padding-top: 20px;
+  /* background-color: blue; */  
 }
 .iframe {
   width: 100%;
@@ -65,7 +65,8 @@ input[type="text"]:focus {
 }
 .thumbnailImage {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  flex-direction: row;
 }
 .preview-image {
   width: 50%;
@@ -73,7 +74,7 @@ input[type="text"]:focus {
   margin: 0 auto;
 }
 .preview-image-self {
-  width: 50%;
+  width: 25%;
   height: 100px;
   margin: 0 auto;
 }
@@ -88,7 +89,7 @@ input[type="file"] {
 .uploadFile {
   display: flex;
   justify-content: center;
-  width: 29%;
+  width: 79%;
   margin: 9px auto;
 }
 .color-white {

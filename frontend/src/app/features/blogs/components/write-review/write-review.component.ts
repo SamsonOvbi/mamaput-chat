@@ -3,8 +3,8 @@
 // import { ActivatedRoute, Router } from '@angular/router';
 // import { UserInfo } from 'src/app/features/auth/models';
 // import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { Product } from 'src/app/features/products/models/product';
-// import { ProductService } from 'src/app/features/products/services/product.service';
+// import { Blog } from 'src/app/features/blogs/models/blog';
+// import { BlogService } from 'src/app/features/blogs/services/blog.service';
 // import { SharedService } from 'src/app/shared/services/shared.service';
 // import { MessageDialogService } from 'src/app/shared/dialogs/message-dialog/message-dialog.service';
 // import { Subscription } from 'rxjs';
@@ -22,8 +22,8 @@
 //   @Output() setErrorEvent = new EventEmitter<boolean>();
 //   @Output() setLoadingEvent = new EventEmitter<boolean>();
 //   createReviewLoading = false;
-//   @Input() product!: Product;
-//   productsSubscription: Subscription = Subscription.EMPTY;
+//   @Input() blog!: Blog;
+//   blogsSubscription: Subscription = Subscription.EMPTY;
 //   private subscriptions: Subscription[] = [];
 
 //   constructor(
@@ -31,7 +31,7 @@
 //     private titleService: Title,
 //     private sharedService: SharedService,
 //     private route: ActivatedRoute,
-//     private productService: ProductService,
+//     private blogService: BlogService,
 //     private messageDialogService: MessageDialogService,
     
 //   ) {
@@ -52,15 +52,15 @@
 //   setLoading(value: boolean) {
 //     this.setLoadingEvent.emit(value);
 //   }
-//   getProduct() {
+//   getBlog() {
 //     const routeParams = this.route.snapshot.paramMap;
 //     const slug = routeParams.get('slug');
 //     if (slug) {
-//       this.productsSubscription = this.productService.getProductBySlug(slug).subscribe({
+//       this.blogsSubscription = this.blogService.getBlogBySlug(slug).subscribe({
 //         next: (data) => {
 //           this.setLoading(false); // this.loading = false;
-//           this.product = data;
-//           this.titleService.setTitle(`Review for ${this.product.name} - ${this.sharedService.appTitle}`);
+//           this.blog = data;
+//           this.titleService.setTitle(`Review for ${this.blog.name} - ${this.sharedService.appTitle}`);
 //         },
 //         error: (err: any) => {
 //           this.setError(true); // this.error = true;
@@ -69,11 +69,11 @@
 //         },
         
 //       });
-//       this.subscriptions.push(this.productsSubscription);
+//       this.subscriptions.push(this.blogsSubscription);
 //     } else {
 //       this.setError(true); // this.error = true;
 //       this.setLoading(true); // this.loading = false;
-//       const message = 'Product not found';
+//       const message = 'Blog not found';
 //       this.messageDialogService.openMessageDlg({message: message, type: 'error'});
 //     }
 //   }
@@ -85,11 +85,11 @@
 //       return;
 //     }
 //     const { comment, rating } = this.form.controls;
-//     const reqBody = { _id: this.product._id, comment: comment, rating: rating };
+//     const reqBody = { _id: this.blog._id, comment: comment, rating: rating };
 //     this.createReviewLoading = true;
-//     this.productsSubscription = this.productService.createReview(this.product._id, comment.value, rating.value).subscribe({
+//     this.blogsSubscription = this.blogService.createReview(this.blog._id, comment.value, rating.value).subscribe({
 //         next: (data) => {
-//           this.getProduct();
+//           this.getBlog();
 //           this.createReviewLoading = false;
 //         },
 //         error: (err: any) => {
@@ -98,7 +98,7 @@
 //         },
         
 //       });
-//       this.subscriptions.push(this.productsSubscription);
+//       this.subscriptions.push(this.blogsSubscription);
 //   }
 
 //   ngOnDestroy(): void {

@@ -6,17 +6,20 @@
       }" />
     <textarea matInput formControlName="description" id="description" cols="30" rows="3" [ngClass]="{
         'error-class': editorForm.controls.description.touched && editorForm.controls.description.errors?.required
-      }" placeholder="Write Short description in less then 50 words.."></textarea>
-    <div id="mapid" style="height: 24px;"></div>
-    <div class="thumbnailImage mb-2">
-      <div class="preview-image-self">
+      }" placeholder="Write Short description in less then 50 words..">
+      </textarea>
+
+    <div class="thumbnailImage h-[40px] justify-center items-center pb-4">
+      <div class="w-[100px]">
         <img [src]="imageSrc || '/assets/images/avatar.svg'" id="image" #normal />
       </div>
-      <input type="file" name="" accept="image/*" id="" (change)="uploadFile($event)" #file #normal />
-      <button mat-raised-button color="primary" (click)="file.click()" (click)="normal.click()" class="uploadFile">
-        <mat-icon inline="true" class="color-white">file_upload</mat-icon>
-        Choose Thumbnail Image
-      </button>
+      <div class="w-[400px] mx-1">
+        <input type="file" name="" accept="image/*" id="" (change)="uploadFile($event)" #file #normal />
+        <button mat-raised-button color="primary" (click)="file.click()" (click)="normal.click()" class="uploadFile">
+          <mat-icon inline="true" class="color-white">file_upload</mat-icon>
+          Choose Thumbnail Image
+        </button>
+      </div>
     </div>
     <textarea matInput formControlName="content" id="content" cols="30" rows="5" [ngClass]="{
       'error-class': editorForm.controls.content.touched && editorForm.controls.content.errors?.required
@@ -28,7 +31,8 @@
       </quill-editor>
     </div> -->
   </form>
-  <div class="editor-buttons">
+
+  <div class="editor-buttons ">
     <button mat-raised-button color="primary" (click)="saveAsDraft()">
       Save As Draft
     </button>

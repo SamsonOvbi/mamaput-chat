@@ -15,6 +15,7 @@ export class DraftComponent implements OnInit {
   public apiUrl = environment.apiUrl;
   public noDataFound: boolean = false;
   alertOpt: SweetAlertOptions = {};
+  
   constructor(
     public sanitizer: DomSanitizer,
     private draftService: DraftService,
