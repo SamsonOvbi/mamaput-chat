@@ -4,14 +4,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from '../shared/material.module';
 
-// import { FooterComponent } from './components/footer/footer.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
-import { HomeComponent } from './components/home/home.component';
+import { RatingComponent } from './components/rating/rating.component';
 
 const coreRoutes: Routes = []
 const componentsList = [
   // SideBarComponent, RatingComponent,
-  HomeComponent, HeaderComponent, 
+  HeaderComponent, RatingComponent, FooterComponent,
 ];
 const modulesList = [
   CommonModule, MaterialModule, FormsModule, ReactiveFormsModule, 

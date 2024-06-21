@@ -11,11 +11,12 @@ import { QuillModule } from 'ngx-quill';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './core/pages/page-not-found/page-not-found.component';
 import { DeactivateServiceGuard } from './features/auth/helpers/deactivate.guard';
 import { AuthGuard } from './features/auth/helpers/auth.guard';
 import { InterceptorService } from './features/auth/helpers/interceptor.service';
 import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent, ],
@@ -32,6 +33,7 @@ import { CoreModule } from './core/core.module';
     HttpClientModule,
     SweetAlert2Module.forRoot(),
     CoreModule,
+    SharedModule,
   ],
   providers: [
     DeactivateServiceGuard,

@@ -29,6 +29,9 @@ export class EditblogComponent implements OnInit {
   public id: string | null | undefined;
   contentLoaded = false;
   apiUrl = environment.apiUrl;
+  numViews = 0;
+  numReviews = 0;
+
   constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
@@ -64,8 +67,10 @@ export class EditblogComponent implements OnInit {
   }
 
   saveEditor() {
-    let data: BlogData = {
-      title: this.title, content: this.content, image: this.file.name, description: this.description,
+    const data: BlogData = {
+      title: this.title, description: this.description, content: this.content, category: this.category, image: this.file.name,
+      status: this.status, visibility: this.visibility, numReviews: this.getNumReviews,
+      numViews: this.getNumViews,
     }
     if (!this.file) {
       if (this.editorForm.valid) {
@@ -93,16 +98,30 @@ export class EditblogComponent implements OnInit {
     }
   }
 
+
   get title() {
     return this.editorForm.value['title'];
   }
-
+  get description() {
+    return this.editorForm.value['description'];
+  }
   get content() {
     return this.editorForm.value['content'];
   }
-
-  get description() {
-    return this.editorForm.value['description'];
+  get category() {
+    return this.editorForm.value['category'] || 'educational';
+  }
+  get status() {
+    return this.editorForm.value['status'] || 'published';
+  }
+  get visibility() {
+    return this.editorForm.value['visibility'] || 'public';
+  }
+  get getNumViews() {
+    return this.numViews++;
+  }
+  get getNumReviews() {
+    return this.numReviews++;
   }
 
   open(content: any) {
@@ -167,11 +186,8 @@ export class EditblogComponent implements OnInit {
 
   canExit() {
     if (this.editorForm.dirty) {
-      if (confirm('Are you sure you want to leave')) {
-        return true;
-      } else {
-        return false;
-      }
+      const confResult = confirm('Are you sure you want to leave');
+      return confResult ? true : false;
     }
     return true;
   }

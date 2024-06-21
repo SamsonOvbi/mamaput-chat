@@ -1,51 +1,88 @@
-import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit, HostListener, ChangeDetectorRef, ViewChild } from '@angular/core';
+
+import { Title } from '@angular/platform-browser';
+import { BlogService } from 'src/app/features/blogs/services/blog.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
+import { Subscription, delay } from 'rxjs';
+import { MessageDialogService } from 'src/app/shared/dialogs/message-dialog/message-dialog.service';
 import { environment } from 'src/environments/environment';
-import { delay } from 'rxjs/operators';
-import { BlogService } from '../../services/blog.service';
+import { BlogData } from '../../models/blog-model';
+import { BlogBoxComponent } from '../../components/blog-box/blog-box.component';
 
 @Component({
   selector: 'app-blog-list',
   templateUrl: './blog-list.component.html',
-  styleUrls: ['./blog-list.component.css'],
+  styleUrls: ['./blog-list.component.scss'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BlogListComponent implements OnInit {
+export class BlogListComponent implements OnInit, OnDestroy {
+  @ViewChild('blogBox') blogBox!: BlogBoxComponent;
+  blogsList!: BlogData[];
+  // blogsList!: any;
+  showSlides = true;
+  loading = true;
+  error = false;
+  playInterval = 3000;
+
   contentLoaded = false;
   title = 'ngx-skeleton-loader-demo';
-  blogDetails: any;
   apiUrl = environment.apiUrl;
   noDataFound = false;
-  
-  constructor(
-    private router: Router,
-    private blogService: BlogService,
-    public sanitizer: DomSanitizer
-  ) { }
 
-  ngOnInit(): void {
-    this.blogService.getBlogData().pipe(delay(100)).subscribe({
-    next: (res: any) => {
-        this.blogDetails = res.data.data;
-        if (this.blogDetails.length === 0) {
+  /** This variable contain subscription from service that would be removed when the component is destroyed to avoid memory leaks */
+  blogsSubscription: Subscription = Subscription.EMPTY;
+  private subscriptions: Subscription[] = [];
+
+  constructor(
+    private blogService: BlogService,
+    private messageDialogService: MessageDialogService,
+    private titleService: Title,
+    private sharedService: SharedService,
+    private cdRef: ChangeDetectorRef,
+  ) {
+  }
+
+  ngOnInit() {
+    // const appTitle = `Blog List - ${this.sharedService.appTitle}`
+    // this.titleService.setTitle(appTitle);
+    this.getBlogs();
+  }
+
+  private getBlogs() {
+    this.blogsSubscription = this.blogService.getBlogData().pipe(delay(100)).subscribe({
+      next: (res: any) => {
+        this.blogsList = res.data.data;
+        console.log('this.blogsList', this.blogsList);
+        if (this.blogsList.length === 0) {
           this.noDataFound = true;
         }
-        this.blogDetails.map((val: any) => {
+        this.loading = false;
+        this.blogsList.map((val: any) => {
           if (val.image) {
             val.image = environment.apiUrl + '/img/' + val.image;
           }
         });
-        // console.log('the Blog Data response', this.blogDetails);
         this.contentLoaded = true;
+        this.cdRef.detectChanges();
       },
       error: (err: any) => {
-        this.contentLoaded = true;
-        this.noDataFound = true;
-      }
-  });
+        this.loading = false;
+        this.contentLoaded = true; this.noDataFound = true;
+        this.error = true;
+        const errorMessage = err.response.data.message;
+        this.messageDialogService.openMessageDlg({ message: errorMessage, type: 'error' });
+      },
+    });
+
+    this.subscriptions.push(this.blogsSubscription);
   }
 
   counter(i: number) {
     return new Array(i);
   }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
 }

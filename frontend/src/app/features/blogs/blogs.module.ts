@@ -16,16 +16,22 @@ import { BlogDetailComponent } from './pages/blog-detail/blog-detail.component';
 import { EditblogComponent } from './pages/editblog/editblog.component';
 import { EditdraftComponent } from '../drafts/editdraft/editdraft.component';
 import { MessageDialogComponent } from '../dialogs';
+import { BlogBoxComponent } from './components/blog-box/blog-box.component';
+import { BlogCardComponent } from './components/blog-card/blog-card.component';
+import { BlogHeaderComponent } from './components/blog-header/blog-header.component';
+import { CoreModule } from 'src/app/core/core.module';
 
 const componentsList = [
   LandingComponent, WriteblogComponent, MessageDialogComponent, BlogListComponent,
   BlogDetailComponent, EditblogComponent, EditdraftComponent,
+  BlogBoxComponent, BlogCardComponent, BlogHeaderComponent
 ];
 
 const modulesList = [
   CommonModule, BlogsRoutingModule, FormsModule, ReactiveFormsModule,
   QuillModule, MaterialModule, HttpClientModule,
   SweetAlert2Module, NgxSkeletonLoaderModule, SharedNavBarModule,
+  CoreModule,
 ];
 
 @NgModule({

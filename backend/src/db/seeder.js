@@ -3,9 +3,9 @@
 const express = require('express');
 
 // Load models
-// const DraftPostModel = require('../models/draftPost.model');
-const PostModel = require('../models/post.model');
-const UserModel = require('../models/user.model');
+// const DraftPostModel = require('../routes/drafts/draftPost.model');
+const PostModel = require('../routes/posts/post.model');
+const UserModel = require('../routes/auth/user.model');
 
 const dBaseSeed = express.Router();
 

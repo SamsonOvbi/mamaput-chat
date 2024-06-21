@@ -12,6 +12,9 @@ export class SharedService {
   public profileUrl = new Subject();
   public loading = new BehaviorSubject<boolean>(false);
   public profileImageUrl = new BehaviorSubject<string>('');
+  appTitle = 'MamaPut Chat'; 
+  baseUrl = environment.baseUrl;
+  userAddress: string = '';
 
   constructor() {}
 

@@ -31,6 +31,9 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
   public data: any;
   public id: string | null | undefined;
   contentLoaded = false;
+  numViews = 0;
+  numReviews = 0;
+
   constructor(
     private activatedRouter: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
@@ -67,7 +70,9 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
   publishBlog() {
     try {
       const blogData: BlogData = {
-        title: this.title, content: this.content, image: this.file.name, description: this.description,
+        title: this.title, description: this.description, content: this.content, category: this.category, image: this.file.name,
+        status: this.status, visibility: this.visibility, numReviews: this.getNumReviews,
+        numViews: this.getNumViews,
       }
       if (this.editorForm.valid) {
         this.blogService.saveBlogData(blogData).subscribe((res: any) => {
@@ -94,13 +99,15 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
   saveAsDraft() {
     try {
       const blogData: BlogData = {
-        title: this.title, content: this.content, image: this.file.name, description: this.description,
+        title: this.title, description: this.description, content: this.content, category: this.category, image: this.file.name,
+        status: this.status, visibility: this.visibility, numReviews: this.getNumReviews,
+        numViews: this.getNumViews,
       }
       if (this.editorForm.valid) {
         this.draftService.saveAsDraft(blogData).subscribe((res: any) => {
           this.resetBlog();
-          Swal.fire({ 
-            position: 'center', icon: 'success', title: 'Saved in Draft  SuccessFully', showConfirmButton: false, timer: 1500, 
+          Swal.fire({
+            position: 'center', icon: 'success', title: 'Saved in Draft  SuccessFully', showConfirmButton: false, timer: 1500,
           });
           this.router.navigate(['/profile/draft']);
         });
@@ -114,15 +121,27 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
   get title() {
     return this.editorForm.value['title'];
   }
-
-  get content() {
-    return this.editorForm.value['content'];
-  }
-
   get description() {
     return this.editorForm.value['description'];
   }
-
+  get content() {
+    return this.editorForm.value['content'];
+  }
+  get category() {
+    return this.editorForm.value['category'] || 'educational';
+  }
+  get status() {
+    return this.editorForm.value['status'] || 'published';
+  }
+  get visibility() {
+    return this.editorForm.value['visibility'] || 'public';
+  }
+  get getNumViews() {
+    return this.numViews++;
+  }
+  get getNumReviews() {
+    return this.numReviews++;
+  }
   open(content: any) {
     this.modalService.open(content);
   }
@@ -178,13 +197,8 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
       if (
         this.title.length > 0 || this.description.length > 0 || this.content.length > 0
       ) {
-        if (
-          confirm('Are you sure you want to leave? All the Changes will be discarded')
-        ) {
-          return true;
-        } else {
-          return false;
-        }
+        const confResult = confirm('Are you sure you want to leave? All the Changes will be discarded');
+        return confResult ? true : false;
       }
     }
     return true;

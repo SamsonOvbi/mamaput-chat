@@ -1,0 +1,21 @@
+<mat-dialog-content class="mat-typography">
+  <h5 >Are you sure you want to {{ dialogData.message }} ?</h5>
+  <div *ngIf="dialogData.image" class="flex flex-row"  >
+    <img [src]="dialogData.image" class="thumbnail" />
+    <span>{{ dialogData.name | slice:0:52 }}...</span>
+  </div>
+
+</mat-dialog-content>
+
+<!-- <mat-dialog-actions>  
+</mat-dialog-actions> -->
+
+<div class=" flex items-center justify-center mb-4">
+  <button (click)="handleChangeAction($event)" class="text-white m-2 p-2 px-4 bg-blue-500">
+    Yes
+  </button>
+
+  <button mat-dialog-close class="text-white m-2 p-2 px-4 bg-gray-500">
+    No
+  </button>
+</div>

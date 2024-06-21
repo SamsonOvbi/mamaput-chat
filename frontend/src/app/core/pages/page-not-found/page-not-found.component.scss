@@ -1,0 +1,32 @@
+/*======================
+    404 page
+=======================*/
+
+.page_404 {
+  padding: 40px 0;
+  background: #fff;
+  font-family: "Arvo", serif;
+  img {
+    width: 100%;
+  }
+}
+
+.four_zero_four_bg {
+  background-image: url(https://cdn.dribbble.com/users/4260625/screenshots/11213143/media/ee7dbf4d1ec94054c06077b88ddcd2fb.gif);      
+  height: 350px;
+  background-position: center;
+  h1 {
+    font-size: 80px;
+  }
+  h3 {
+    font-size: 80px;
+  }
+}
+
+.link_404 {
+  color: #fff !important;
+  padding: 10px 20px;
+  background: #39ac31;
+  margin: 20px 0;
+  display: inline-block;
+}

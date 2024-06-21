@@ -10,14 +10,19 @@ import { environment } from '../../../../../environments/environment';
   styleUrls: ['./blog-detail.component.css'],
 })
 export class BlogDetailComponent implements OnInit {
-  public data: any; 
+  public data: any;
   public id: string | null | undefined;
   contentLoaded = false;
+  theme = {
+    margin: '0 auto', width: '50%', height: '40px', display: 'flex',
+    'justify-content': 'center', 'margin-bottom': '26px'
+  };
+
   constructor(
     private activatedRouter: ActivatedRoute,
     private blogService: BlogService,
     public sanitizer: DomSanitizer
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.id = this.activatedRouter.snapshot.paramMap.get('id');
     this.activatedRouter.paramMap.subscribe((params: any) => {

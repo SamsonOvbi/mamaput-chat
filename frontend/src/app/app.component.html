@@ -1,6 +1,16 @@
-<app-home></app-home>
+<app-header></app-header>
 <div class="h-[30px]"></div>
-<router-outlet></router-outlet>
+
+<mat-sidenav-container class="mt-2" mode="over">
+  <mat-sidenav-content>
+    <div class="app flex flex-col">
+      <div class="container bg-green-200" style="padding-top:20px;">
+        <router-outlet></router-outlet>
+      </div>
+      <app-footer class="footer"></app-footer>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>  
 
 <div class="page-overlay" [hidden]="!loading">
   <div class="spinner">

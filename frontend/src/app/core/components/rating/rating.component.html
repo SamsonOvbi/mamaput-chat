@@ -1,0 +1,8 @@
+
+<div class="flex items-center justify-start">
+  <mat-icon *ngFor="let star of stars; let idx = index">{{ star }}</mat-icon>
+  <a mat-button *ngIf="numReviews" [routerLink]="reviewUrl" fragment="reviews">
+    <span *ngIf="numReviews === 1" >({{ numReviews }} review)</span>
+    <span *ngIf="numReviews > 1">({{ numReviews }} reviews)</span>
+  </a>
+</div>
