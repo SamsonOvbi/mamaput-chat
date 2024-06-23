@@ -1,8 +1,8 @@
 const express = require("express");
-const postRoute = express.Router();
+const blogRoute = express.Router();
 const multer = require("multer");
 const { isAuth } = require("../auth/auth.middleware");
-const postContr = require("./post.controller");
+const blogContr = require("./blog.controller");
 
 const multerStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -18,10 +18,10 @@ const upload = multer({
   storage: multerStorage,
 });
 // upload.single("image"),
-postRoute.post("/", isAuth, postContr.postBlog);
-postRoute.get("/", postContr.getAllBlogData);
-postRoute.get("/:id", postContr.getSingleBlog);
-postRoute.delete("/:id", isAuth, postContr.deleteBlogData);
-postRoute.put("/:id", isAuth, postContr.updateBlog);
+blogRoute.post("/", isAuth, blogContr.postBlog);
+blogRoute.get("/", blogContr.getAllBlogData);
+blogRoute.get("/:id", blogContr.getSingleBlog);
+blogRoute.delete("/:id", isAuth, blogContr.deleteBlogData);
+blogRoute.put("/:id", isAuth, blogContr.updateBlog);
 
-module.exports = postRoute;
+module.exports = blogRoute;

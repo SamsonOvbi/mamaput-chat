@@ -8,7 +8,7 @@ import { MessageDialogComponent } from '../../dialogs';
 import { DraftService } from '../services/draft.service';
 import { environment } from '../../../../environments/environment';
 import { modulesQuill } from '../../../models/types';
-
+import { swalFireWarning, swalMixin } from '../../../shared/constants';
 @Component({
   selector: 'app-editdraft',
   templateUrl: './editdraft.component.html',
@@ -151,13 +151,7 @@ export class EditdraftComponent implements OnInit {
   fireEvent() {
     let fire = false;
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
+      ...swalFireWarning, icon: 'warning',
     }).then((result) => {
       if (result.isConfirmed) {
         // console.log('isConfirmed...!');

@@ -12,10 +12,11 @@
 // })
 // export class BlogListComponent implements OnInit {
 //   contentLoaded = false;
-//   title = 'ngx-skeleton-loader-demo';
-//   blogDetails: any;
-//   apiUrl = environment.apiUrl;
 //   noDataFound = false;
+//   title = 'ngx-skeleton-loader-demo';
+//   paginatedBlogs: any;
+//   apiUrl = environment.apiUrl;
+  
 
 //   constructor(
 //     private router: Router,
@@ -26,16 +27,16 @@
 //   ngOnInit(): void {
 //     this.blogService.getBlogData().pipe(delay(100)).subscribe({
 //       next: (res: any) => {
-//         this.blogDetails = res.data.data;
-//         if (this.blogDetails.length === 0) {
+//         this.paginatedBlogs = res.data.data;
+//         if (this.paginatedBlogs.length === 0) {
 //           this.noDataFound = true;
 //         }
-//         this.blogDetails.map((val: any) => {
+//         this.paginatedBlogs.map((val: any) => {
 //           if (val.image) {
 //             val.image = environment.apiUrl + '/img/' + val.image;
 //           }
 //         });
-//         // console.log('the Blog Data response', this.blogDetails);
+//         // console.log('the Blog Data response', this.paginatedBlogs);
 //         this.contentLoaded = true;
 //       },
 //       error: (err: any) => {

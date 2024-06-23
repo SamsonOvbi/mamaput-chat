@@ -19,10 +19,10 @@ connectDB();
 
 const authRoute = require("./routes/auth/auth.route");
 const userRoute = require("./routes/users/user.route");
-const postRoute = require("./routes/posts/post.route");
 const draftRoute = require("./routes/drafts/draft.route");
 const uploadRoute = require("./routes/upload/upload.routes");
 const dBaseSeed = require('./db/seeder');
+const blogRoute = require("./routes/blogs/blog.route");
 
 const app = express();
 
@@ -52,7 +52,7 @@ if (process.env.NODE_ENV === "development") {
 
 app.use('/auth', authRoute);
 app.use('/user', userRoute);
-app.use('/blog', postRoute);
+app.use('/blog', blogRoute);
 app.use('/draft', draftRoute);
 app.use('/api/uploads', uploadRoute);
 

@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DraftComponent } from '../drafts/draft/draft.component';
-import { MyblogComponent } from './myblog/myblog.component';
 import { AuthGuard } from '../auth/helpers/auth.guard';
-import { ProfileComponent } from './profile/profile.component';
+import { MyblogComponent } from './pages/myblog/myblog.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { MyDraftComponent } from './pages/myDraft/myDraft.component';
 
 const routes: Routes = [
   { path: 'me', canActivate: [AuthGuard], component: ProfileComponent },
   { path: 'myblog', canActivate: [AuthGuard], component: MyblogComponent },
-  { path: 'draft', canActivate: [AuthGuard], component: DraftComponent },
+  { path: 'draft', canActivate: [AuthGuard], component: MyDraftComponent },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

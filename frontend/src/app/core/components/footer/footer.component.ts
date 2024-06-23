@@ -8,12 +8,12 @@ import { SharedService } from 'src/app/shared/services/shared.service';
   // styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
-  appName = '';
+  appTitle = '';
 
   constructor(private sharedService: SharedService,) { }
 
   ngOnInit(): void {
-    this.appName = this.sharedService.appTitle;
+    this.appTitle = this.sharedService.appTitle;
   }
 
 }

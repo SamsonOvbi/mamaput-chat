@@ -1,38 +1,37 @@
 <div class="read-blog-page">
 
-  <div *ngFor="let data of blogDetails">
-    <a [routerLink]="['/read', data._id]" id="link" class="flex flex-row ml-2">
+  <div *ngFor="let blog of paginatedBlogs">
+    <a [routerLink]="['/blogs/blog-details/', blog._id]" id="link" class="flex flex-row ml-2">
       <div class="profile-image">
         <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle"
           [theme]="{ width: '20px', height: '20px' }"></ngx-skeleton-loader>
-        <img src="/assets/images/avatar.svg" alt="" *ngIf="!data.user || !data.user.image" />
-        <img src="{{ apiUrl }}/img/{{ data.user && data.user.image ? data.user.image : '' }}" alt=""
-          *ngIf="contentLoaded && data.user && data.user.image" />
+        <img src="/assets/images/avatar.svg" alt="" *ngIf="!blog.user || !blog.user.image" />
+        <img src="{{ apiUrl }}/img/{{ blog.user && blog.user.image ? blog.user.image : '' }}" alt=""
+          *ngIf="contentLoaded && blog.user && blog.user.image" />
       </div>
       <div class="content" matRipple>
         <div class="left-div">
           <div class="writer-info-container">
             <div class="info">
               <ngx-skeleton-loader *ngIf="!contentLoaded" class="writer-name"></ngx-skeleton-loader>
-              <h4 class="writer-name" *ngIf="contentLoaded"> {{ data?.user?.username }} </h4>
+              <h4 class="writer-name" *ngIf="contentLoaded"> {{ blog?.user?.username }} </h4>
             </div>
           </div>
           <div class="blog-title">
             <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-            <h1 *ngIf="contentLoaded"> {{ data.title }} </h1>
+            <h1 *ngIf="contentLoaded"> {{ blog.title }} </h1>
           </div>
           <div class="blog-content">
             <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-            <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-            <div *ngIf="contentLoaded" [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.description)"></div>
+            <div *ngIf="contentLoaded" [innerHTML]="sanitizer.bypassSecurityTrustHtml(blog?.description)"></div>
           </div>
-          <div class="date-time"> <span>{{ data?.createdAt | date }}</span> </div>
+          <div class="date-time"> <span>{{ blog?.createdAt | date }}</span> </div>
         </div>
         <div class="right-div">
           <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle" [theme]="{
               width: '40%', height: '100%', 'border-radius': '29px', 'margin-left': '12%'
             }"></ngx-skeleton-loader>
-          <img src="{{ data?.image }}" alt="" *ngIf="contentLoaded && data?.image" />
+          <img src="{{ blog?.image }}" alt="" *ngIf="contentLoaded && blog?.image" />
         </div>
       </div>
     </a>

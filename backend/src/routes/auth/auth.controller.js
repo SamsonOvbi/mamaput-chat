@@ -2,13 +2,13 @@ const dotenv = require("dotenv");
 dotenv.config();
 const asyncHandler = require("../../middleware/async");
 const { ErrorResponse } = require("../../utils/errorResponse");
-const User = require("./user.model");
-const Post = require("../posts/post.model");
+const PostModel = require("../blogs/blog.model");
 const bcrypt = require("bcryptjs");
 const sendEmail = require("./utils/sendEmail");
 const crypto = require("crypto");
 const path = require("path");
 const fs = require("fs");
+const UserModel = require("./user.model");
 const authContr = {}; 
 
 authContr.signup = asyncHandler(async (req, res, next) => {
@@ -19,7 +19,7 @@ authContr.signup = asyncHandler(async (req, res, next) => {
     );
   }
   //Create user
-  const user = await User.create({ username, email, password, });
+  const user = await UserModel.create({ username, email, password, });
   sendTokenResponse(user, 200, res);
 });
 
@@ -30,7 +30,7 @@ authContr.login = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("Please Provide an email and password", 400));
   }
   // Checking for user
-  const user = await User.findOne({ email }).select("+password");
+  const user = await UserModel.findOne({ email }).select("+password");
   if (!user) {
     return next(new ErrorResponse("Invalid credentials", 401));
   }
@@ -53,7 +53,7 @@ authContr.updateDetails = async (req, res, next) => {
   let image = req.body.image;
   try {
     if (req.file) { image = req.file.name; };
-    const updatedUser = await User.findByIdAndUpdate(
+    const updatedUser = await UserModel.findByIdAndUpdate(
       req.user.id,
       { username, email, image },
       { new: true, runValidators: true }
@@ -87,10 +87,10 @@ authContr.updatePassword = async (req, res, next) => {
       res.status(400).json({ message: "Password Dosen't Match", success: false, });
     }
     if (confirmPassword === newPassword) {
-      const user = await User.findById(req.user.id).select("+password");
+      const user = await UserModel.findById(req.user.id).select("+password");
       const auth = await bcrypt.compare(currentPassword, user.password);
       if (auth) {
-        const userData = await User.updateOne({ _id: req.user.id }, { $set: { password: updatedPassword } });
+        const userData = await UserModel.updateOne({ _id: req.user.id }, { $set: { password: updatedPassword } });
         const token = user.getSignedJwtToken();
         res.status(200).json({ message: "Password Updated Successfully", token: token, success: true, });
       } else {
@@ -108,14 +108,14 @@ authContr.updatePassword = async (req, res, next) => {
 authContr.forgotPassword = async (req, res, next) => {
   let user
   try {
-    user = await User.findOne({ email: req.body.email });
+    user = await UserModel.findOne({ email: req.body.email });
     if (!user) {
       res.status(404).json({ message: "There is no user with that email" });
     }
     // Get reset token
     if (user) {
       const resetToken = user.getResetPasswordToken();
-      await User.findByIdAndUpdate(
+      await UserModel.findByIdAndUpdate(
         user._id,
         { resetPasswordToken: resetToken, resetPasswordExpire: Date.now() + 30 * 60 * 1000 },
         { new: true, runValidators: true }
@@ -135,7 +135,7 @@ authContr.forgotPassword = async (req, res, next) => {
   } catch (err) {
     console.log({ err });
     if (user) {
-      await User.findByIdAndUpdate(
+      await UserModel.findByIdAndUpdate(
         user._id,
         { resetPasswordToken: undefined, resetPasswordExpire: undefined },
         { new: true, runValidators: true }
@@ -156,7 +156,7 @@ authContr.resetPassword = asyncHandler(async (req, res, next) => {
       return;
     }
 
-    const user = await User.findOne({ resetPasswordToken, resetPasswordExpire: { $gt: Date.now() }, });
+    const user = await UserModel.findOne({ resetPasswordToken, resetPasswordExpire: { $gt: Date.now() }, });
     if (!user) {
       return next(new ErrorResponse("Invalid token", 400));
     }

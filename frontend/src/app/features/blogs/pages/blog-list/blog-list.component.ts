@@ -43,16 +43,16 @@ export class BlogListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // const appTitle = `Blog List - ${this.sharedService.appTitle}`
-    // this.titleService.setTitle(appTitle);
-    this.getBlogs();
+    const appTitle = `Blog List - ${this.sharedService.appTitle}`
+    this.titleService.setTitle(appTitle);
+    this.getBlogData();
   }
 
-  private getBlogs() {
+  private getBlogData() {
     this.blogsSubscription = this.blogService.getBlogData().pipe(delay(100)).subscribe({
       next: (res: any) => {
         this.blogsList = res.data.data;
-        console.log('this.blogsList', this.blogsList);
+        // console.log('this.blogsList', this.blogsList);
         if (this.blogsList.length === 0) {
           this.noDataFound = true;
         }

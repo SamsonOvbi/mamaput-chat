@@ -1,9 +1,10 @@
 import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { PageEvent } from '@angular/material/paginator';
 import { BlogData } from '../../models/blog-model';
 import { ROW_HEIGHT } from '../models/types';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-blog-card',
@@ -11,6 +12,8 @@ import { ROW_HEIGHT } from '../models/types';
   styleUrls: ['./blog-card.component.scss']
 })
 export class BlogCardComponent implements OnInit {
+  contentLoaded = false;
+  noDataFound = false;
   // @Input() blogs!: BlogData[];
   @Input() blogs!: any;
   @Input() showSlides = true;
@@ -26,11 +29,13 @@ export class BlogCardComponent implements OnInit {
 
   currentPage = 1;
   itemsPerPage = 20;
-  @Input() totalBlogs!: number; // This should ideally be calculated based on the blogs array
+  @Input() totalBlogs!: number; 
+  apiUrl = environment.apiUrl;
 
   constructor(
     private titleService: Title,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    public sanitizer: DomSanitizer,
   ) {
   }
 
@@ -41,6 +46,7 @@ export class BlogCardComponent implements OnInit {
 
   get paginatedBlogs() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    this.contentLoaded = true;
     return this.blogs.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
@@ -54,7 +60,7 @@ export class BlogCardComponent implements OnInit {
 
   /** Emits the blog gotten from the cart */
   // onAddToCart(blog: BlogData): void {
-    onAddToCart(blog: any): void {
+  onAddToCart(blog: any): void {
     this.addToCart.emit(blog);
   }
 

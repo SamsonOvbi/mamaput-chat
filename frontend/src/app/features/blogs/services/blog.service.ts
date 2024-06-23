@@ -71,17 +71,4 @@ export class BlogService {
     return this.http.put(`${this.apiUrl}/blog/${id}`, data, this.authService.setHeader());
   }
 
-  /*
-  Get User Blog
-   */
-
-  getMe() {
-    return this.http.get(`${this.apiUrl}/user/getMe`, this.authService.setHeader());
-  }
-
-  myBlog() {
-    return this.http.get(`${this.apiUrl}/user/myBlogs`, this.authService.setHeader());
-  }
-
-  // Blog Routes Ends Here
 }

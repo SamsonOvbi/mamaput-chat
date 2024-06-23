@@ -1,27 +1,27 @@
-const Post = require("./post.model");
-const User = require("../auth/user.model");
+const PostModel = require("./blog.model");
 const path = require("path");
 const fs = require("fs");
+const UserModel = require("../auth/user.model");
 
-const postContr = {};
+const blogContr = {};
 
-postContr.postBlog = async (req, res, next) => {
+blogContr.postBlog = async (req, res, next) => {
   const { content, title, description, image } = req.body;
   if (!content || !title || !description || !image) {
     const error = new Error("Missing required fields.");
     error.statusCode = 422;
     throw error;
   }
-  const session = await Post.startSession();
+  const session = await PostModel.startSession();
   session.startTransaction();
   try {
     const id = req.user.id;
     let creator;
-    const post = await new Post({
-      title: title, content: content, description: description, image: image, user: id,
+    const post = await new PostModel({
+      title: title, content: content, description: description, image: image, user: id, status: 'posts',
     });
     await post.save();
-    const user = await User.findByIdAndUpdate(req.user.id, { $push: { posts: post } }, { new: true });
+    const user = await UserModel.findByIdAndUpdate(req.user.id, { $push: { posts: post } }, { new: true });
     creator = user;
     await session.commitTransaction();
     session.endSession();
@@ -37,12 +37,12 @@ postContr.postBlog = async (req, res, next) => {
   }
 };
 
-postContr.getAllBlogData = async (req, res, next) => {
+blogContr.getAllBlogData = async (req, res, next) => {
   try {
-    let find = await Post.find({}).sort({ _id: -1 }).populate({
+    let find = await PostModel.find({}).sort({ _id: -1 }).populate({
       path: "user", select: "username image",
     });
-    // console.error({ find: find[0] });
+    console.error({ find: find[0] });
     res.status(200).json({
       success: true,
       message: "Blog Data Found",
@@ -54,10 +54,10 @@ postContr.getAllBlogData = async (req, res, next) => {
   }
 };
 
-postContr.getSingleBlog = async (req, res, next) => {
+blogContr.getSingleBlog = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const singleBlog = await Post.findById(id).populate({
+    const singleBlog = await PostModel.findById(id).populate({
       path: "user", select: "username",
     });
 
@@ -73,10 +73,10 @@ postContr.getSingleBlog = async (req, res, next) => {
   }
 };
 
-postContr.deleteBlogData = async (req, res, next) => {
+blogContr.deleteBlogData = async (req, res, next) => {
   const { id } = req.params;
   try {
-    let post = await Post.findById(id);
+    let post = await PostModel.findById(id);
     if (!post) {
       const error = new Error("Could not Find post.");
       error.statusCode = 404;
@@ -88,8 +88,8 @@ postContr.deleteBlogData = async (req, res, next) => {
       throw error;
     }
     clearImage(post.image);
-    await Post.findByIdAndRemove(id);
-    let user = await User.findById(req.user.id);
+    await PostModel.findByIdAndRemove(id);
+    let user = await UserModel.findById(req.user.id);
     await user.posts.pull(id);
     await user.save();
     res.status(200).json({
@@ -102,7 +102,7 @@ postContr.deleteBlogData = async (req, res, next) => {
   }
 };
 
-postContr.updateBlog = async (req, res, next) => {
+blogContr.updateBlog = async (req, res, next) => {
   const id = req.params.id;
   const { title, description, content } = req.body;
   let image = req.body.image;
@@ -116,7 +116,7 @@ postContr.updateBlog = async (req, res, next) => {
       throw error;
     }
     console.error({ image });
-    let post = await Post.findById(id);
+    let post = await PostModel.findById(id);
     if (!post) {
       const error = new Error("Could not find post.");
       error.statusCode = 404;
@@ -136,7 +136,7 @@ postContr.updateBlog = async (req, res, next) => {
     post.content = content;
     let result = await post.save();
     res.status(200).json({
-      message: "Post updated!",
+      message: "PostModel updated!",
       post: result,
     });
   } catch (err) {
@@ -151,4 +151,4 @@ const clearImage = (filePath) => {
   fs.unlink(filePath, (err) => console.log(err));
 };
 
-module.exports = postContr;
+module.exports = blogContr;

@@ -5,13 +5,14 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class SharedService {
-  apiUrl = environment.apiUrl;
+export class SharedService {  
   public navColor = new BehaviorSubject<string>('');
   public showNavar = new BehaviorSubject<boolean>(true);
   public profileUrl = new Subject();
   public loading = new BehaviorSubject<boolean>(false);
   public profileImageUrl = new BehaviorSubject<string>('');
+
+  apiUrl = environment.apiUrl;
   appTitle = 'MamaPut Chat'; 
   baseUrl = environment.baseUrl;
   userAddress: string = '';

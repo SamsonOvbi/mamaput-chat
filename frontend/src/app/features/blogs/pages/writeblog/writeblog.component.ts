@@ -12,6 +12,7 @@ import { BlogData } from '../../models/blog-model';
 import { BlogService } from '../../services/blog.service';
 import { modulesQuill } from '../../../../models/types';
 import { DraftService } from '../../../drafts/services/draft.service';
+import { swalFireWarning, swalMixin } from '../../../../shared/constants';
 
 @Component({
   selector: 'app-writeblog',
@@ -79,7 +80,7 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
           console.log('res value saved', res);
           this.resetBlog();
           Swal.fire({ position: 'center', icon: 'success', title: 'Your Blog Published SuccessFully', showConfirmButton: false, timer: 1500, });
-          this.router.navigate(['/read', res.post._id]);
+          this.router.navigate(['/blogs/blog-details', res.post._id]);
         });
       } else {
         console.log(`this.editorForm.valid:   `, this.editorForm.valid);
@@ -177,7 +178,7 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
   fireEvent() {
     let fire = false;
     Swal.fire({
-      title: 'Are you sure?', text: "You won't be able to revert this!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, delete it!',
+      ...swalFireWarning, icon: 'warning',
     }).then((result) => {
       if (result.isConfirmed) {
         // console.log('isConfirmed...!');

@@ -23,7 +23,7 @@ export class SeoService {
         content: `${blog.title} -${sharedService.appTitle}`,
       },
       { property: 'og:site', content: 'website', },
-      // { property: 'og:url', content: sharedService.baseUrl + blog.slug, },
+      // { property: 'og:url', content: sharedService.baseUrl + blog._id, },
       { property: 'og:image', content: blog.image, },
       { property: 'og:description', content: blog.description, },
       { property: 'og:site_title', content: sharedService.appTitle, },

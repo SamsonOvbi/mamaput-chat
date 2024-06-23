@@ -7,15 +7,17 @@ import { MaterialModule } from '../shared/material.module';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RatingComponent } from './components/rating/rating.component';
+import { CoreRoutingModule } from './core.routing.module';
+import { LandingComponent } from './pages/landing/landing.component';
 
 const coreRoutes: Routes = []
 const componentsList = [
   // SideBarComponent, RatingComponent,
-  HeaderComponent, RatingComponent, FooterComponent,
+  HeaderComponent, RatingComponent, FooterComponent, LandingComponent, 
 ];
 const modulesList = [
   CommonModule, MaterialModule, FormsModule, ReactiveFormsModule, 
-  RouterModule.forChild(coreRoutes),
+  RouterModule.forChild(coreRoutes), CoreRoutingModule,
 ];
 
 @NgModule({

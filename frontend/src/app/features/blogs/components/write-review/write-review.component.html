@@ -14,7 +14,7 @@
 </div>
 <p *ngIf="!currentUser" class="text-gray-600">
   Please
-  <a routerLink="/login" [queryParams]="{ returnUrl: '/blog-details/' + blog.slug }" class="text-blue-600 hover:underline">login</a>
+  <a routerLink="/login" [queryParams]="{ returnUrl: '/blogs/blog-details/' + blog._id }" class="text-blue-600 hover:underline">login</a>
   to leave a review
 </p>
 

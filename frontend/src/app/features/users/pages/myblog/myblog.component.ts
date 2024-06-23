@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
-import { BlogService } from '../../blogs/services/blog.service';
-import { environment } from '../../../../environments/environment';
+import { BlogService } from '../../../blogs/services/blog.service';
+import { environment } from '../../../../../environments/environment';
+import { UserService } from '../../services/user.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
+import { swalFireWarning, swalMixin } from '../../../../shared/constants';
 @Component({
   selector: 'app-myblog',
   templateUrl: './myblog.component.html',
@@ -15,57 +18,39 @@ export class MyblogComponent implements OnInit {
   public apiUrl = environment.apiUrl;
   public noDataFound: boolean = false;
   alertOpt: SweetAlertOptions = {};
+  appTitle = '';
 
   constructor(
     public sanitizer: DomSanitizer,
     private blogService: BlogService,
+    private userService: UserService,
+    private sharedService: SharedService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.blogData();
+    this.appTitle = this.sharedService.appTitle;
+    this.getBlogData();
   }
 
-  blogData() {
-    this.blogService.myBlog().subscribe({
-    next: (res: any) => {
+  getBlogData() {
+    this.userService.myBlog().subscribe({
+      next: (res: any) => {
         this.myBlog = res.blog;
         if (res.blog && res.blog.posts.length === 0) {
           this.noDataFound = true;
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer);
-              toast.addEventListener('mouseleave', Swal.resumeTimer);
-            },
-          });
+          const Toast = Swal.mixin({ ...swalMixin, position: 'top-end', });
           Toast.fire({ icon: 'info', title: 'No Blog Found', });
         }
         this.contentLoaded = true;
       },
       error: (err: any) => {
         this.noDataFound = true;
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer);
-            toast.addEventListener('mouseleave', Swal.resumeTimer);
-          },
-        });
-        Toast.fire({
-          icon: 'error',
-          title: 'Something Went Wrong',
-        });
+        const Toast = Swal.mixin({ ...swalMixin, position: 'top-end', });
+        Toast.fire({ icon: 'error', title: 'Something Went Wrong', });
       }
-  });
+    });
+
   }
 
   counter(i: number) {
@@ -78,26 +63,21 @@ export class MyblogComponent implements OnInit {
 
   deleteBlog(id: any) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
+      ...swalFireWarning, icon: 'warning',
     }).then((result) => {
       if (result.isConfirmed) {
         this.blogService.deleteBlog(id).subscribe({
-        next: (res: any) => {
-            this.blogData();
+          next: (res: any) => {
+            this.getBlogData();
             Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
           },
           error: (err: any) => {
             Swal.fire({ icon: 'error', title: 'Oops...', text: `Something Went Wrong..!`, });
           }
-      });
+        });
       }
     });
     console.log('', id);
   }
+
 }

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
-import { AuthService } from '../../auth/services/auth.service';
+import { AuthService } from '../../../auth/services/auth.service';
 import { BlogService } from 'src/app/features/blogs/services/blog.service';
 import { environment } from 'src/environments/environment';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { PasswordChangeDialogComponent } from 'src/app/features/dialogs';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -23,7 +24,7 @@ export class ProfileComponent implements OnInit {
     private _fb: FormBuilder,
     private dialog: MatDialog,
     private authService: AuthService,
-    private blogService: BlogService,
+    private userService: UserService,
     private sharedService: SharedService,
   ) {
     this.profileForm = this._fb.group({
@@ -34,7 +35,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.blogService.getMe().subscribe((res: any) => {
+    this.userService.profile().subscribe((res: any) => {
       this.sharedService.setProfileImage(res.data.image);
       this.profileForm.controls['username'].patchValue(res.data.username);
       this.profileForm.controls['email'].patchValue(res.data.email);
@@ -117,4 +118,5 @@ export class ProfileComponent implements OnInit {
       // console.log('closed password dialog', result);
     });
   }
+  
 }

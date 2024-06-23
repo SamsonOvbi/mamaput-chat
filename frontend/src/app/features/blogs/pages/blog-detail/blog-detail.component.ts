@@ -13,7 +13,7 @@ export class BlogDetailComponent implements OnInit {
   public data: any;
   public id: string | null | undefined;
   contentLoaded = false;
-  theme = {
+  ngxLoaderTheme = {
     margin: '0 auto', width: '50%', height: '40px', display: 'flex',
     'justify-content': 'center', 'margin-bottom': '26px'
   };
@@ -24,13 +24,15 @@ export class BlogDetailComponent implements OnInit {
     public sanitizer: DomSanitizer
   ) { }
   ngOnInit(): void {
+    console.log('id...', this.id);
     this.id = this.activatedRouter.snapshot.paramMap.get('id');
+    // console.log('id...', this.id);
     this.activatedRouter.paramMap.subscribe((params: any) => {
       this.id = params.get('id');
       // console.log('id...', this.id);
     });
     this.blogService.getSingleBlog(this.id).subscribe((res: any) => {
-      // console.log('res data..', res);
+      console.log('res data..', res);
       this.data = res.data;
       let imagename = this.data.image;
       this.data.image = environment.apiUrl + '/img/' + imagename;

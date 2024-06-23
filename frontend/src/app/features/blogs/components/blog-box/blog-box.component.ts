@@ -90,8 +90,8 @@ export class BlogBoxComponent implements OnInit, OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.blogsSearch || changes.blogsList) {
       this.blogs = changes.blogsSearch?.currentValue || changes.blogsList?.currentValue;
-      this.totalBlogs = this.blogsSearch?.length || this.blogsList?.length;
-    }  
+      this.totalBlogs = this.blogsSearch?.length || this.blogsList?.length;      
+    }
   }
 
   ngOnDestroy(): void {

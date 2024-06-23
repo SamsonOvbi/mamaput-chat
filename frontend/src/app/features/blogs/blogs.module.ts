@@ -9,7 +9,6 @@ import { SharedNavBarModule } from '../../shared/shared-navbar.module';
 import { MaterialModule } from '../../shared/material.module';
 import { BlogsRoutingModule } from './blogs.routing.module';
 
-import { LandingComponent } from './pages/landing/landing.component';
 import { WriteblogComponent } from './pages/writeblog/writeblog.component';
 import { BlogListComponent } from './pages/blog-list/blog-list.component';
 import { BlogDetailComponent } from './pages/blog-detail/blog-detail.component';
@@ -22,7 +21,7 @@ import { BlogHeaderComponent } from './components/blog-header/blog-header.compon
 import { CoreModule } from 'src/app/core/core.module';
 
 const componentsList = [
-  LandingComponent, WriteblogComponent, MessageDialogComponent, BlogListComponent,
+  WriteblogComponent, MessageDialogComponent, BlogListComponent,
   BlogDetailComponent, EditblogComponent, EditdraftComponent,
   BlogBoxComponent, BlogCardComponent, BlogHeaderComponent
 ];

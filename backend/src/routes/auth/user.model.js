@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema({
   resetPasswordExpire: Date,
   createAt: { type: Date, default: Date.now(), },
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post", },],
-  drafts: [{ type: mongoose.Schema.Types.ObjectId, ref: "DraftPost", },],
+  drafts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Draft", },],
 });
 
 // Encrypt password using bcrypt
@@ -93,5 +93,5 @@ UserSchema.methods.getResetPasswordToken = function () {
   }
 };
 
-const User = new mongoose.model('User', UserSchema);
-module.exports = User;
+const UserModel = new mongoose.model('User', UserSchema);
+module.exports = UserModel;

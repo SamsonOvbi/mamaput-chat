@@ -12,7 +12,8 @@
 }
 
 .four_zero_four_bg {
-  background-image: url(https://cdn.dribbble.com/users/4260625/screenshots/11213143/media/ee7dbf4d1ec94054c06077b88ddcd2fb.gif);      
+  // background-image: url(https://cdn.dribbble.com/users/4260625/screenshots/11213143/media/ee7dbf4d1ec94054c06077b88ddcd2fb.gif);      
+  background-image: url('/assets/images/page-not-found_20200429-14054-26s46r.gif');
   height: 350px;
   background-position: center;
   h1 {
@@ -20,13 +21,13 @@
   }
   h3 {
     font-size: 80px;
-  }
+  } 
 }
 
 .link_404 {
   color: #fff !important;
   padding: 10px 20px;
-  background: #39ac31;
+  background: #39ac31; 
   margin: 20px 0;
   display: inline-block;
 }

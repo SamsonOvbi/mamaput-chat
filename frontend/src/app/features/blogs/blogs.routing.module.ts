@@ -6,17 +6,14 @@ import { QuillModule } from 'ngx-quill';
 
 import { EditblogComponent } from './pages/editblog/editblog.component';
 import { EditdraftComponent } from '../drafts/editdraft/editdraft.component';
-import { LandingComponent } from './pages/landing/landing.component';
 import { BlogDetailComponent } from './pages/blog-detail/blog-detail.component';
 import { BlogListComponent } from './pages/blog-list/blog-list.component';
 import { WriteblogComponent } from './pages/writeblog/writeblog.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'landing', pathMatch: 'full', }, 
-  { path: 'landing', component: LandingComponent },
   { path: 'write', component: WriteblogComponent, canActivate: [AuthGuard], canDeactivate: [DeactivateServiceGuard], },
   { path: 'read', component: BlogListComponent, },
-  { path: 'read/:id', component: BlogDetailComponent, },
+  { path: 'blog-details/:id', component: BlogDetailComponent, },
   { path: 'edit/:id', component: EditblogComponent, },
   { path: 'edit-draft/:id', component: EditdraftComponent, }, 
 ];

@@ -6,13 +6,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MaterialModule } from '../../shared/material.module';
 
-import { MyblogComponent } from './myblog/myblog.component';
-import { DraftComponent } from '../drafts/draft/draft.component';
+import { MyblogComponent } from './pages/myblog/myblog.component';
 import { EmailChangeDialogComponent, PasswordChangeDialogComponent } from '../dialogs';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { MyDraftComponent } from './pages/myDraft/myDraft.component';
 
 const componentsList = [
-  ProfileComponent, MyblogComponent, DraftComponent,
+  ProfileComponent, MyblogComponent, MyDraftComponent,
   PasswordChangeDialogComponent, EmailChangeDialogComponent,
 ];
 const modulesList = [

@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { modulesQuill } from 'src/app/models/types';
 import { BlogData } from '../../models/blog-model';
 import { MessageDialogComponent } from '../../../dialogs';
+import { swalFireWarning, swalMixin } from '../../../../shared/constants';
 
 @Component({
   selector: 'app-editblog',
@@ -75,8 +76,8 @@ export class EditblogComponent implements OnInit {
     if (!this.file) {
       if (this.editorForm.valid) {
         this.blogService.updateBlog(data, this.id).subscribe((res: any) => {
-          Swal.fire({ position: 'center', icon: 'success', title: 'Your Blog Published SuccessFully', showConfirmButton: false, timer: 1500, });
-          this.router.navigate(['/read', res.post._id]);
+          Swal.fire({ title: 'Your Blog Published SuccessFully', icon: 'success', position: 'center', showConfirmButton: false, timer: 1500, });
+          this.router.navigate(['/blogs/blog-details', res.post._id]);
           // console.log('res value saved', res);
         });
       }
@@ -91,8 +92,8 @@ export class EditblogComponent implements OnInit {
       if (this.editorForm.valid) {
         // this.blogService.updateBlog(formData, this.id).subscribe((res: any) => {
         this.blogService.updateBlog(data, this.id).subscribe((res: any) => {
-          Swal.fire({ position: 'center', icon: 'success', title: 'Your Blog Published SuccessFully', showConfirmButton: false, timer: 1500, });
-          this.router.navigate(['/read', res.post._id]);
+          Swal.fire({ title: 'Your Blog Published SuccessFully', icon: 'success', position: 'center', showConfirmButton: false, timer: 1500, });
+          this.router.navigate(['/blogs/blog-details', res.post._id]);
         });
       }
     }
@@ -163,7 +164,7 @@ export class EditblogComponent implements OnInit {
   fireEvent() {
     let fire = false;
     Swal.fire({
-      title: 'Are you sure?', text: "You won't be able to revert this!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, delete it!',
+      ...swalFireWarning, icon: 'warning',
     }).then((result) => {
       if (result.isConfirmed) {
         // console.log('isConfirmed...!');

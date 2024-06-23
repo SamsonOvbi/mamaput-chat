@@ -16,63 +16,65 @@ export class AuthService {
   /**
    * Add Token to request 
    */
-  setHeader(): any {
-    if (localStorage.getItem('token')) {
-      let token = localStorage.getItem('token');
-      let headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-      return { headers: headers };
-    } else {
-      let headers = new HttpHeaders({});
-      return { headers: headers };
-    }
-  }
 
-  setLogIn() {
+setHeader(): any {
+  if (localStorage.getItem('token')) {
+    let token = localStorage.getItem('token');
+    // let headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return { headers: headers };
+  } else {
+    let headers = new HttpHeaders({});
+    return { headers: headers };
+  }
+}
+
+setLogIn() {
+  this.isLoggedIn.next(true);
+}
+
+logOut() {
+  localStorage.removeItem('token');
+  this.isLoggedIn.next(false);
+  this.router.navigateByUrl('/');
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 2500,
+    timerProgressBar: true,
+  });
+  Toast.fire({ icon: 'success', title: 'Logout successful', });
+}
+
+checkLogin() {
+  if (localStorage.getItem('token')) {
     this.isLoggedIn.next(true);
-  }
-
-  logOut() {
-    localStorage.removeItem('token');
+  } else {
     this.isLoggedIn.next(false);
-    this.router.navigateByUrl('/');
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 2500,
-      timerProgressBar: true,
-    });
-    Toast.fire({ icon: 'success', title: 'Logout successful', });
   }
+}
 
-  checkLogin() {
-    if (localStorage.getItem('token')) {
-      this.isLoggedIn.next(true);
-    } else {
-      this.isLoggedIn.next(false);
-    }
-  }
+forgotPassword(email: any) {
+  return this.http.post(`${this.apiUrl}/auth/forgotPassowrd`, email,
+    this.setHeader()
+  );
+}
 
-  forgotPassword(email: any) {
-    return this.http.post(`${this.apiUrl}/auth/forgotPassowrd`, email,
-      this.setHeader()
-    );
-  }
+updatePassword(data: any) {
+  return this.http.put(`${this.apiUrl}/auth/upate-password`, data,
+    this.setHeader()
+  );
+}
 
-  updatePassword(data: any) {
-    return this.http.put(`${this.apiUrl}/auth/upate-password`, data,
-      this.setHeader()
-    );
-  }
+resetPassword(data: any, id: any) {
+  return this.http.put(`${this.apiUrl}/auth/resetpassword/${id}`, data,
+    this.setHeader()
+  );
+}
 
-  resetPassword(data: any, id: any) {
-    return this.http.put(`${this.apiUrl}/auth/resetpassword/${id}`, data,
-      this.setHeader()
-    );
-  }
-
-  updateUserDetail(data: any) {
-    return this.http.put(`${this.apiUrl}/auth/update-details`, data, this.setHeader());
-  }
+updateUserDetail(data: any) {
+  return this.http.put(`${this.apiUrl}/auth/update-details`, data, this.setHeader());
+}
 
 }

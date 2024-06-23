@@ -1,22 +1,22 @@
 <div class="container mt-5">
-  <ngx-skeleton-loader *ngIf="!contentLoaded" [theme]="theme"></ngx-skeleton-loader>
+  <ngx-skeleton-loader *ngIf="!contentLoaded" [theme]="ngxLoaderTheme"></ngx-skeleton-loader>
   <h1 class="d-flex justify-content-center text-capitalize fw-bold fs-1" id="title" *ngIf="contentLoaded">
     {{ data?.title }}
   </h1>
   <div class="flex flex-row">
     <div class="thumbnailImage w-[40%]">
-      <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle" [theme]="{ theme, height: '240px' }"      
+      <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle" [theme]="{ ngxLoaderTheme, height: '240px' }"      
         ></ngx-skeleton-loader>
       <img src="{{ data?.image }}" alt="imagename" *ngIf="contentLoaded" />
     </div>
     <div class="mt-4"></div>
     <div class="flex flex-col w-[59%]">
-      <ngx-skeleton-loader count="5" *ngIf="!contentLoaded" [theme]="theme"> </ngx-skeleton-loader>
+      <ngx-skeleton-loader count="5" *ngIf="!contentLoaded" [theme]="ngxLoaderTheme"> </ngx-skeleton-loader>
       <div class="mainContent font-bold" *ngIf="contentLoaded">
         <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.description)"></div>
       </div>
       <div class="mt-4"></div>
-      <ngx-skeleton-loader count="5" *ngIf="!contentLoaded" [theme]="theme"> </ngx-skeleton-loader>
+      <ngx-skeleton-loader count="5" *ngIf="!contentLoaded" [theme]="ngxLoaderTheme"> </ngx-skeleton-loader>
       <div class="mainContent h-[300px] overflow-y-auto" *ngIf="contentLoaded">
         <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.content)"></div>
       </div>

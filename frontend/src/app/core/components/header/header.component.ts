@@ -4,9 +4,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { SweetAlertOptions } from 'sweetalert2';
-import { BlogService } from '../../../features/blogs/services/blog.service';
 import { AuthService } from '../../../features/auth/services/auth.service';
 import { SharedService } from '../../../shared/services/shared.service';
+import { UserService } from 'src/app/features/users/services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   public routerOutlet: boolean = true;
   public profileImage: string = '';
   public userName: string = '';
-  public appName = 'MEAN Stack Blog';
+  public appTitle = '';
 
   constructor(
     private elementRef: ElementRef,
@@ -30,12 +30,13 @@ export class HeaderComponent implements OnInit {
     private route: Router,
     private sharedService: SharedService,
     private authService: AuthService,
-    private blogService: BlogService,
+    private userService: UserService,
   ) { }
   alertOpt: SweetAlertOptions = {};
   color: string = '';
 
   ngOnInit(): void {
+    this.appTitle = this.sharedService.appTitle;
     this.sharedService.setRouterOutlet(this.route.url);
     this.sharedService.showNavar.subscribe((val) => {
       this.routerOutlet = val;
@@ -43,10 +44,14 @@ export class HeaderComponent implements OnInit {
     this.alertOpt = { title: 'Success!', text: 'Saved successfuly', toast: false, allowOutsideClick: false, };
     this.authService.checkLogin();
 
+    this.isLoggedInFn();
+  }
+
+  isLoggedInFn(): void{
     this.authService.isLoggedIn.subscribe((val) => {
       this.loggedIn = val;
       if (this.loggedIn) {
-        this.blogService.getMe().subscribe({
+        this.userService.profile().subscribe({
           next: (res: any) => {
             this.sharedService.setProfileImage(res.data.image);
             this.userName = res.data.username;

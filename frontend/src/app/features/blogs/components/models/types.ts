@@ -2,4 +2,4 @@
 export type Sort = 'lowest' | 'highest' | 'toprated' | 'a-z' | 'z-a';
 
 /** The height of blog box */
-export const ROW_HEIGHT: { [id: number]: number } = { 1: 280, 2: 300, 4: 320 };
+export const ROW_HEIGHT: { [id: number]: number } = { 1: 320, 2: 300, 4: 320 };

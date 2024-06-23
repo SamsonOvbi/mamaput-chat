@@ -1,6 +1,6 @@
-<mat-toolbar class="fixed top-0 left-0 right-0 z-50 flex justify-between mb-2 flex-wrap mat-toolbar" >
+<mat-toolbar class="fixed top-0 left-0 right-0 z-50 flex justify-between mb-2 flex-wrap mat-toolbar">
   <div class="logo">
-    <a routerLink="/" matRipple> <span class="text-lg p-2 ">{{appName}}</span></a>
+    <a routerLink="/" matRipple> <span class="text-lg p-2 ">{{appTitle}}</span></a>
   </div>
 
   <!-- <div class="flex-1 min-w-32">
@@ -16,10 +16,8 @@
   </div> -->
 
   <ul class="nav-links">
-    <li class="links">
-      <a routerLink="/read" matRipple>Read</a>
-    </li>
-    <li class="links"><a routerLink="/write">Write</a></li>
+    <li class="links"> <a routerLink="/blogs/read" matRipple>Read</a> </li>
+    <li class="links"><a routerLink="/blogs/write">Write</a></li>
   </ul>
 
   <ng-container *ngIf="loggedIn; else loggedOutMenu">
@@ -43,7 +41,7 @@
     <div class="profile-drop" [matMenuTriggerFor]="userMenu">
       <div style="display: flex; align-items: end;">
         <div class="profile-image">
-          <img [src]="profileImage || 'assets/images/avatar.svg'" alt="profile-image" class="profile-image" />
+          <img [src]="profileImage || '/assets/images/avatar.svg'" alt="profile-image" class="profile-image" />
         </div>
         <span class="mx-2 text-wrap max-w-[120px]">{{userName.split(' ')[0]}}</span>
         <mat-icon>arrow_drop_down</mat-icon>

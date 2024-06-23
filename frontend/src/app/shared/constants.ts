@@ -1,3 +1,5 @@
+import Swal, { SweetAlertOptions } from 'sweetalert2';
+
 export class AllConstants {
   public static genericError: string = 'Something went wrong!! Please try again!!';
 
@@ -25,3 +27,31 @@ export enum DialogType {
   Warn = 'warn',
   error = 'error'
 }
+
+export const swalFireWarning = {
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+};
+
+export const swalFireError = {
+  title: 'Oops...',
+  text: "Something Went Wrong",
+  icon: 'error',
+};
+
+export const swalMixin = {
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 2000,
+  timerProgressBar: true,
+  didOpen: (toast: any) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer);
+    toast.addEventListener('mouseleave', Swal.resumeTimer);
+  }
+};

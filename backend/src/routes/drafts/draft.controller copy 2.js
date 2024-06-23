@@ -1,17 +1,15 @@
+// controllers/draftPostContr.js
 const DraftModel = require('./draft.model');
-const PostModel = require('../blogs/blog.model');
+const PostModel = require('../posts/post.model');
 const UserModel = require('../auth/user.model');
 const path = require('path');
 const fs = require('fs');
 const { default: mongoose } = require('mongoose');
 
-const draftContr = {};
+const draftPostContr = {};
 
-
-draftContr.getAllDrafts = async (req, res, next) => {
+draftPostContr.getAllPosts = async (req, res, next) => {
   try {
-    const id = req.user.id;
-    console.error({ id });
     const user = await UserModel.findById(req.user.id).populate('drafts');
     if (!user) {
       return res.status(400).json({ success: false, message: 'User Not Found' });
@@ -24,13 +22,13 @@ draftContr.getAllDrafts = async (req, res, next) => {
   }
 };
 
-draftContr.getSingleDraft = async (req, res, next) => {
+draftPostContr.getSinglePost = async (req, res, next) => {
   try {
-    const draftDraft = await DraftModel.findById(req.params.id).populate('user', 'username');
-    if (!draftDraft) {
+    const draftPost = await DraftModel.findById(req.params.id).populate('user', 'username');
+    if (!draftPost) {
       return res.status(400).json({ success: false, message: 'Draft Not Found' });
     }
-    res.status(200).json({ success: true, data: draftDraft });
+    res.status(200).json({ success: true, data: draftPost });
   } catch (err) {
     console.error({ error: err });
     if (!err.statusCode) { err.statusCode = 500; }
@@ -38,72 +36,45 @@ draftContr.getSingleDraft = async (req, res, next) => {
   }
 };
 
-// draftContr.draftBlog = async (req, res, next) => {
-draftContr.saveDraft = async (req, res, next) => {
+draftPostContr.savePost = async (req, res, next) => {
   const { content, title, description, image } = req.body;
   if (!content || !title || !description || !image) {
-    const error = new Error("Missing required fields.");
+    const error = new Error('Missing required fields.');
     error.statusCode = 422;
-    throw error;
+    return next(error);
   }
-  const session = await DraftModel.startSession();
+  const session = await mongoose.startSession();
   session.startTransaction();
   try {
-    const id = req.user.id;
-    let creator;
-    const draft = await new DraftModel({
-      title: title, content: content, description: description, image: image, user: id, status: 'drafts',
-    });
-    await draft.save();
-    const user = await UserModel.findByIdAndUpdate(req.user.id, { $push: { drafts: draft } }, { new: true });
-    creator = user;
+    const draftPost = new DraftModel({ title, content, description, image, user: req.user.id });
+    await draftPost.save({ session });
+    await UserModel.findByIdAndUpdate(req.user.id, { $push: { drafts: draftPost._id } }, { session, new: true });
     await session.commitTransaction();
     session.endSession();
-    res.status(201).json({
-      message: "Blog Published Successfully",
-      draft: draft,
-      creator: { _id: creator._id, username: creator.username },
-    });
+    res.status(201).json({ message: 'Draft Published Successfully', draftPost });
   } catch (err) {
     await session.abortTransaction();
     session.endSession();
+    console.error({ error: err });
+    if (!err.statusCode) { err.statusCode = 500; }
     next(err);
   }
 };
 
-// draftContr.saveDraft = async (req, res, next) => {
-//   const { content, title, description, image } = req.body;
-//   if (!content || !title || !description || !image) {
-//     const error = new Error('Missing required fields.');
-//     error.statusCode = 422;
-//     return next(error);
-//   }
-//   try {
-//     const draft = new DraftModel({ title, content, description, image, user: req.user.id });
-//     await draft.save();
-//     await UserModel.findByIdAndUpdate(req.user.id, { $push: { drafts: draft._id } }, { new: true });
-//     res.status(201).json({ message: 'Draft Published Successfully', draft });
-//   } catch (err) {
-//     console.error({ error: err });
-//     if (!err.statusCode) { err.statusCode = 500; }
-//     next(err);
-//   }
-// };
-
-draftContr.deleteDraft = async (req, res, next) => {
+draftPostContr.deletePost = async (req, res, next) => {
   try {
-    const draft = await DraftModel.findById(req.params.id);
-    if (!draft) {
+    const draftPost = await DraftModel.findById(req.params.id);
+    if (!draftPost) {
       const error = new Error('Could not Find the post');
       error.statusCode = 404;
       return next(error);
     }
-    if (draft.user.toString() !== req.user.id) {
+    if (draftPost.user.toString() !== req.user.id) {
       const error = new Error('Not Authorized');
       error.statusCode = 403;
       return next(error);
     }
-    clearImage(draft.image);
+    clearImage(draftPost.image);
     await DraftModel.findByIdAndRemove(req.params.id);
     await UserModel.findByIdAndUpdate(req.user.id, { $pull: { drafts: req.params.id } });
     res.status(200).json({ message: 'Draft Deleted' });
@@ -114,7 +85,7 @@ draftContr.deleteDraft = async (req, res, next) => {
   }
 };
 
-draftContr.updateDraft = async (req, res, next) => {
+draftPostContr.updatePost = async (req, res, next) => {
   const { title, description, content, _image } = req.body;
   let image = _image;
   try {
@@ -126,22 +97,22 @@ draftContr.updateDraft = async (req, res, next) => {
       error.statusCode = 422;
       return next(error);
     }
-    const draft = await DraftModel.findById(req.params.id);
-    if (!draft) {
+    const draftPost = await DraftModel.findById(req.params.id);
+    if (!draftPost) {
       const error = new Error('Could not find post.');
       error.statusCode = 404;
       return next(error);
     }
-    if (draft.user.toString() !== req.user.id) {
+    if (draftPost.user.toString() !== req.user.id) {
       const error = new Error('Not Authorized!');
       error.statusCode = 403;
       return next(error);
     }
-    draft.title = title;
-    draft.image = image;
-    draft.description = description;
-    draft.content = content;
-    const result = await draft.save();
+    draftPost.title = title;
+    draftPost.image = image;
+    draftPost.description = description;
+    draftPost.content = content;
+    const result = await draftPost.save();
     res.status(200).json({ message: 'Draft updated!', post: result });
   } catch (err) {
     console.error({ error: err });
@@ -150,21 +121,29 @@ draftContr.updateDraft = async (req, res, next) => {
   }
 };
 
-draftContr.publishDraft = async (req, res, next) => {
+draftPostContr.publishPost = async (req, res, next) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
   try {
-    const draft = await DraftModel.findById(req.params.id);
-    if (!draft) {
+    const draftPost = await DraftModel.findById(req.params.id);
+    if (!draftPost) {
       const error = new Error('Draft Not Found');
       error.statusCode = 404;
+      await session.abortTransaction();
+      session.endSession();
       return next(error);
     }
-    const { content, title, description, image } = draft;
+    const { content, title, description, image } = draftPost;
     const post = new PostModel({ title, content, description, image, user: req.user.id });
-    await post.save();
-    await UserModel.findByIdAndUpdate(req.user.id, { $push: { posts: post._id }, $pull: { drafts: draft._id } });
-    await DraftModel.findByIdAndRemove(req.params.id);
+    await post.save({ session });
+    await UserModel.findByIdAndUpdate(req.user.id, { $push: { posts: post._id }, $pull: { drafts: draftPost._id } }, { session });
+    await DraftModel.findByIdAndRemove(req.params.id, { session });
+    await session.commitTransaction();
+    session.endSession();
     res.status(201).json({ message: 'Blog Published Successfully', post });
   } catch (err) {
+    await session.abortTransaction();
+    session.endSession();
     console.error({ error: err });
     if (!err.statusCode) { err.statusCode = 500; }
     next(err);
@@ -176,4 +155,4 @@ const clearImage = (filePath) => {
   fs.unlink(filePath, (err) => console.log(err));
 };
 
-module.exports = draftContr;
+module.exports = draftPostContr;

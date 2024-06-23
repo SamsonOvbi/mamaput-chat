@@ -2,12 +2,12 @@
   <swiper *ngIf="blogs2.length > 0" [config]="config">
     <ng-template swiperSlide *ngFor="let blog of blogs2 | slice:0:9; let idx = index">
       <div class="p-1 shadow-lg rounded-lg max-h-[300px] flex flex-row ">
-        <a [routerLink]="'/blog-details/' + blog.slug" class="max-h-56 ">
+          <a [routerLink]="['/blogs/blog-details/', blog._id]" class="max-h-56">
           <img [src]="blog.image" alt="slide {{ blog.name }}"
             class="min-w-[120px] h-[150px] object-contain rounded-t-lg mx-auto" />
         </a>
 
-        <a [routerLink]="'/blog-details/' + blog.slug" class="p-1 ">
+          <a [routerLink]="['/blogs/blog-details/', blog._id]" class="p-1">
           <p class="truncate text-wrap hover:whitespace-normal text-sm font-semibold">Title: {{ blog.name }}</p>
           <p class="text-md">Price: {{blog.price | currency}}</p>
           <app-rating [rating]="blog.rating" [numReviews]="blog.numReviews"></app-rating>
