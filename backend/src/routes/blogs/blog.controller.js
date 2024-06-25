@@ -42,7 +42,7 @@ blogContr.getAllBlogData = async (req, res, next) => {
     let find = await PostModel.find({}).sort({ _id: -1 }).populate({
       path: "user", select: "username image",
     });
-    console.error({ find: find[0] });
+    // console.error({ find: find[0] });
     res.status(200).json({
       success: true,
       message: "Blog Data Found",
@@ -58,7 +58,7 @@ blogContr.getSingleBlog = async (req, res, next) => {
   const { id } = req.params;
   try {
     const singleBlog = await PostModel.findById(id).populate({
-      path: "user", select: "username",
+      path: "user", select: "username image role",
     });
 
     if (!singleBlog) {
@@ -115,7 +115,7 @@ blogContr.updateBlog = async (req, res, next) => {
       error.statusCode = 422;
       throw error;
     }
-    console.error({ image });
+    // console.error({ image });
     let post = await PostModel.findById(id);
     if (!post) {
       const error = new Error("Could not find post.");

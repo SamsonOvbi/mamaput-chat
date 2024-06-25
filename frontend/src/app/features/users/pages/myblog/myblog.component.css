@@ -44,12 +44,12 @@
   height: 100%;
   margin-right: 20px;
   margin-top: 10px;
-}
-.left-div h1 {
-  word-break: break-word;
-}
-.left-div p1 {
-  word-break: break-word;
+  h1 {
+    word-break: break-word;
+  }
+  p1 {
+    word-break: break-word;
+  }
 }
 .right-div {
   width: 40%;

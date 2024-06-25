@@ -1,18 +1,5 @@
 [
   {
-    "username": "Joe Admin",
-    "email": "joe.admin@example.com",
-    "role": "publisher",
-    "verified": "true",
-    "password": "123456",
-    "image": "51eg55uWmdL._AC_UX679_.jpg",
-    "resetPasswordToken": "",
-    "resetPasswordExpire": "2023-05-25T12:00:00.000Z",
-    "createdAt": "2024-04-19T10:53:16.540Z",
-    "posts": [],
-    "drafts": []
-  },
-  {
     "username": "John A. Shobola",
     "email": "johnashobola@gmail.com",
     "role": "user",

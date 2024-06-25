@@ -3,7 +3,7 @@
     <div *ngFor="let in of counter(5); let i = index">
       <div class="content" matRipple>
         <div class="left-div">
-          <div class="writer-info-container">
+          <div class="pb-2">
             <div class="info">
               <div class="profile-image">
                 <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle"
@@ -44,7 +44,7 @@
     <div *ngFor="let data of myBlog.posts">
       <div class="content" matRipple>
         <div class="left-div">
-          <div class="writer-info-container">
+          <div class="pb-2">
             <div class="info">
               <div class="profile-image">
                 <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle"

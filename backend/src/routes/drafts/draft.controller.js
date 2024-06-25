@@ -26,7 +26,9 @@ draftContr.getAllDrafts = async (req, res, next) => {
 
 draftContr.getSingleDraft = async (req, res, next) => {
   try {
-    const draftDraft = await DraftModel.findById(req.params.id).populate('user', 'username');
+    const draftDraft = await DraftModel.findById(req.params.id).populate({
+      path: "user", select: "username image role",
+    });
     if (!draftDraft) {
       return res.status(400).json({ success: false, message: 'Draft Not Found' });
     }

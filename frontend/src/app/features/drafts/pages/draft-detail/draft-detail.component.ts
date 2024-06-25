@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
-import { BlogService } from '../../services/blog.service';
 import { environment } from '../../../../../environments/environment';
+import { DraftService } from '../../services/draft.service';
 
 @Component({
-  selector: 'app-blog-detail',
-  templateUrl: './blog-detail.component.html',
-  styleUrls: ['./blog-detail.component.css'],
+  selector: 'app-draft-detail',
+  templateUrl: './draft-detail.component.html',
+  styleUrls: ['./draft-detail.component.css'],
 })
-export class BlogDetailComponent implements OnInit {
+export class DraftDetailComponent implements OnInit {
   public data: any;
   public id: string | null | undefined;
   contentLoaded = false;
@@ -21,7 +21,7 @@ export class BlogDetailComponent implements OnInit {
 
   constructor(
     private activatedRouter: ActivatedRoute,
-    private blogService: BlogService,
+    private draftService: DraftService,
     public sanitizer: DomSanitizer
   ) { }
   ngOnInit(): void {    
@@ -30,7 +30,7 @@ export class BlogDetailComponent implements OnInit {
     //   this.id = params.get('id');
     // });
     console.log('id...', this.id);
-    this.blogService.getSingleBlog(this.id).subscribe((res: any) => {
+    this.draftService.getSingleDraft(this.id).subscribe((res: any) => {
       console.log('res data..', res);
       this.data = res.data;
       let imagename = this.data.image;

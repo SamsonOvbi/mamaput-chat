@@ -29,7 +29,7 @@ export class DraftService {
     );
   }
 
-  getDraftById(id: any) {
+  getSingleDraft(id: any) {
     return this.http.get(`${this.apiUrl}/draft/get-single-draft/${id}`,
       this.authService.setHeader()
     );

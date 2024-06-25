@@ -4,15 +4,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
-import { MessageDialogComponent } from '../../dialogs';
-import { DraftService } from '../services/draft.service';
-import { environment } from '../../../../environments/environment';
-import { modulesQuill } from '../../../models/types';
-import { swalFireWarning, swalMixin } from '../../../shared/constants';
+import { MessageDialogComponent } from '../../../dialogs';
+import { DraftService } from '../../services/draft.service';
+import { environment } from '../../../../../environments/environment';
+import { modulesQuill } from '../../../../models/types';
+import { swalFireWarning, swalMixin } from '../../../../shared/constants';
 @Component({
   selector: 'app-editdraft',
   templateUrl: './editdraft.component.html',
-  styleUrls: ['./editdraft.component.css', '../../blogs/pages/writeblog/writeblog.component.css',],
+  styleUrls: ['./editdraft.component.css', '../../../blogs/pages/writeblog/writeblog.component.css',],
 })
 export class EditdraftComponent implements OnInit {
   public modules = modulesQuill;
@@ -47,7 +47,7 @@ export class EditdraftComponent implements OnInit {
       this.id = params.get('id');
       // console.log('id...', this.id);
     });
-    this.draftService.getDraftById(this.id).subscribe((res: any) => {
+    this.draftService.getSingleDraft(this.id).subscribe((res: any) => {
       // console.log('res data..', res);
       this.data = res.data;
       this.editorForm.controls['title'].patchValue(res.data.title);
