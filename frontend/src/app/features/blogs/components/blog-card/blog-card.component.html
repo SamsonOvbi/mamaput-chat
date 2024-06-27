@@ -15,7 +15,7 @@
         <div class="w-full">
           <mat-card class="shadow-lg p-2" [ngClass]="{'text-center': !fullWidthMode, }" *ngIf="data">
 
-            <div class="flex flex-row mt-2" style="margin-left: 72px;">
+            <div class="flex flex-row mt-2" style="margin-left: 8px;">
               <div class="h-[30px] w-[30px] rounded-full">
                 <img src="/assets/images/avatar.svg" alt="user image" *ngIf="!data.user || !data.user.image" />
                 <img src="{{ apiUrl }}/img/{{ data.user && data.user.image ? data.user.image : '' }}"
@@ -33,32 +33,40 @@
             <div [ngClass]="{'flex overflow-x-scroll !important': fullWidthMode}">
               <a [routerLink]="['/blogs/blog-details/', data._id]">
                 <img class="mb-1 mx-auto min-w-24"
-                  [ngClass]="{'h-[160px]': !fullWidthMode, 'h-[270px] w-[300px]': fullWidthMode}" [src]="data.image"
+                  [ngClass]="{'h-[160px]': !fullWidthMode, 'max-h-[270px] w-[300px]': fullWidthMode}" [src]="data.image"
                   alt="{{ data.title }}" />
               </a>
 
-              <mat-card-content class="w-full"
-                [ngClass]="{'pl-2 flex flex-col justify-between w-[600px]': fullWidthMode}">
+              <mat-card-content class="w-full h-[270px]"
+                [ngClass]="{'pl-2 flex flex-col justify-between': fullWidthMode}">
                 <a [routerLink]="['/blogs/blog-details/', data._id]">
                   <span class="font-bold text-xs uppercase mb-1">{{ data.category }}</span>
 
                   <p class="truncate hover:whitespace-normal" *ngIf="!fullWidthMode">{{ data.title }}</p>
-                  <div class="text-wrap max-h-[50px]" *ngIf="fullWidthMode">
+                  <div class="truncate text-wrap max-h-[60px]" *ngIf="fullWidthMode">
                     <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
                     <h2 *ngIf="contentLoaded"> {{ data.title }} </h2>
                   </div>
-                  <p class="text-xs text-wrap max-h-[140px] overflow-auto w-full" *ngIf="fullWidthMode">
+                  <p class="mt-1 text-xs text-wrap max-h-[140px] overflow-auto w-full" *ngIf="fullWidthMode">
                     {{ data.description }}
                   </p>
                 </a>
                 <app-rating class="mt-2" [rating]="data.rating" [numReviews]="data.numReviews"></app-rating>
 
-                <!-- <div class="flex justify-between mr-1">
-                    <span class="text-red-400">{{ data.price | currency }}</span>
-                    <button class="text-blue-700 hover:text-blue-900 " (click)="onAddToCart(data)">
-                      <mat-icon class="mr-1">add_shopping_cart</mat-icon>
-                      <span class="text-sm">ADD TO CART</span>
-                    </button>
+                <!-- <div class="flex justify-between mx-1">
+                  <button class="text-blue-700 hover:text-blue-900 " (click)="onUpVote()">
+                    <mat-icon class="mr-1">up_vote</mat-icon>
+                    <span class="text-sm">({{upVotes}})</span>
+                  </button>
+                  <button class="text-blue-700 hover:text-blue-900 " (click)="onDownVote()">
+                    <mat-icon class="mr-1">down_vote</mat-icon>
+                    <span class="text-sm">({{downVotes}})</span>
+                  </button>
+                  <button class="text-blue-700 hover:text-blue-900 " (click)="onWriteReview()">
+                    <mat-icon class="mr-1">write_review</mat-icon>
+                    <span class="text-sm">Write Review</span>
+                  </button>
+                  <span class="text-red-400">{{ data.price | currency }}</span>
                   </div> -->
               </mat-card-content>
             </div>
