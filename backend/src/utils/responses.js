@@ -23,4 +23,20 @@ const sendTokenResponse = (user, statusCode, res) => {
   res.status(statusCode).json({ success: true, token, roleId, imageUrl, });
 };
 
+const clearImage = (filePath) => {
+  filePath = path.join(__dirname, "../uploads", filePath);
+  fs.access(filePath, fs.constants.F_OK, (err) => {
+    if (!err) {
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error(err);
+        }
+      });
+    } else {
+      console.error('File does not exist');
+    }
+  });
+};
+
+
 module.exports = {ErrorResponse, sendTokenResponse};

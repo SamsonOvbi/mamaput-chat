@@ -4,8 +4,6 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const jwt = require('jsonwebtoken');
-const { ErrorResponse } = require("../../utils/errorResponse");
-const User = require('./user.model');
 const UserModel = require('./user.model');
 const jwtSecret = process.env.JWT_SECRET;
 const signOptions = { expiresIn: '30d', };

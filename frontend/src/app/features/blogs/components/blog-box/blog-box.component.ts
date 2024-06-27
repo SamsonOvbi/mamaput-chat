@@ -9,7 +9,7 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 import { MessageDialogService } from 'src/app/shared/dialogs/message-dialog/message-dialog.service';
 import { BlogService } from '../../services/blog.service';
 import { BlogData } from '../../models/blog-model';
-import { ROW_HEIGHT } from '../models/types';
+import { ROW_HEIGHT } from '../../models/types';
 
 @Component({
   selector: 'app-blog-box',

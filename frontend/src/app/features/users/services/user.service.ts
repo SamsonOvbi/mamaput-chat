@@ -22,7 +22,7 @@ export class UserService {
   Get User Blog
    */
 
-  profile(): Observable<any> {
+  getProfile(): Observable<any> {
     return this.http.get(`${this.apiUrl}/user/profile`, this.authService.setHeader());
   }
 

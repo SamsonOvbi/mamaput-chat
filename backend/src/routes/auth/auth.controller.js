@@ -1,7 +1,7 @@
 const dotenv = require("dotenv");
 dotenv.config();
 const asyncHandler = require("../../middleware/async");
-const { ErrorResponse } = require("../../utils/errorResponse");
+const { ErrorResponse, sendTokenResponse } = require("../../utils/responses");
 const PostModel = require("../blogs/blog.model");
 const bcrypt = require("bcryptjs");
 const sendEmail = require("./utils/sendEmail");
@@ -173,38 +173,5 @@ authContr.resetPassword = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("Failed to reset password", 500));
   }
 });
-
-const sendTokenResponse = (user, statusCode, res) => {
-  const token = user.getSignedJwtToken();
-  // To Store token in cookie
-  const options = {
-    expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 1000),
-    httpOnly: true,
-  };
-  let roleId;
-  let imageUrl = user.image;
-  if (user.role === "user") {
-    roleId = 1;
-  } else {
-    roleId = 2;
-  }
-
-  res.status(statusCode).json({ success: true, token, roleId, imageUrl, });
-};
-
-const clearImage = (filePath) => {
-  filePath = path.join(__dirname, "../uploads", filePath);
-  fs.access(filePath, fs.constants.F_OK, (err) => {
-    if (!err) {
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          console.error(err);
-        }
-      });
-    } else {
-      console.error('File does not exist');
-    }
-  });
-};
 
 module.exports = authContr;

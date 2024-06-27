@@ -3,19 +3,19 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from './material.module';
 import { SwiperModule } from 'swiper/angular';
-
-// import { CartTableComponent } from '../features/cart/component/cart-table/cart-table.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { MessageComponent } from './dialogs/message/message.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { CommonModule } from '@angular/common';
+
 import { MessageDialogComponent } from './dialogs/message-dialog/message-dialog.component';
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
+import { NotLoadedComponent } from './components/notLoaded/not-loaded.component';
 
 const sharedRoutes: Routes = [];
-const componentsList = [ MessageDialogComponent, ConfirmDialogComponent ];
+const componentsList = [ 
+  MessageDialogComponent, ConfirmDialogComponent, NotLoadedComponent, 
+];
 const moduleList = [
-  FormsModule, ReactiveFormsModule, CommonModule,
-  MaterialModule, SwiperModule,
+  CommonModule, NgxSkeletonLoaderModule, MaterialModule, SwiperModule,
 ]
 
 @NgModule({

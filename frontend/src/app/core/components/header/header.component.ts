@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
     this.authService.isLoggedIn.subscribe((val) => {
       this.loggedIn = val;
       if (this.loggedIn) {
-        this.userService.profile().subscribe({
+        this.userService.getProfile().subscribe({
           next: (res: any) => {
             this.sharedService.setProfileImage(res.data.image);
             this.userName = res.data.username;

@@ -47,3 +47,12 @@ body {
   left: 50%;
   position: absolute;
 }
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 80px); /* Adjust the value based on the footer height */
+  flex-grow: 1;
+}
+footer {
+  margin-top: auto;
+}

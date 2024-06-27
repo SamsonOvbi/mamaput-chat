@@ -1,22 +1,20 @@
-<div class="h-[75vh] ">
-  <div class="flex flex-wrap ">
-    <div class="w-full md:w-5/12">
-      <h1 class="hero-text-h1">
-        Publishing Platform for bloggers
-      </h1>
-      <h2 class="hero-text-h2">
-        You can chat too, eventually
-      </h2>
-      <p class="below-hero-text-p justify-start">
-        Transform your thoughts into stunning digital narratives with ease and
-        speed on our innovative online publishing platform
-      </p>
-      <button class="landing-get-started-button" *ngIf="!loggedIn" (click)="navigateToLogin()">
-        Get Started for Free
-      </button>
-    </div>
-    <div class="w-full md:w-6/12 mx-auto mb-12">
-      <img src="/assets/images/landing-page-l.png" alt="landing-page-l.png" />
-    </div>
+<div class="h-[75vh] flex flex-wrap">
+  <div class="w-full md:w-5/12">
+    <h1 class="hero-text-h1">
+      Publishing Platform for bloggers
+    </h1>
+    <h2 class="hero-text-h2">
+      You can chat too, eventually
+    </h2>
+    <p class="below-hero-text-p justify-start">
+      Transform your thoughts into stunning digital narratives with ease and
+      speed on our innovative online publishing platform
+    </p>
+    <button class="landing-get-started-button" *ngIf="!loggedIn" (click)="navigateToLogin()">
+      Get Started for Free
+    </button>
+  </div>
+  <div class="w-full md:w-6/12 mx-auto mb-12 -mt-50">
+    <img src="/assets/images/landing-page-l.png" alt="landing-page-l.png" class="p-8 object-contain max-h-[500px] w-[500px]"/>
   </div>
 </div>

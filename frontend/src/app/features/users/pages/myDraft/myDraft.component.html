@@ -1,48 +1,6 @@
 <div class="read-draft-page">
   <div *ngIf="!contentLoaded">
-    <div *ngFor="let in of counter(5); let i = index">
-      <div class="content" matRipple>
-        <div class="left-div">
-          <div class="writer-info-container">
-            <div class="info">
-              <div class="profile-image">
-                <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle"
-                  [theme]="{ width: '20px', height: '20px' }"></ngx-skeleton-loader>
-                <img src="/assets/images/secure_login.svg" alt="" *ngIf="contentLoaded" />
-              </div>
-              <ngx-skeleton-loader *ngIf="!contentLoaded" class="writer-name"></ngx-skeleton-loader>
-              <h4 class="writer-name" *ngIf="contentLoaded">{{appTitle}}</h4>
-            </div>
-          </div>
-          <div class="draft-title">
-            <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-            <h1 *ngIf="contentLoaded">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </h1>
-          </div>
-          <div class="draft-content">
-            <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-            <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-
-            <p *ngIf="contentLoaded">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse
-              rerum possimus pariatur, illum animi illo mollitia
-            </p>
-          </div>
-        </div>
-        <div class="right-div">
-          <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle" [theme]="{
-              width: '88%',
-              height: '100%',
-              'border-radius': '29px',
-              display: 'flex',
-              'justify-content': 'centre',
-              margin: '0 auto'
-            }"></ngx-skeleton-loader>
-          <img src="/assets/images/loginBg.png" alt="" *ngIf="contentLoaded" />
-        </div>
-      </div>
-    </div>
+    <app-not-loaded [contentLoaded]="contentLoaded"></app-not-loaded>
   </div>
 
   <div *ngIf="contentLoaded">
@@ -64,28 +22,20 @@
           <a [routerLink]="['/drafts/draft-details/', data._id]">
             <div class="draft-title">
               <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-              <h1 *ngIf="contentLoaded">
-                {{ data.title }}
-              </h1>
+              <h1 *ngIf="contentLoaded">                {{ data.title }}              </h1>
             </div>
             <div class="draft-content">
               <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-              <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-              <div *ngIf="contentLoaded" [innerHTML]="
-                  sanitizer.bypassSecurityTrustHtml(data?.description)
-                "></div>
+              <div *ngIf="contentLoaded" [innerHTML]="                  sanitizer.bypassSecurityTrustHtml(data?.description)                "></div>
             </div>
-            <div class="date-time">
+            <div class="ml-4 text-gray-500 mb-2">
               <span>{{ data?.createdAt | date }}</span>
             </div>
           </a>
         </div>
         <div class="right-div">
           <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle" [theme]="{
-              width: '40%',
-              height: '100%',
-              'border-radius': '29px',
-              'margin-left': '12%'
+              width: '40%', height: '100%', 'border-radius': '29px', 'margin-left': '12%'
             }"></ngx-skeleton-loader>
           <img src="{{ apiUrl }}/img/{{ data?.image }}" alt="" *ngIf="contentLoaded" />
         </div>

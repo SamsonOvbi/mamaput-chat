@@ -8,6 +8,8 @@ import { QuillModule } from 'ngx-quill';
 import { SharedNavBarModule } from '../../shared/shared-navbar.module';
 import { MaterialModule } from '../../shared/material.module';
 import { BlogsRoutingModule } from './blogs.routing.module';
+import { CoreModule } from 'src/app/core/core.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 import { WriteblogComponent } from './pages/writeblog/writeblog.component';
 import { BlogListComponent } from './pages/blog-list/blog-list.component';
@@ -17,7 +19,6 @@ import { MessageDialogComponent } from '../dialogs';
 import { BlogBoxComponent } from './components/blog-box/blog-box.component';
 import { BlogCardComponent } from './components/blog-card/blog-card.component';
 import { BlogHeaderComponent } from './components/blog-header/blog-header.component';
-import { CoreModule } from 'src/app/core/core.module';
 
 const componentsList = [
   WriteblogComponent, MessageDialogComponent, BlogListComponent,
@@ -29,7 +30,7 @@ const modulesList = [
   CommonModule, BlogsRoutingModule, FormsModule, ReactiveFormsModule,
   QuillModule, MaterialModule, HttpClientModule,
   SweetAlert2Module, NgxSkeletonLoaderModule, SharedNavBarModule,
-  CoreModule,
+  CoreModule, SharedModule,
 ];
 
 @NgModule({

@@ -3,7 +3,7 @@ import { DomSanitizer, Title } from '@angular/platform-browser';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { PageEvent } from '@angular/material/paginator';
 import { BlogData } from '../../models/blog-model';
-import { ROW_HEIGHT } from '../models/types';
+import { ROW_HEIGHT } from '../../models/types';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
 })
 export class BlogCardComponent implements OnInit {
   contentLoaded = false;
-  noDataFound = false;
+  noDataFound = true;
   // @Input() blogs!: BlogData[];
   @Input() blogs!: any;
   @Input() showSlides = true;
@@ -46,7 +46,8 @@ export class BlogCardComponent implements OnInit {
 
   get paginatedBlogs() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    this.contentLoaded = true;
+    this.contentLoaded = true; 
+    this.noDataFound = false;
     return this.blogs.slice(startIndex, startIndex + this.itemsPerPage);
   }
 

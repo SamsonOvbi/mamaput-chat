@@ -7,9 +7,10 @@ import { SharedService } from './shared/services/shared.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'mean-stack-blog';
+  appTitle = '';
   public editorValue: string = '';
   public loading!: boolean;
+  
   constructor(
     private sharedService: SharedService,
     private cdRef: ChangeDetectorRef
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
   }
 
   init() {
+    this.appTitle = this.sharedService.appTitle;
     this.sharedService.loading.subscribe((res) => {
       this.loading = res;
       this.cdRef.detectChanges();

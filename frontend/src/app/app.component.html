@@ -10,10 +10,11 @@
       <app-footer class="footer"></app-footer>
     </div>
   </mat-sidenav-content>
-</mat-sidenav-container>  
+</mat-sidenav-container>
 
 <div class="page-overlay" [hidden]="!loading">
-  <div class="spinner">
+  <mat-progress-bar></mat-progress-bar>
+  <div class="absolute top-1/2 left-1/2">
     <mat-spinner></mat-spinner>
   </div>
 </div>

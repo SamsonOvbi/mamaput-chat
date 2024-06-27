@@ -1,13 +1,19 @@
-<div *ngIf="loading; else result">
-  <mat-progress-bar ></mat-progress-bar>
-  <div class="relative flex items-center mt-[40vh]">
-    <mat-spinner diameter="50"></mat-spinner>
-  </div>
+<!-- <div *ngIf="!loading; else result" class="p-4 flex ">
+  <app-blog-box #blogBox [blogsList]="blogsList" [showSlides]="showSlides"></app-blog-box>
 </div>
 
 <ng-template #result class="p-4 flex ">
-  <!-- <app-slider class="bg-green-200" [blogs]="blogsList" [playInterval]="playInterval"></app-slider> -->
+  <div *ngIf="!contentLoaded">
+    <app-not-loaded [contentLoaded]="contentLoaded"></app-not-loaded>
+  </div>  
+</ng-template>  -->
 
+<div *ngIf="loading; else result">
+  <div *ngIf="!contentLoaded">
+    <app-not-loaded [contentLoaded]="contentLoaded"></app-not-loaded>
+  </div>  
+</div>
+
+<ng-template #result class="p-4 flex ">
   <app-blog-box #blogBox [blogsList]="blogsList" [showSlides]="showSlides"></app-blog-box>
-
-</ng-template>
+</ng-template> 

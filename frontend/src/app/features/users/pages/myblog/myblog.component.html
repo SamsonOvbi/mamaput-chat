@@ -1,43 +1,6 @@
 <div class="mt-8">
   <div *ngIf="!contentLoaded">
-    <div *ngFor="let in of counter(5); let i = index">
-      <div class="content" matRipple>
-        <div class="left-div">
-          <div class="pb-2">
-            <div class="info">
-              <div class="profile-image">
-                <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle"
-                  [theme]="{ width: '20px', height: '20px' }"></ngx-skeleton-loader>
-                <img src="/assets/images/secure_login.svg" alt="" *ngIf="contentLoaded" />
-              </div>
-              <ngx-skeleton-loader *ngIf="!contentLoaded" class="writer-name"></ngx-skeleton-loader>
-              <h4 class="writer-name" *ngIf="contentLoaded">{{appTitle}}</h4>
-            </div>
-          </div>
-          <div class="blog-title">
-            <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-            <h1 *ngIf="contentLoaded">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </h1>
-          </div>
-          <div class="blog-content">
-            <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-            <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-
-            <p *ngIf="contentLoaded">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse
-              rerum possimus pariatur, illum animi illo mollitia
-            </p>
-          </div>
-        </div>
-        <div class="right-div">
-          <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle" [theme]="{
-              width: '88%', height: '100%', 'border-radius': '29px', display: 'flex', 'justify-content': 'centre', margin: '0 auto'
-            }"></ngx-skeleton-loader>
-          <img src="/assets/images/loginBg.png" alt="" *ngIf="contentLoaded" />
-        </div>
-      </div>
-    </div>
+    <app-not-loaded [contentLoaded]="contentLoaded"></app-not-loaded>
   </div>
 
   <div *ngIf="contentLoaded">
@@ -45,29 +8,29 @@
       <div class="content" matRipple>
         <div class="left-div">
           <div class="pb-2">
-            <div class="info">
-              <div class="profile-image">
+            <div class="flex flex-row items-center">
+              <div class="h-[20px] w-[20px] rounded-full">
                 <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle"
                   [theme]="{ width: '20px', height: '20px' }"></ngx-skeleton-loader>
                 <img src="/assets/images/secure_login.svg" alt="" *ngIf="!myBlog.image" />
                 <img src="{{ apiUrl }}/img/{{ myBlog.image }}" alt="" *ngIf="contentLoaded && myBlog.image" />
               </div>
-              <ngx-skeleton-loader *ngIf="!contentLoaded" class="writer-name"></ngx-skeleton-loader>
-              <h4 class="writer-name" *ngIf="contentLoaded"> {{ myBlog?.username }} </h4>
+              <ngx-skeleton-loader *ngIf="!contentLoaded" class="m-0 ml-1"></ngx-skeleton-loader>
+              <h4 class="m-0 ml-1" *ngIf="contentLoaded"> {{ myBlog?.username }} </h4>
             </div>
           </div>
           <a [routerLink]="['/blogs/blog-details/', data._id]">
-            <div class="blog-title">
+            <div class="text-lg overflow-hidden text-ellipsis font-bold">
               <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
               <h1 *ngIf="contentLoaded">
                 {{ data.title }}
               </h1>
             </div>
-            <div class="blog-content">
+            <div class="text-gray-500 leading-5 text-base max-h-10 overflow-hidden">
               <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
               <div *ngIf="contentLoaded" [innerHTML]=" sanitizer.bypassSecurityTrustHtml(data?.description)"></div>
             </div>
-            <div class="date-time">
+            <div class="ml-2 text-gray-500 mb-2">
               <span>{{ data?.createdAt | date }}</span>
             </div>
           </a>
@@ -79,7 +42,7 @@
           <img src="{{ apiUrl }}/img/{{ data?.image }}" alt="" *ngIf="contentLoaded" />
         </div>
 
-        <div class="more">
+        <div class="absolute right-1 top-0.5 cursor-pointer">
           <mat-icon class="mr-2" (click)="editBlog(data._id)">edit</mat-icon>
           <mat-icon (click)="deleteBlog(data._id)">delete</mat-icon>
         </div>
@@ -88,6 +51,6 @@
   </div>
 </div>
 
-<div class="no-data-found" *ngIf="noDataFound">
+<div class="flex justify-center mx-auto w-1/2" *ngIf="noDataFound">
   <img src="/assets/images/no-data-found.png" alt="No Blog Found..!" />
 </div>

@@ -18,11 +18,11 @@
 // export class WriteReviewComponent implements OnInit, OnDestroy {
 //   form: FormGroup;
 //   @Input() currentUser: UserInfo | null = null;
+//   @Input() blog!: Blog;
 //   @Output() setSubmittedEvent = new EventEmitter<boolean>();
 //   @Output() setErrorEvent = new EventEmitter<boolean>();
 //   @Output() setLoadingEvent = new EventEmitter<boolean>();
 //   createReviewLoading = false;
-//   @Input() blog!: Blog;
 //   blogsSubscription: Subscription = Subscription.EMPTY;
 //   private subscriptions: Subscription[] = [];
 

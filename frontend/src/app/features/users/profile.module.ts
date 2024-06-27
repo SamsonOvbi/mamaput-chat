@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfileRoutingModule } from './profile-routing.module';
-import { SharedNavBarModule } from '../../shared/shared-navbar.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MaterialModule } from '../../shared/material.module';
+import { SharedNavBarModule } from '../../shared/shared-navbar.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 import { MyblogComponent } from './pages/myblog/myblog.component';
 import { EmailChangeDialogComponent, PasswordChangeDialogComponent } from '../dialogs';
@@ -16,7 +17,7 @@ const componentsList = [
   PasswordChangeDialogComponent, EmailChangeDialogComponent,
 ];
 const modulesList = [
-  CommonModule, ProfileRoutingModule, SharedNavBarModule,
+  CommonModule, ProfileRoutingModule, SharedNavBarModule, SharedModule,
   MaterialModule, ReactiveFormsModule, NgxSkeletonLoaderModule,
 ];
 @NgModule({

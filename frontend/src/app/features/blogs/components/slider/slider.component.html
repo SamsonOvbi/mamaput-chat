@@ -1,16 +1,16 @@
 <div class="bg-white">
   <swiper *ngIf="blogs2.length > 0" [config]="config">
-    <ng-template swiperSlide *ngFor="let blog of blogs2 | slice:0:9; let idx = index">
+    <ng-template swiperSlide *ngFor="let data of blogs2 | slice:0:9; let idx = index">
       <div class="p-1 shadow-lg rounded-lg max-h-[300px] flex flex-row ">
-          <a [routerLink]="['/blogs/blog-details/', blog._id]" class="max-h-56">
-          <img [src]="blog.image" alt="slide {{ blog.name }}"
+          <a [routerLink]="['/blogs/blog-details/', data._id]" class="max-h-56">
+          <img [src]="data.image" alt="slide {{ data.name }}"
             class="min-w-[120px] h-[150px] object-contain rounded-t-lg mx-auto" />
         </a>
 
-          <a [routerLink]="['/blogs/blog-details/', blog._id]" class="p-1">
-          <p class="truncate text-wrap hover:whitespace-normal text-sm font-semibold">Title: {{ blog.name }}</p>
-          <p class="text-md">Price: {{blog.price | currency}}</p>
-          <app-rating [rating]="blog.rating" [numReviews]="blog.numReviews"></app-rating>
+          <a [routerLink]="['/blogs/blog-details/', data._id]" class="p-1">
+          <p class="truncate text-wrap hover:whitespace-normal text-sm font-semibold">Title: {{ data.name }}</p>
+          <p class="text-md">Price: {{data.price | currency}}</p>
+          <app-rating [rating]="data.rating" [numReviews]="data.numReviews"></app-rating>
         </a>
       </div>
     </ng-template>

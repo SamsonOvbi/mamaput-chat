@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { AuthService } from '../../../auth/services/auth.service';
-import { BlogService } from 'src/app/features/blogs/services/blog.service';
 import { environment } from 'src/environments/environment';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { PasswordChangeDialogComponent } from 'src/app/features/dialogs';
@@ -35,7 +34,11 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.profile().subscribe((res: any) => {
+    this.getUserProfile();
+  }
+
+  getUserProfile(): void {
+    this.userService.getProfile().subscribe((res: any) => {
       this.sharedService.setProfileImage(res.data.image);
       this.profileForm.controls['username'].patchValue(res.data.username);
       this.profileForm.controls['email'].patchValue(res.data.email);
@@ -118,5 +121,5 @@ export class ProfileComponent implements OnInit {
       // console.log('closed password dialog', result);
     });
   }
-  
+
 }

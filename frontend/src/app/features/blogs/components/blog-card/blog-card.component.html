@@ -8,54 +8,58 @@
 
 <div class="max-h-[80vh] overflow-auto">
   <mat-grid-list *ngIf="!error" gutterSize="16" [cols]="cols" [rowHeight]="rowHeight">
-    <mat-grid-tile *ngFor="let blog of paginatedBlogs; trackBy: trackByBlogId">
+    <mat-grid-tile *ngFor="let data of paginatedBlogs; trackBy: trackByBlogId">
 
-      <div class="w-full flex flex-row">
-        <div class="profile-image">
-          <img src="/assets/images/avatar.svg" alt="user image" *ngIf="!blog.user || !blog.user.image" />
-          <img src="{{ apiUrl }}/img/{{ blog.user && blog.user.image ? blog.user.image : '' }}" alt=""
-            *ngIf="contentLoaded && blog.user && blog.user.image" />
-        </div>
+      <div *ngIf="contentLoaded">
+
         <div class="w-full">
-          <mat-card class="shadow-lg p-2" [ngClass]="{'text-center': !fullWidthMode, }" *ngIf="blog">
+          <mat-card class="shadow-lg p-2" [ngClass]="{'text-center': !fullWidthMode, }" *ngIf="data">
 
-            <div class="flex flex-row mt-2">
+            <div class="flex flex-row mt-2" style="margin-left: 72px;">
+              <div class="h-[30px] w-[30px] rounded-full">
+                <img src="/assets/images/avatar.svg" alt="user image" *ngIf="!data.user || !data.user.image" />
+                <img src="{{ apiUrl }}/img/{{ data.user && data.user.image ? data.user.image : '' }}"
+                  alt="data?.user?.username" *ngIf="contentLoaded && data.user && data.user.image"
+                  class="h-full w-full rounded-full" />
+              </div>
               <div>
                 <div class="flex flex-row items-center">
-                  <h4 class="mr-2" *ngIf="contentLoaded"> {{ blog?.user?.username }} </h4>
+                  <h4 class="mx-2" *ngIf="contentLoaded"> {{ data?.user?.username }} </h4>
                 </div>
               </div>
-              <div> <span>{{ blog?.createdAt | date }}</span> </div>
+              <div> <span>{{ data?.createdAt | date }}</span> </div>
             </div>
 
-            <div [ngClass]="{'flex': fullWidthMode}">
-              <a [routerLink]="['/blogs/blog-details/', blog._id]">
+            <div [ngClass]="{'flex overflow-x-scroll !important': fullWidthMode}">
+              <a [routerLink]="['/blogs/blog-details/', data._id]">
                 <img class="mb-1 mx-auto min-w-24"
-                  [ngClass]="{'h-[160px]': !fullWidthMode, 'h-[270px] w-[300px]': fullWidthMode}" [src]="blog.image"
-                  alt="{{ blog.title }}" />
+                  [ngClass]="{'h-[160px]': !fullWidthMode, 'h-[270px] w-[300px]': fullWidthMode}" [src]="data.image"
+                  alt="{{ data.title }}" />
               </a>
 
-              <mat-card-content class="w-full" [ngClass]="{'px-2 flex flex-col justify-between': fullWidthMode}">
-                <a [routerLink]="['/blogs/blog-details/', blog._id]">
-                  <span class="font-bold text-xs uppercase mb-1">{{ blog.category }}</span>
+              <mat-card-content class="w-full"
+                [ngClass]="{'pl-2 flex flex-col justify-between w-[600px]': fullWidthMode}">
+                <a [routerLink]="['/blogs/blog-details/', data._id]">
+                  <span class="font-bold text-xs uppercase mb-1">{{ data.category }}</span>
 
-                  <p class="truncate hover:whitespace-normal" *ngIf="!fullWidthMode">{{ blog.title }}</p>
-                  <div class="truncate text-wrap max-h-[50px]" *ngIf="fullWidthMode">
+                  <p class="truncate hover:whitespace-normal" *ngIf="!fullWidthMode">{{ data.title }}</p>
+                  <div class="text-wrap max-h-[50px]" *ngIf="fullWidthMode">
                     <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-                    <h2 *ngIf="contentLoaded"> {{ blog.title }} </h2>
+                    <h2 *ngIf="contentLoaded"> {{ data.title }} </h2>
                   </div>
-                  <p class="text-xs text-wrap max-h-[140px] overflow-auto" *ngIf="fullWidthMode"> {{ blog.description }}
+                  <p class="text-xs text-wrap max-h-[140px] overflow-auto w-full" *ngIf="fullWidthMode">
+                    {{ data.description }}
                   </p>
                 </a>
-                <app-rating class="mt-2" [rating]="blog.rating" [numReviews]="blog.numReviews"></app-rating>
+                <app-rating class="mt-2" [rating]="data.rating" [numReviews]="data.numReviews"></app-rating>
 
                 <!-- <div class="flex justify-between mr-1">
-                <span class="text-red-400">{{ blog.price | currency }}</span>
-                <button class="text-blue-700 hover:text-blue-900 " (click)="onAddToCart(blog)">
-                  <mat-icon class="mr-1">add_shopping_cart</mat-icon>
-                  <span class="text-sm" >ADD TO CART</span>
-                </button>
-              </div> -->
+                    <span class="text-red-400">{{ data.price | currency }}</span>
+                    <button class="text-blue-700 hover:text-blue-900 " (click)="onAddToCart(data)">
+                      <mat-icon class="mr-1">add_shopping_cart</mat-icon>
+                      <span class="text-sm">ADD TO CART</span>
+                    </button>
+                  </div> -->
               </mat-card-content>
             </div>
 

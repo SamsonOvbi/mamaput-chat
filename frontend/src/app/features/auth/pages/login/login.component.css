@@ -5,11 +5,11 @@
 
 .login-bg {
   margin: 0 auto;
-}
-
-.login-bg .login-image {
-  padding-top: 50px;
-  height: 648px;
+  .login-image {
+    padding-top: 20px;
+    height: 360px;
+    width: 360px;
+  }
 }
 
 .padding0 {
