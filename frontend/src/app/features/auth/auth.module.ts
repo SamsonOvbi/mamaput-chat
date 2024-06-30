@@ -7,15 +7,15 @@ import { LoginComponent } from './pages/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { SignupComponent } from './pages/signup/signup.component';
-import { ResetPasswordDialComponent } from '../dialogs';
-import { ResetpasswordComponent } from './pages/forgotPassword/resetpassword.component';
+import { ResetPasswordComponent } from './pages/password-reset/password-reset.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/resetpassword.component';
 
 @NgModule({
   declarations: [
     SignupComponent,
-    ResetpasswordComponent,
+    ResetPasswordComponent,
     LoginComponent,
-    ResetPasswordDialComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     CommonModule,

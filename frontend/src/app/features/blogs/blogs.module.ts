@@ -15,13 +15,12 @@ import { WriteblogComponent } from './pages/writeblog/writeblog.component';
 import { BlogListComponent } from './pages/blog-list/blog-list.component';
 import { BlogDetailComponent } from './pages/blog-detail/blog-detail.component';
 import { EditblogComponent } from './pages/editblog/editblog.component';
-import { MessageDialogComponent } from '../dialogs';
 import { BlogBoxComponent } from './components/blog-box/blog-box.component';
 import { BlogCardComponent } from './components/blog-card/blog-card.component';
 import { BlogHeaderComponent } from './components/blog-header/blog-header.component';
 
 const componentsList = [
-  WriteblogComponent, MessageDialogComponent, BlogListComponent,
+  WriteblogComponent, BlogListComponent,
   BlogDetailComponent, EditblogComponent, 
   BlogBoxComponent, BlogCardComponent, BlogHeaderComponent
 ];

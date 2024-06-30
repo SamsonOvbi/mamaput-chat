@@ -1,11 +1,13 @@
-<div class="flex flex-col flex-1 w-full min-w-full">
+<div class="flex flex-col flex-1 w-full min-w-full mt-0">
   <div class="flex justify-between w-full px-18 pb-12">
-    <div class="flex justify-center ml-20">
-      <div class="profile-img">
-        <img [src]="imageSrc || '/assets/images/placeholder-image.jpg'" alt="" />
-        <img src="/assets/images/photo_camera.svg" alt="upload image" id="image-upload" (click)="file.click()" />
-        <input type="file" accept="image/*" #file [ngStyle]="{ display: 'none' }" (change)="uploadFile($event)" />
-        <div>
+    <div class="flex flex-col w-full mt-5">
+      <div class="flex flex-row justify-center items-center w-4/5 mx-auto">
+        <div class="profile-img w-4/12">
+          <img [src]="imageSrc || '/assets/images/placeholder-image.jpg'" alt="" />
+          <img src="/assets/images/photo_camera.svg" alt="image upload" id="image-upload" (click)="file.click()" />
+          <input type="file" accept="image/*" #file [ngStyle]="{ display: 'none' }" (change)="uploadFile($event)" />
+        </div>
+        <div class="flex flex-col items-center w-7/12">
           <button mat-raised-button (click)="file.click()" class="mybtn">
             Change Picture
           </button>
@@ -14,10 +16,6 @@
           </button>
         </div>
       </div>
-    </div>
-
-    <!-- <div class="profile-form-section"> -->
-    <div class="flex flex-col w-full mt-5">
       <form [formGroup]="profileForm">
         <!-- <div class="inner-form justify-end"> -->
         <div class="flex justify-center flex-col w-4/5 mx-auto">
@@ -40,6 +38,7 @@
           </div>
         </div>
       </form>
+
     </div>
   </div>
 </div>

@@ -6,9 +6,9 @@ import { SwiperModule } from 'swiper/angular';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { CommonModule } from '@angular/common';
 
-import { MessageDialogComponent } from './dialogs/message-dialog/message-dialog.component';
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
 import { NotLoadedComponent } from './components/notLoaded/not-loaded.component';
+import { MessageDialogComponent } from './dialogs';
 
 const sharedRoutes: Routes = [];
 const componentsList = [ 

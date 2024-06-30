@@ -17,6 +17,7 @@ import { AuthGuard } from './features/auth/helpers/auth.guard';
 import { InterceptorService } from './features/auth/helpers/interceptor.service';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
+import { CommDialogModule } from './features/dialogs/comm-dialog.module';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent, ],
@@ -34,6 +35,7 @@ import { SharedModule } from './shared/shared.module';
     SweetAlert2Module.forRoot(),
     CoreModule,
     SharedModule,
+    CommDialogModule,
   ],
   providers: [
     DeactivateServiceGuard,

@@ -1,25 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProfileRoutingModule } from './profile-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MaterialModule } from '../../shared/material.module';
 import { SharedNavBarModule } from '../../shared/shared-navbar.module';
 import { SharedModule } from 'src/app/shared/shared.module';
-
-import { MyblogComponent } from './pages/myblog/myblog.component';
-import { ProfileComponent } from './pages/profile/profile.component';
-import { MyDraftComponent } from './pages/myDraft/myDraft.component';
+import { EmailChangeDialogComponent } from './email-change-dialog/emailChangeDialog.component';
+import { PasswordChangeDialogComponent } from './password-change/passwordChangeDialog.component';
+import { ResetPasswordDialogComponent } from './reset-password-dialog/resetPasswordDialog.component';
 
 const componentsList = [
-  ProfileComponent, MyblogComponent, MyDraftComponent,
+  PasswordChangeDialogComponent, EmailChangeDialogComponent, 
+  ResetPasswordDialogComponent,
 ];
 const modulesList = [
-  CommonModule, ProfileRoutingModule, SharedNavBarModule, SharedModule,
+  CommonModule, SharedNavBarModule, SharedModule,
   MaterialModule, ReactiveFormsModule, NgxSkeletonLoaderModule,
 ];
 @NgModule({
   declarations: [componentsList,],
   imports: [modulesList,],
 })
-export class ProfileModule { }
+export class CommDialogModule { }

@@ -9,9 +9,9 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['../dialog.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class MessageDialogComponent implements OnInit {
+export class Message2ialogComponent_A2 implements OnInit {
   constructor(
-    public dialogRef: MatDialogRef<MessageDialogComponent>,
+    public dialogRef: MatDialogRef<Message2ialogComponent_A2>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public sanitizer: DomSanitizer
   ) {}

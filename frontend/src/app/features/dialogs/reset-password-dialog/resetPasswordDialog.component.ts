@@ -10,13 +10,13 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
   templateUrl: './resetPasswordDialog.component.html',
   styleUrls: ['../dialog.css'],
 })
-export class ResetPasswordDialComponent implements OnInit {
+export class ResetPasswordDialogComponent implements OnInit {
   currentPasswordHide: boolean = true;
   newPasswordHide: boolean = true;
   confirmPasswordHide: boolean = true;
   changePassword: FormGroup;
   constructor(
-    public dialogRef: MatDialogRef<ResetPasswordDialComponent>,
+    public dialogRef: MatDialogRef<ResetPasswordDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _fb: FormBuilder,
     private authService: AuthService, private router: Router
@@ -30,7 +30,6 @@ export class ResetPasswordDialComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log('the value of data', this.data);
     // throw new Error('Method not implemented.');
   }
 
@@ -38,28 +37,20 @@ export class ResetPasswordDialComponent implements OnInit {
     if (this.changePassword.valid) {
       this.authService.resetPassword(this.changePassword.value, this.data.token)
         .subscribe({
-        next: (res: any) => {
+          next: (res: any) => {
             const Toast = Swal.mixin({
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 2500,
-              timerProgressBar: true,
+              toast: true, position: 'top-end', showConfirmButton: false, timer: 2500, timerProgressBar: true,
             });
             Toast.fire({ icon: 'success', title: 'Password Update successfully', });
             this.dialogRef.close(true);
           },
           error: (err: any) => {
             const Toast = Swal.mixin({
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 2500,
-              timerProgressBar: true,
+              toast: true, position: 'top-end', showConfirmButton: false, timer: 2500, timerProgressBar: true,
             });
             Toast.fire({ icon: 'error', title: `${err.message}`, });
           }
-    });
+        });
     } else {
       Swal.fire({ icon: 'error', title: 'Oops...', text: `Invalid Form`, });
     }
@@ -67,6 +58,5 @@ export class ResetPasswordDialComponent implements OnInit {
 
   closeModal() {
     this.dialogRef.close(false);
-    // console.log('clicked');
   }
 }

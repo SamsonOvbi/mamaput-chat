@@ -8,8 +8,8 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { modulesQuill } from 'src/app/models/types';
 import { BlogData } from '../../models/blog-model';
-import { MessageDialogComponent } from '../../../dialogs';
 import { swalFireWarning, swalMixin } from '../../../../shared/constants';
+import { MessageDialogComponent } from 'src/app/shared/dialogs';
 
 @Component({
   selector: 'app-editblog',

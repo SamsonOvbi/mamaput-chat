@@ -6,13 +6,13 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { IDeactivateGuard } from '../../../auth/helpers/deactivate.guard';
 import Swal from 'sweetalert2';
-import { MessageDialogComponent } from '../../../dialogs';
 import Quill from 'quill';
 import { BlogData } from '../../models/blog-model';
 import { BlogService } from '../../services/blog.service';
 import { modulesQuill } from '../../../../models/types';
 import { DraftService } from '../../../drafts/services/draft.service';
 import { swalFireWarning, swalMixin } from '../../../../shared/constants';
+import { MessageDialogComponent } from 'src/app/shared/dialogs';
 
 @Component({
   selector: 'app-writeblog',

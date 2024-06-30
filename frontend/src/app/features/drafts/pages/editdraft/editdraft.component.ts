@@ -4,11 +4,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
-import { MessageDialogComponent } from '../../../dialogs';
 import { DraftService } from '../../services/draft.service';
 import { environment } from '../../../../../environments/environment';
 import { modulesQuill } from '../../../../models/types';
 import { swalFireWarning, swalMixin } from '../../../../shared/constants';
+import { MessageDialogComponent } from 'src/app/shared/dialogs';
 @Component({
   selector: 'app-editdraft',
   templateUrl: './editdraft.component.html',

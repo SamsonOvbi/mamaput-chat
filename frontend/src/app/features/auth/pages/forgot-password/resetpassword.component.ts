@@ -8,7 +8,7 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
   templateUrl: './resetpassword.component.html',
   styleUrls: ['./resetpassword.component.css', '../login/login.component.css'],
 })
-export class ResetpasswordComponent implements OnInit {
+export class ForgotPasswordComponent implements OnInit {
   public resetEmail: any;
   constructor(private authService: AuthService) { }
   ngOnInit(): void { }
