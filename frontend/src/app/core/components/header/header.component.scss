@@ -4,6 +4,7 @@
 }
 .mat-toolbar {
   background-color: rgb(60, 194, 42);
+  padding-bottom: 8px;
 }
 nav {
   display: flex;
@@ -113,6 +114,10 @@ img {
 }
 
 @media only screen and (max-width: 872px) {
+  .mat-toolbar {
+    padding-bottom: 8px !important;
+  }
+  
   .nav-links {
     display: block;
     position: fixed;

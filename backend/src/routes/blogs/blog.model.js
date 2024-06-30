@@ -12,7 +12,6 @@ const postSchema = new mongoose.Schema({
   title: { type: String, required: [true, 'Please add a Title'], },
   description: { type: String, require: [true, 'Please add a Description'], },
   content: { type: String, required: [true, 'Please add Content'], },
-  // category: { type: String, required: [true, 'Please add a Category'], },
   category: { type: String, default: 'headlines', },
   image: { type: String, required: [true, 'Please add a thumbnail Image'], },
   user: { type: mongoose.Schema.ObjectId, ref: 'User', required: true, },

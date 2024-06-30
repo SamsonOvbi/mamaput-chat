@@ -5,7 +5,7 @@
         <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle"
           [theme]="{ width: '20px', height: '20px' }"></ngx-skeleton-loader>
         <img src="/assets/images/secure_login.svg" alt="" *ngIf="!data?.image" />
-        <img src="{{ apiUrl }}/img/{{ data?.user?.image }}" alt="writer image" *ngIf="contentLoaded && data?.user?.image" />
+        <img src="{{ data?.user?.image }}" alt="writer image" *ngIf="contentLoaded && data?.user?.image" />
       </div>
       <ngx-skeleton-loader *ngIf="!contentLoaded" class="m-0 ml-1"></ngx-skeleton-loader>
       <h4 class="m-0 ml-1" *ngIf="contentLoaded"> {{ data?.user?.username }} </h4>

@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, } from '@angular/common/htt
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../auth/services/auth.service';
@@ -21,7 +21,12 @@ export class UserService {
   /*
   Get User Blog
    */
-
+  uploadImage(fileToUpload: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('image', fileToUpload, fileToUpload.name);
+    return this.http.post(`${environment.apiUrl}/upload`, formData, this.authService.setHeader())
+  }
+  
   getProfile(): Observable<any> {
     return this.http.get(`${this.apiUrl}/user/profile`, this.authService.setHeader());
   }

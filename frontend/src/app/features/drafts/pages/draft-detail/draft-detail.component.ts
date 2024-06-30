@@ -34,7 +34,7 @@ export class DraftDetailComponent implements OnInit {
       console.log('res data..', res);
       this.data = res.data;
       let imagename = this.data.image;
-      this.data.image = environment.apiUrl + '/img/' + imagename;
+      this.data.image = imagename;
       this.contentLoaded = true;
       // console.log('the value of data', this.data);
     });

@@ -13,7 +13,7 @@ const userContr = {}
 userContr.profile = async (req, res, next) => {
   const id = req.user.id;
   try {
-    const user = await UserModel.findById(id).select("email username image");
+    const user = await UserModel.findById(id).select("email username image");    
     if (!user) {
       res.status(401).json({ success: false, message: "User not Found", });
     }
@@ -64,20 +64,22 @@ userContr.getAllUsers = asyncHandler(async (req, res) => {
 });
 
 userContr.getUser = asyncHandler(async (req, res) => {
-  const user = await UserModel.findById(req.params.id);
-  if (user) {
-    const { password, ...rest } = user._doc;
-    console.log('getUser password: ', password.split('0')[0]);
-    res.status(200).send(rest);
-  } else {
-    res.status(404).send({ message: 'User Not Found' });
+  try {
+    const user = await UserModel.findById(req.params.id).select( '-password' );
+    if (user) {
+      res.status(200).send(user);
+    } else {
+      res.status(404).send({ message: 'User Not Found' });
+    }
+  } catch (err) {
+    console.error({ error: err });
+    if (!err.statusCode) { err.statusCode = 500; }
+    next(err);
   }
 });
 
 userContr.editUser = asyncHandler(async (req, res) => {
-  // if (typeof req.body == undefined || req.params.id == null) {
   const body = req.body;
-  // console.log('editUser req.params.id: '); console.log(req.params.id);
   if (!body || req.params.id == null) {
     res.status(200).send({
       status: 'error',
@@ -85,7 +87,6 @@ userContr.editUser = asyncHandler(async (req, res) => {
     });
   } else {
     const tmpName = body.username.split(' ');
-    // res.json({
     const user = await UserModel.findById(req.params.id);
     if (user) {
       user.email = body.email || user.email;

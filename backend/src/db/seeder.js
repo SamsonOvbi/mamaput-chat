@@ -3,45 +3,50 @@
 const express = require('express');
 
 // Load models
-// const DraftPostModel = require('../routes/drafts/draft.model');
+const DraftModel = require('../routes/drafts/draft.model');
 const PostModel = require('../routes/blogs/blog.model');
 const UserModel = require('../routes/auth/user.model');
 
 const dBaseSeed = express.Router();
 
 // Populate database with JSON data: 
-dBaseSeed.post('/populate-database', async (req, res) => {
-// dBaseSeed.get('/populate-database', async (req, res) => {
+dBaseSeed.get('/populate-database', async (req, res) => {
 
-  // const draftPostData = require('./data/draftPosts.json');
-  // const postData = require('./data/posts.data.json');
-  const userData = require('./data/user.data.json');
+  const draftData = require('./data/draft.data.json');
+  const postData = require('./data/post.data.json');
+  // const userData = require('./data/user.data.json');
 
   try {
-    // await DraftPostModel.create(draftPostData);
-    // await PostModel.create(postData);
-    await UserModel.create(userData);
+    const draftSearch = await DraftModel.find()
+    const postSearch = await PostModel.find();
+    // const userSearch = await UserModel.find();
+
+    let resultStr = '';
+    const msg = 'collection occupied';
+    (draftSearch.length === 0) ? await DraftModel.create(draftData) : resultStr += ` Drafts ${msg} \n `;
+    (postSearch.length === 0) ? await PostModel.create(postData) : resultStr += ` Post ${msg} \n `;
+    // (userSearch.length === 0) ? await UserModel.create(userData) : resultStr += ` User ${msg} `;
+    if (resultStr) return res.send({ resultStr });
 
     res.send('Data Imported into db...');
   } catch (err) {
-    console.error(err); 
+    console.error(err);
   }
-  
-}); 
+
+});
 
 dBaseSeed.get('/read-database', async (req, res) => {
-  let draftPostData, postData, productData, userData;
+  let draftData, postData, userData;
 
   try {
-    // postData = await PostModel.find();
-    // draftPostData = await DraftPostModel.find();
-    // productData = await ProductModel.find();
+    postData = await PostModel.find();
+    draftData = await DraftModel.find();
     userData = await UserModel.find();
 
-    const readings = { postData, draftPostData, productData, userData }
-    // console.log('Data read from database...', readings.userData);
-    res.json({ postData, userData });
-    // res.json(readings.postData, readings.productData, readings.userData, readings.cartData);
+    const readings = { userData, postData, draftData };
+    console.log('Data read from database...', readings.userData);
+    res.json({ userData, postData, draftData });
+    // res.json({ userData });
 
   } catch (err) {
     console.error(err);
@@ -50,12 +55,10 @@ dBaseSeed.get('/read-database', async (req, res) => {
 });
 
 dBaseSeed.post('/delete-database', async (req, res) => {
-// dBaseSeed.get('/delete-database', async (req, res) => {
   try {
-    // await PostModel.deleteMany();
-    // await DraftPostModel.deleteMany();
-    // await ProductModel.deleteMany();
-    await UserModel.deleteMany();
+    await DraftModel.deleteMany();
+    await PostModel.deleteMany();
+    // await UserModel.deleteMany();
     const message = `UserModel Data Destroyed...`
     console.log(message);
     res.json(message);

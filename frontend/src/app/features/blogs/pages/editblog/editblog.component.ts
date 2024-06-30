@@ -63,7 +63,7 @@ export class EditblogComponent implements OnInit {
       this.editorForm.controls['description'].patchValue(res.data.description);
       this.editorValue = res.data.content;
       let imagename = this.data.image;
-      this.imageSrc = environment.apiUrl + '/img/' + imagename;
+      this.imageSrc = imagename;
     });
   }
 

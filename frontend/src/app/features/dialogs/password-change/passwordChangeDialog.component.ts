@@ -41,10 +41,6 @@ export class PasswordChangeDialogComponent implements OnInit {
             showConfirmButton: false,
             timer: 2500,
             timerProgressBar: true,
-            // didOpen: (toast) => {
-            //   toast.addEventListener('mouseenter', Swal.stopTimer);
-            //   toast.addEventListener('mouseleave', Swal.resumeTimer);
-            // },
           });
           Toast.fire({ icon: 'success', title: 'Password Update successfully', });
           this.dialogRef.close(this.changePassword.value);

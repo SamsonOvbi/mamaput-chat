@@ -1,21 +1,22 @@
-<mat-toolbar class="fixed top-0 left-0 right-0 z-50 flex justify-between mb-2 flex-wrap mat-toolbar">
+<mat-toolbar class="fixed top-0 left-0 right-0 z-50 flex justify-between mat-toolbar" style="padding-bottom: 8px;">
   <div class="logo">
     <a routerLink="/" matRipple> <span class="text-lg p-2 ">{{appTitle}}</span></a>
   </div>
 
-  <!-- <div class="flex-1 min-w-32">
-    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="flex justify-center items-center ">
-      <mat-form-field floatLabel="auto" class="mx-auto w-full">
-        <input matInput type="query" placeholder="Search..." formControlName="query">
-      </mat-form-field>
-      <button class=" bg-secondary hover:bg-secondary-dark text-white font-bold p-1 rounded" mat-button type="submit"
-        color="secondary">
-        <mat-icon>search</mat-icon>
-      </button>
-    </form>
-  </div> -->
-
   <ul class="nav-links">
+
+    <!-- <div class="flex-1 min-w-32">
+      <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="flex justify-center items-center ">
+        <mat-form-field floatLabel="auto" class="mx-auto w-full">
+          <input matInput type="query" placeholder="Search..." formControlName="query">
+        </mat-form-field>
+        <button class=" bg-secondary hover:bg-secondary-dark text-white font-bold p-1 rounded" mat-button type="submit"
+          color="secondary">
+          <mat-icon>search</mat-icon>
+        </button>
+      </form>
+    </div> -->
+
     <li class="links"> <a routerLink="/blogs/read" matRipple>Read</a> </li>
     <li class="links"><a routerLink="/blogs/write">Write</a></li>
   </ul>
@@ -49,7 +50,7 @@
     </div>
   </ng-container>
 
-  <ng-template #loggedOutMenu>
+  <ng-template #loggedOutMenu >
     <!-- Menu items for logged out users -->
     <div class="links">
       <a routerLink="/auth/login" matRipple>Sign In</a>

@@ -13,7 +13,7 @@
                 <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle"
                   [theme]="{ width: '20px', height: '20px' }"></ngx-skeleton-loader>
                 <img src="/assets/images/secure_login.svg" alt="" *ngIf="!myBlog.image" />
-                <img src="{{ apiUrl }}/img/{{ myBlog.image }}" alt="" *ngIf="contentLoaded && myBlog.image" />
+                <img src="{{ myBlog.image }}" alt="" *ngIf="contentLoaded && myBlog.image" />
               </div>
               <ngx-skeleton-loader *ngIf="!contentLoaded" class="m-0 ml-1"></ngx-skeleton-loader>
               <h4 class="m-0 ml-1" *ngIf="contentLoaded"> {{ myBlog?.username }} </h4>
@@ -39,7 +39,7 @@
           <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle" [theme]="{
               width: '40%', height: '100%', 'border-radius': '29px', 'margin-left': '12%'
             }"></ngx-skeleton-loader>
-          <img src="{{ apiUrl }}/img/{{ data?.image }}" alt="" *ngIf="contentLoaded" />
+          <img src="{{ data?.image }}" alt="" *ngIf="contentLoaded" />
         </div>
 
         <div class="absolute right-1 top-0.5 cursor-pointer">

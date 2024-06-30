@@ -1,67 +1,55 @@
 [
   {
-    "username": "John A. Shobola",
-    "email": "johnashobola@gmail.com",
-    "role": "user",
-    "verified": "true",
-    "password": "246824",
-    "image": "51eg55uWmdL._AC_UX679_.jpg",
-    "resetPasswordToken": "",
-    "resetPasswordExpire": "2023-05-25T12:00:00.000Z",
-    "createdAt": "2024-04-19T10:53:16.540Z",
-    "posts": [],
-    "drafts": []
-  },
-  {
+    "_id": "667e8c42ef21ef58e867c81e",
     "username": "Janet Zeta Jones",
     "email": "janet.z.jones@gmail.com",
-    "role": "publisher",
-    "verified": "true",
-    "password": "123456",
-    "image": "51eg55uWmdL._AC_UX679_.jpg",
-    "resetPasswordToken": "",
-    "resetPasswordExpire": "2023-05-25T12:00:00.000Z",
-    "createdAt": "2024-04-19T10:53:16.540Z",
-    "posts": [],
-    "drafts": []
+    "role": "user",
+    "image": "pic03th.jpg",
+    "createAt": "2024-06-21T13:58:25.366Z",
+    "posts": [
+      "6675b109010a16852b744b6b"
+    ],
+    "drafts": [
+      "6676f4fcb36c063e8d14b324",
+      "6677088efeea55a9787cf92e"
+    ],
+    "__v": 0
   },
   {
-    "username": "Samson Rerri",
-    "email": "samson.rerri@gmail.com",
-    "role": "publisher",
-    "verified": "true",
-    "password": "246824",
-    "image": "http://localhost:5000/img/51eg55uWmdL._AC_UX679_.jpg'",
-    "resetPasswordToken": "",
-    "resetPasswordExpire": "2023-05-25T12:00:00.000Z",
-    "createdAt": "2024-04-19T10:53:16.540Z",
-    "posts": [],
-    "drafts": []
+    "_id": "667e8c8cef21ef58e867c829",
+    "username": "John Shobola",
+    "email": "johnashobola@gmail.com",
+    "role": "user",
+    "image": "p1.jpg",
+    "createAt": "2024-06-23T23:16:25.572Z",
+    "posts": [
+      "6678ae6a90ecec72b94cd13c"
+    ],
+    "drafts": [
+      "6678aee090ecec72b94cd144"
+    ],
+    "__v": 0
   },
   {
+    "_id": "667e8bf4ef21ef58e867c813",
+    "username": "Samson Out Rerri",
+    "email": "samson.rerri@outlook.com",
+    "role": "user",
+    "image": "p2.jpg",
+    "createAt": "2024-06-24T01:12:18.651Z",
+    "posts": [],
+    "drafts": [],
+    "__v": 0
+  },
+  {
+    "_id": "667e8c42ef21ef58e867c81e",
     "username": "Elise Nyota",
     "email": "elise.nyota@example.com",
     "role": "user",
-    "verified": "true",
-    "password": "246824",
-    "image": "http://localhost:5000/img/51eg55uWmdL._AC_UX679_.jpg'",
-    "resetPasswordToken": "",
-    "resetPasswordExpire": "2023-05-25T12:00:00.000Z",
-    "createdAt": "2024-04-19T10:53:16.540Z",
+    "image": "pic04th.jpg",
+    "createAt": "2024-06-24T01:55:09.633Z",
     "posts": [],
-    "drafts": []
-  },
-  {
-    "username": "Parcey Ogaga",
-    "email": "parcey.ogaga@example.com",
-    "role": "user",
-    "verified": "true",
-    "password": "246824",
-    "image": "http://localhost:5000/img/51eg55uWmdL._AC_UX679_.jpg'",
-    "resetPasswordToken": "",
-    "resetPasswordExpire": "2023-05-25T12:00:00.000Z",
-    "createdAt": "2024-04-19T10:53:16.540Z",
-    "posts": [],
-    "drafts": []
+    "drafts": [],
+    "__v": 0
   }
 ]

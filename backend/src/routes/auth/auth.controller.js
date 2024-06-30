@@ -9,7 +9,7 @@ const crypto = require("crypto");
 const path = require("path");
 const fs = require("fs");
 const UserModel = require("./user.model");
-const authContr = {}; 
+const authContr = {};
 
 authContr.signup = asyncHandler(async (req, res, next) => {
   const { username, email, password, confirmPassword } = req.body;
@@ -52,7 +52,9 @@ authContr.updateDetails = async (req, res, next) => {
   }
   let image = req.body.image;
   try {
-    if (req.file) { image = req.file.name; };
+    if (req.body.file) {
+      image = `${process.env.API_URI}/img/${req.body.file}`;
+    }
     const updatedUser = await UserModel.findByIdAndUpdate(
       req.user.id,
       { username, email, image },
@@ -71,20 +73,20 @@ authContr.updatePassword = async (req, res, next) => {
   const { confirmPassword, currentPassword, newPassword } = req.body;
   try {
     if (!confirmPassword || !currentPassword || !newPassword) {
-      res.status(400).json({ message: "Fields cannot be empty" });
+      return res.status(400).json({ message: "Fields cannot be empty" });
     }
 
     if (confirmPassword !== newPassword) {
-      res.status(400).json({ message: "Confirm and NewPassword Must be same" });
+      return res.status(400).json({ message: "Confirm and NewPassword Must be same" });
     }
 
     if (currentPassword === newPassword) {
-      res.status(400).json({ message: "Current And new Password Cannot be same", });
+      return res.status(400).json({ message: "Current And new Password Cannot be same", });
     }
     const salt = await bcrypt.genSalt(10);
     const updatedPassword = await bcrypt.hash(newPassword, salt);
     if (confirmPassword !== newPassword) {
-      res.status(400).json({ message: "Password Dosen't Match", success: false, });
+      return res.status(400).json({ message: "Password Dosen't Match", success: false, });
     }
     if (confirmPassword === newPassword) {
       const user = await UserModel.findById(req.user.id).select("+password");
@@ -98,9 +100,7 @@ authContr.updatePassword = async (req, res, next) => {
       }
     }
   } catch (err) {
-    if (!err.statusCode) {
-      err.statusCode = 500;
-    }
+    if (!err.statusCode) { err.statusCode = 500; }
     next(err);
   }
 };
@@ -133,7 +133,7 @@ authContr.forgotPassword = async (req, res, next) => {
       res.status(200).json({ success: true, data: "Email Sent" });
     }
   } catch (err) {
-    console.log({ err });
+    console.error({ err });
     if (user) {
       await UserModel.findByIdAndUpdate(
         user._id,
@@ -150,7 +150,6 @@ authContr.resetPassword = asyncHandler(async (req, res, next) => {
   try {
     const { newPassword, confirmPassword } = req.body;
     const resetPasswordToken = req.params.resettoken;
-    // console.log({ resetPasswordToken });
     if (newPassword !== confirmPassword) {
       res.status(400).json({ message: "New Password and Confirm Password must be same", });
       return;

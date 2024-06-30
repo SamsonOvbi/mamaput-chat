@@ -10,7 +10,6 @@ const signOptions = { expiresIn: '30d', };
 
 const generateToken = (user) => {
   const payLoad = { _id: user._id, username: user.username, email: user.email, isAdmin: user.isAdmin, };
-  console.log({ payloadd });
   return jwt.sign(payLoad, jwtSecret, signOptions);
 };
 const isAuth = async (req, res, next) => {
@@ -23,7 +22,6 @@ const isAuth = async (req, res, next) => {
     res.status(401).json({ message: 'Not Authorize to access this route', });
     return;
   }
-  // console.log({ token });
   try {
     const decoded = jwt.verify(token, jwtSecret);
     req.user = await UserModel.findById(decoded.id);
@@ -32,7 +30,7 @@ const isAuth = async (req, res, next) => {
     }
     next();
   } catch (err) {
-    console.log({ err });
+    console.error({ error: err });
     res.status(401).json({ success: false, message: 'Not Authorized to access this route', });
   }
 };

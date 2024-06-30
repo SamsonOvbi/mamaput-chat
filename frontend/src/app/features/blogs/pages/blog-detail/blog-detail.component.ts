@@ -26,17 +26,12 @@ export class BlogDetailComponent implements OnInit {
   ) { }
   ngOnInit(): void {    
     this.id = this.activatedRouter.snapshot.paramMap.get('id');
-    // this.activatedRouter.paramMap.subscribe((params: any) => {
-    //   this.id = params.get('id');
-    // });
     console.log('id...', this.id);
     this.blogService.getSingleBlog(this.id).subscribe((res: any) => {
       console.log('res data..', res);
       this.data = res.data;
-      let imagename = this.data.image;
-      this.data.image = environment.apiUrl + '/img/' + imagename;
       this.contentLoaded = true;
-      // console.log('the value of data', this.data);
+      console.log('the value of data', this.data);
     });
   }
 

@@ -18,7 +18,7 @@
             <div class="flex flex-row mt-2" style="margin-left: 8px;">
               <div class="h-[30px] w-[30px] rounded-full">
                 <img src="/assets/images/avatar.svg" alt="user image" *ngIf="!data.user || !data.user.image" />
-                <img src="{{ apiUrl }}/img/{{ data.user && data.user.image ? data.user.image : '' }}"
+                <img src="{{ data.user && data.user.image ? data.user.image : '' }}"
                   alt="data?.user?.username" *ngIf="contentLoaded && data.user && data.user.image"
                   class="h-full w-full rounded-full" />
               </div>

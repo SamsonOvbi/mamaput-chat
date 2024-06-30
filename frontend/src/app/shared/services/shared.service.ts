@@ -37,8 +37,8 @@ export class SharedService {
 
   public setProfileImage(imageUrl: string) {
     if (imageUrl) {
-      imageUrl = this.apiUrl + '/img/' + imageUrl;
       this.profileImageUrl.next(imageUrl);
+      // console.log(imageUrl);
     } else {
       this.profileImageUrl.next('');
     }

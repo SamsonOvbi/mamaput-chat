@@ -54,8 +54,7 @@ app.use('/auth', authRoute);
 app.use('/user', userRoute);
 app.use('/blog', blogRoute);
 app.use('/draft', draftRoute);
-app.use('/api/uploads', uploadRoute);
-
+app.use('/upload', uploadRoute);
 app.use('/api/seeder', dBaseSeed);
 
 app.use(function (req, res, next) {
@@ -67,7 +66,6 @@ app.use(function (req, res, next) {
 });
 
 app.get("*", (req, res) => {
-  // console.log(path.join(__dirname, root));
   res.sendFile(path.join(__dirname, root));
 });
 
@@ -84,6 +82,5 @@ app.use((error, req, res, next) => {
 const PORT = process.env.PORT;
 
 const server = app.listen(PORT, () => {
-  // console.log(`Server is running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold);
   console.log(`Server is running on port http://localhost:${PORT}`.yellow.bold);
 });

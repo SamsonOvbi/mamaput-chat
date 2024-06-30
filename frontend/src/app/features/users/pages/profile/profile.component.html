@@ -1,6 +1,6 @@
-<div class="page-layout-sample">
-  <div class="profile-container">
-    <div class="profile-image-section">
+<div class="flex flex-col flex-1 w-full min-w-full">
+  <div class="flex justify-between w-full px-18 pb-12">
+    <div class="flex justify-center ml-20">
       <div class="profile-img">
         <img [src]="imageSrc || '/assets/images/placeholder-image.jpg'" alt="" />
         <img src="/assets/images/photo_camera.svg" alt="upload image" id="image-upload" (click)="file.click()" />
@@ -15,26 +15,28 @@
         </div>
       </div>
     </div>
-    <div class="profile-form-section">
+
+    <!-- <div class="profile-form-section"> -->
+    <div class="flex flex-col w-full mt-5">
       <form [formGroup]="profileForm">
-        <div class="inner-form justify-end">
-          <mat-form-field appearance="outline" class="input">
+        <!-- <div class="inner-form justify-end"> -->
+        <div class="flex justify-center flex-col w-4/5 mx-auto">
+          <mat-form-field appearance="fill" class="input">
             <mat-label>Full Name</mat-label>
             <input type="text" matInput formControlName="username" />
             <mat-error *ngIf="profileForm.controls.username?.errors?.required">Name is required</mat-error>
           </mat-form-field>
-          <mat-form-field appearance="outline" class="input">
+          <mat-form-field appearance="fill" class="input">
             <mat-label>Email address*</mat-label>
             <input type="email" matInput formControlName="email" readonly="true" />
-            <mat-icon matSuffix class="edit-icon">edit</mat-icon>
+            <mat-icon matSuffix class="text-blue-600 cursor-pointer">edit</mat-icon>
             <mat-error *ngIf="profileForm.controls.email?.errors?.required">Email is required</mat-error>
             <mat-error *ngIf="profileForm.controls.email?.errors?.email">Please Enter Correct Email</mat-error>
           </mat-form-field>
-          <div class="form-btn">
+          <!-- <div class="form-btn"> -->
+          <div class="flex items-center">
             <button mat-raised-button matRippe class="cancel">Cancel</button>
-            <button mat-raised-button matRippe class="save" (click)="saveDetails()">
-              Save
-            </button>
+            <button mat-raised-button matRippe class="save" (click)="saveDetails()"> Save </button>
           </div>
         </div>
       </form>

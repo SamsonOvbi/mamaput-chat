@@ -59,7 +59,7 @@ export class BlogListComponent implements OnInit, OnDestroy {
         this.loading = false;
         this.blogsList.map((val: any) => {
           if (val.image) {
-            val.image = environment.apiUrl + '/img/' + val.image;
+            val.image = val.image;
           }
         });
         this.contentLoaded = true;

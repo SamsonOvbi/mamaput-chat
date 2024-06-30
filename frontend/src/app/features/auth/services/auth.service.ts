@@ -73,7 +73,14 @@ resetPassword(data: any, id: any) {
   );
 }
 
+// updateUserDetail(formData: FormData): Observable<any> {
+//   return this.http.put(`${environment.apiUrl}/users/update`, formData).pipe(
+//     map((res: any) => res.data)
+//   );
+// }
+
 updateUserDetail(data: any) {
+  console.log({ updateUserDetail_data: data });
   return this.http.put(`${this.apiUrl}/auth/update-details`, data, this.setHeader());
 }
 
