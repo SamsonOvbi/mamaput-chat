@@ -16,7 +16,7 @@ import { UserService } from '../../services/user.service';
 export class ProfileComponent implements OnInit {
   public imageSrc: any;
   public file: any;
-  profileForm: FormGroup;
+  editorForm: FormGroup;
   public apiUrl = environment.apiUrl;
 
   constructor(
@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
     private userService: UserService,
     private sharedService: SharedService,
   ) {
-    this.profileForm = this._fb.group({
+    this.editorForm = this._fb.group({
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       image: [''],
@@ -40,12 +40,12 @@ export class ProfileComponent implements OnInit {
   getUserProfile(): void {
     this.userService.getProfile().subscribe((res: any) => {
       this.sharedService.setProfileImage(res.data.image);
-      this.profileForm.controls['username'].patchValue(res.data.username);
-      this.profileForm.controls['email'].patchValue(res.data.email);
+      this.editorForm.controls['username'].patchValue(res.data.username);
+      this.editorForm.controls['email'].patchValue(res.data.email);
       if (!this.imageSrc) {
         this.imageSrc = res.data.image;
       }
-      this.profileForm.controls['image'].patchValue(this.imageSrc);
+      this.editorForm.controls['image'].patchValue(this.imageSrc);
     });
   }
 
@@ -55,18 +55,18 @@ export class ProfileComponent implements OnInit {
     if (file) {
       this.userService.uploadImage(file).subscribe((res: any) => {
         this.imageSrc = res.secure_url;
-        this.profileForm.controls['image'].patchValue(res.secure_url);
+        this.editorForm.controls['image'].patchValue(res.secure_url);
         this.getUserProfile();
       });
     }
   }
 
   get email() {
-    return this.profileForm.value['email'];
+    return this.editorForm.value['email'];
   }
 
   get username() {
-    return this.profileForm.value['username'];
+    return this.editorForm.value['username'];
   }
 
   saveDetails() {

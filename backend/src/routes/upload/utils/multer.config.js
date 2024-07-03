@@ -1,6 +1,6 @@
 const multer = require('multer');
 
-const multerStorage = multer.diskStorage({
+const diskStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'src/public/img/');
   },
@@ -9,13 +9,9 @@ const multerStorage = multer.diskStorage({
   },
 });
 
-const memoryStorage = multer.memoryStorage();
-
 const fileFilter = (req, file, cb) => {
   if (
-    file.mimetype === 'image/png' ||
-    file.mimetype === 'image/jpg' ||
-    file.mimetype === 'image/jpeg'
+    file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg'
   ) {
     cb(null, true);
   } else {
@@ -24,15 +20,17 @@ const fileFilter = (req, file, cb) => {
 };
 
 const configLocalStorage = multer({
-  storage: multerStorage,
-  limits: { fileSize: 300 * 1024 }, // 300kB limit
+  storage: diskStorage,
+  limits: { fileSize: 500 * 1024 }, // 500kB limit
   fileFilter: fileFilter,
 })
 // .single('image');
 
+const memoryStorage = multer.memoryStorage();
+
 const configCloudinaryStorage = multer({
   storage: memoryStorage,
-  limits: { fileSize: 300 * 1024 }, // 300kB limit
+  limits: { fileSize: 500 * 1024 }, // 500kB limit
   fileFilter: fileFilter,
 })
 // .single('image');

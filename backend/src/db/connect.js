@@ -5,8 +5,8 @@ const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
 const mongoName = process.env.MONGODB_NAME; 
 
-const mongoUri = process.env.MONGODB_URI;
-// const mongoUri = process.env.ATLAS_URI;
+// const mongoUri = process.env.MONGODB_URI;
+const mongoUri = process.env.ATLAS_URI;
 let atlasLocal = mongoUri === process.env.ATLAS_URI ? 'Atlas' : `${mongoName}: local`;
 mongoose.Promise = global.Promise; 
 const options = {

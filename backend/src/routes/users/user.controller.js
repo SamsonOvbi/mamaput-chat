@@ -43,7 +43,6 @@ userContr.myBlogs = async (req, res, next) => {
 
 userContr.myDrafts = async (req, res, next) => {
   const id = req.user.id;
-  console.error({ id });
   try {
     const draft = await UserModel.findById(id).populate({ path: "drafts", });
     if (!draft) {
@@ -97,9 +96,7 @@ userContr.editUser = asyncHandler(async (req, res) => {
         lastname: tmpName[tmpName.length - 1],// lastname: b
       };
       const updatedUser = await user.save();
-      const { password, ...rest } = updatedUser._doc;
-      console.log('registerUser password: ', password.split('0')[0]);
-      res.status(200).send({ message: 'User Updated', rest, token: generateToken(user), });
+      res.status(200).send({ message: 'User Updated', updatedUser, token: generateToken(user), });
     } else {
       res.status(404).send({ message: 'User Not Found' });
     }
@@ -109,9 +106,7 @@ userContr.editUser = asyncHandler(async (req, res) => {
 userContr.deleteUser = asyncHandler(async (req, res) => {
   const user = await UserModel.findById(req.params.id);
   if (user) {
-    console.log('user.isAdmin: ', user.isAdmin);
     if (user.isAdmin === true) {
-      console.log('user.isAdmin: ', user.isAdmin);
       res.status(400).send({ message: 'Can Not Delete Admin User' });
       return;
     }

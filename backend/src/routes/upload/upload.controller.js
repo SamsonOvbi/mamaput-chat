@@ -28,6 +28,7 @@ uploadContr.uploadSingleImageToCloudinary = asyncHandler(async (req, res) => {
   }
   try {
     const result = await uploadCloudinaryImage(req.file);
+    console.error({result});
     res.send(result);
   } catch (error) {
     console.error("Upload failed:", error);

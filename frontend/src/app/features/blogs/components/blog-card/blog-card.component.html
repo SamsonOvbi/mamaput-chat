@@ -18,9 +18,8 @@
             <div class="flex flex-row mt-2" style="margin-left: 8px;">
               <div class="h-[30px] w-[30px] rounded-full">
                 <img src="/assets/images/avatar.svg" alt="user image" *ngIf="!data.user || !data.user.image" />
-                <img src="{{ data.user && data.user.image ? data.user.image : '' }}"
-                  alt="data?.user?.username" *ngIf="contentLoaded && data.user && data.user.image"
-                  class="h-full w-full rounded-full" />
+                <img src="{{ data.user && data.user.image ? data.user.image : '' }}" alt="data?.user?.username"
+                  *ngIf="contentLoaded && data.user && data.user.image" class="h-full w-full rounded-full" />
               </div>
               <div>
                 <div class="flex flex-row items-center">
@@ -31,15 +30,15 @@
             </div>
 
             <div [ngClass]="{'flex overflow-x-scroll !important': fullWidthMode}">
-              <a [routerLink]="['/blogs/blog-details/', data._id]">
+              <div>
                 <img class="mb-1 mx-auto min-w-24"
                   [ngClass]="{'h-[160px]': !fullWidthMode, 'max-h-[270px] w-[300px]': fullWidthMode}" [src]="data.image"
                   alt="{{ data.title }}" />
-              </a>
+              </div>
 
               <mat-card-content class="w-full h-[270px]"
                 [ngClass]="{'pl-2 flex flex-col justify-between': fullWidthMode}">
-                <a [routerLink]="['/blogs/blog-details/', data._id]">
+                <div>
                   <span class="font-bold text-xs uppercase mb-1">{{ data.category }}</span>
 
                   <p class="truncate hover:whitespace-normal" *ngIf="!fullWidthMode">{{ data.title }}</p>
@@ -47,14 +46,17 @@
                     <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
                     <h2 *ngIf="contentLoaded"> {{ data.title }} </h2>
                   </div>
-                  <p class="mt-1 text-xs text-wrap max-h-[140px] overflow-auto w-full" *ngIf="fullWidthMode">
+                  <p class="truncate text-sm text-wrap max-h-[40px] w-full" *ngIf="fullWidthMode">
                     {{ data.description }}
                   </p>
-                </a>
+                  <div class="truncate text-xs text-wrap h-[100px] " *ngIf="contentLoaded">
+                    <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.content)"></div>
+                  </div>
+                </div>
                 <app-rating class="mt-2" [rating]="data.rating" [numReviews]="data.numReviews"></app-rating>
 
-                <!-- <div class="flex justify-between mx-1">
-                  <button class="text-blue-700 hover:text-blue-900 " (click)="onUpVote()">
+                <div class="flex justify-between mx-1">
+                  <!-- <button class="text-blue-700 hover:text-blue-900 " (click)="onUpVote()">
                     <mat-icon class="mr-1">up_vote</mat-icon>
                     <span class="text-sm">({{upVotes}})</span>
                   </button>
@@ -65,9 +67,11 @@
                   <button class="text-blue-700 hover:text-blue-900 " (click)="onWriteReview()">
                     <mat-icon class="mr-1">write_review</mat-icon>
                     <span class="text-sm">Write Review</span>
-                  </button>
-                  <span class="text-red-400">{{ data.price | currency }}</span>
-                  </div> -->
+                  </button> -->
+                  <a [routerLink]="['/blogs/blog-details/', data._id]">
+                    <span class="text-blue-400 text-lg">Read More</span>
+                  </a>
+                </div>
               </mat-card-content>
             </div>
 
@@ -77,6 +81,6 @@
     </mat-grid-tile>
   </mat-grid-list>
 </div>
-<div class="no-data-found" *ngIf="noDataFound">
+<div class="flex justify-center mx-auto w-1/2 max-h-[90vh]" *ngIf="noDataFound">
   <img src="/assets/images/no-data-found.png" alt="No Blog Found..!" />
 </div>

@@ -26,9 +26,6 @@ export class ResetPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.token = this.activatedRoute.snapshot.paramMap.get('token');
-    this.activatedRoute.paramMap.subscribe((params: any) => {
-      this.token = params.get('token');
-    });
     const dialogOptions = { width: '50%', height: 'auto', backdropClass: 'bgClass', data: { token: this.token }, }
     const dialogRef = this.dialog.open(ResetPasswordDialogComponent, dialogOptions);
     dialogRef.afterClosed().subscribe((result) => {

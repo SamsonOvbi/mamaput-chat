@@ -42,7 +42,6 @@ blogContr.getAllBlogData = async (req, res, next) => {
     let find = await PostModel.find({}).sort({ _id: -1 }).populate({
       path: "user", select: "username image",
     });
-    // console.error({ find: find[0] });
     res.status(200).json({
       success: true,
       message: "Blog Data Found",
@@ -89,7 +88,7 @@ blogContr.deleteBlogData = async (req, res, next) => {
     }
     clearImage(post.image);
     await PostModel.findByIdAndRemove(id);
-    let user = await UserModel.findById(req.user.id);
+    let user = await UserModel.findById(req.user.id).select('+password');
     await user.posts.pull(id);
     await user.save();
     res.status(200).json({
@@ -107,15 +106,6 @@ blogContr.updateBlog = async (req, res, next) => {
   const { title, description, content } = req.body;
   let image = req.body.image;
   try {
-    if (req.file) {
-      image = req.file.name;
-    }
-    if (!image) {
-      const error = new Error("No File picked.");
-      error.statusCode = 422;
-      throw error;
-    }
-    // console.error({ image });
     let post = await PostModel.findById(id);
     if (!post) {
       const error = new Error("Could not find post.");
@@ -147,8 +137,8 @@ blogContr.updateBlog = async (req, res, next) => {
 };
 
 const clearImage = (filePath) => {
-  filePath = path.join(__dirname, "../uploads", filePath);
-  fs.unlink(filePath, (err) => console.log(err));
+  // filePath = path.join(__dirname, "../../public/img", filePath);
+  // fs.unlink(filePath, (err) => console.log(err));
 };
 
 module.exports = blogContr;

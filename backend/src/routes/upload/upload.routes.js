@@ -9,8 +9,8 @@ const { configLocalStorage, configCloudinaryStorage } = require('./utils/multer.
 const uploadContr = require('./upload.controller');
 const uploadRoute = express.Router();
 
-uploadRoute.post('/', isAuth, configLocalStorage.single('image'), uploadContr.uploadSingleImageToStorage);
-// uploadRoute.post('/', isAuth, configCloudinaryStorage.single('image'), uploadContr.uploadSingleImageToCloudinary);
+// uploadRoute.post('/', isAuth, configLocalStorage.single('image'), uploadContr.uploadSingleImageToStorage);
+uploadRoute.post('/', isAuth, configCloudinaryStorage.single('image'), uploadContr.uploadSingleImageToCloudinary);
 
 uploadRoute.post('/many', uploadContr.uploadManyImagesToCloudinary);
 

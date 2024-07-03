@@ -11,7 +11,7 @@ import { swalFireWarning, swalMixin } from '../../../../shared/constants';
 @Component({
   selector: 'app-myDraft',
   templateUrl: './myDraft.component.html',
-  styleUrls: ['./myDraft.component.css'],
+  styleUrls: ['./myDraft.component.scss'],
 })
 export class MyDraftComponent implements OnInit {
   public contentLoaded = false;
@@ -58,7 +58,7 @@ export class MyDraftComponent implements OnInit {
   }
 
   editDraft(id: any) {
-    this.router.navigate(['/edit', id]);
+    this.router.navigate(['drafts/edit-draft', id]);
   }
 
   deleteDraft(id: any) {

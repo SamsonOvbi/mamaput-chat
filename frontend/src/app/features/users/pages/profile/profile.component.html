@@ -6,6 +6,7 @@
           <img [src]="imageSrc || '/assets/images/placeholder-image.jpg'" alt="" />
           <img src="/assets/images/photo_camera.svg" alt="image upload" id="image-upload" (click)="file.click()" />
           <input type="file" accept="image/*" #file [ngStyle]="{ display: 'none' }" (change)="uploadFile($event)" />
+          
         </div>
         <div class="flex flex-col items-center w-7/12">
           <button mat-raised-button (click)="file.click()" class="mybtn">
@@ -16,20 +17,20 @@
           </button>
         </div>
       </div>
-      <form [formGroup]="profileForm">
+      <form [formGroup]="editorForm">
         <!-- <div class="inner-form justify-end"> -->
         <div class="flex justify-center flex-col w-4/5 mx-auto">
           <mat-form-field appearance="fill" class="input">
             <mat-label>Full Name</mat-label>
             <input type="text" matInput formControlName="username" />
-            <mat-error *ngIf="profileForm.controls.username?.errors?.required">Name is required</mat-error>
+            <mat-error *ngIf="editorForm.controls.username?.errors?.required">Name is required</mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill" class="input">
             <mat-label>Email address*</mat-label>
             <input type="email" matInput formControlName="email" readonly="true" />
             <mat-icon matSuffix class="text-blue-600 cursor-pointer">edit</mat-icon>
-            <mat-error *ngIf="profileForm.controls.email?.errors?.required">Email is required</mat-error>
-            <mat-error *ngIf="profileForm.controls.email?.errors?.email">Please Enter Correct Email</mat-error>
+            <mat-error *ngIf="editorForm.controls.email?.errors?.required">Email is required</mat-error>
+            <mat-error *ngIf="editorForm.controls.email?.errors?.email">Please Enter Correct Email</mat-error>
           </mat-form-field>
           <!-- <div class="form-btn"> -->
           <div class="flex items-center">

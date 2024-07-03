@@ -24,7 +24,7 @@ const sendTokenResponse = (user, statusCode, res) => {
 };
 
 const clearImage = (filePath) => {
-  filePath = path.join(__dirname, "../uploads", filePath);
+  filePath = path.join(__dirname, "../../public/img", filePath);
   fs.access(filePath, fs.constants.F_OK, (err) => {
     if (!err) {
       fs.unlink(filePath, (err) => {

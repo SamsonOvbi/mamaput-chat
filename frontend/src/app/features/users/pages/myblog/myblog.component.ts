@@ -10,7 +10,7 @@ import { swalFireWarning, swalMixin } from '../../../../shared/constants';
 @Component({
   selector: 'app-myblog',
   templateUrl: './myblog.component.html',
-  styleUrls: ['./myblog.component.css'],
+  styleUrls: ['./myblog.component.scss'],
 })
 export class MyblogComponent implements OnInit {
   public contentLoaded = false;
@@ -58,7 +58,7 @@ export class MyblogComponent implements OnInit {
   }
 
   editBlog(id: any) {
-    this.router.navigate(['/edit', id]);
+    this.router.navigate(['/blogs/edit', id]);
   }
 
   deleteBlog(id: any) {

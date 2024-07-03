@@ -20,14 +20,13 @@ const uploadCloudinaryImage = (file) => {
   const originalName = file.originalname;
 
   return new Promise((resolve, reject) => {
-    const stream = cloudinary.uploader.upload_stream(
-      {
-        resource_type: 'image',
-        public_id: `mama_blog/${originalName}`, // Using original filename as public_id
-        use_filename: true,
-        unique_filename: false,
-        timeout: 120000
-      },
+    const stream = cloudinary.uploader.upload_stream({
+      resource_type: 'image',
+      public_id: `mamaput-chat/${originalName}`, // Using original filename as public_id
+      use_filename: true,
+      unique_filename: false,
+      timeout: 120000
+    },
       (error, result) => {
         if (error) {
           reject(error);
@@ -58,8 +57,8 @@ const uploadManyCloudinaryImages = async () => {
       try {
         const result = await cloudinary.uploader.upload(filePath, {
           resource_type: 'image',
-          // public_id: `mama_blog/${file.originalname}`,
-          public_id: `mama_blog/${file}`,
+          // public_id: `mamaput-chat/${file.originalname}`,
+          public_id: `mamaput-chat/${file}`,
           use_filename: true,
           unique_filename: false,
           timeout: 120000

@@ -4,29 +4,21 @@
     <input type="text" placeholder="Title" formControlName="title" />
     <textarea formControlName="description" id="description" cols="30" rows="5"
       placeholder="Write Short description in 50 words.."></textarea>
-
-    <div class="thumbnailImage h-[40px] justify-center items-center pb-4">
-      <div class="w-[100px]">
+    <div class="thumbnailImage mt-2">
+      <div class="preview-image">
         <img [src]="imageSrc || '/assets/images/avatar.svg'" id="image" #normal />
       </div>
-      <div class="w-[400px] mx-1">
-        <input type="file" name="" accept="image/*" id="" (change)="uploadFile($event)" #file #normal />
-        <button mat-raised-button color="primary" (click)="file.click()" (click)="normal.click()" class="uploadFile">
-          <mat-icon inline="true" class="color-white">file_upload</mat-icon>
-          Choose Thumbnail Image
-        </button>
-      </div>
+      <input type="file" name="" accept="image/*" id="" (change)="uploadFile($event)" #file #normal />
+      <button mat-raised-button color="primary" (click)="file.click()" (click)="normal.click()" class="uploadFile">
+        <mat-icon inline="true" class="color-white">file_upload</mat-icon> Choos
+        Thumbnail Image
+      </button>
     </div>
-
-    <textarea matInput formControlName="content" id="content" cols="30" rows="8" [ngClass]="{
-      'error-class': editorForm.controls.content.touched && editorForm.controls.content.errors?.required
-    }" placeholder="Write Short content in less then 500 words..">
-    </textarea>
-    <!-- <div class=" mb-4">
+    <div class=" mb-4">
       <quill-editor formControlName="content" [(ngModel)]="editorValue" [styles]="{ height: '300px' }" 
       (blur)="onEditorBlured($event)" [modules]="modules">
     </quill-editor>
-    </div> -->
+    </div>
   </form>
 
   <div class="editor-buttons">

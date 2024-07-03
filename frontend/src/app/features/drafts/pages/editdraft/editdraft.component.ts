@@ -5,17 +5,18 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { DraftService } from '../../services/draft.service';
-import { environment } from '../../../../../environments/environment';
-import { modulesQuill } from '../../../../models/types';
-import { swalFireWarning, swalMixin } from '../../../../shared/constants';
 import { MessageDialogComponent } from 'src/app/shared/dialogs';
+import { UserService } from 'src/app/features/users/services/user.service';
+import { environment } from 'src/environments/environment';
+import { quillConfig } from 'src/app/models/types';
+import { swalFireWarning } from 'src/app/shared/constants';
 @Component({
   selector: 'app-editdraft',
   templateUrl: './editdraft.component.html',
   styleUrls: ['./editdraft.component.css', '../../../blogs/pages/writeblog/writeblog.component.css',],
 })
 export class EditdraftComponent implements OnInit {
-  public modules = modulesQuill;
+  public modules = quillConfig;
   public htmlContent: any = '';
   public editorValue: any = '';
   editorForm: FormGroup;
@@ -32,6 +33,7 @@ export class EditdraftComponent implements OnInit {
     public dialog: MatDialog,
     private renderer: Renderer2,
     private draftService: DraftService,
+    private userService: UserService,
     private activatedRouter: ActivatedRoute
   ) {
     this.editorForm = this._fb.group({
@@ -43,51 +45,35 @@ export class EditdraftComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.activatedRouter.snapshot.paramMap.get('id');
-    this.activatedRouter.paramMap.subscribe((params: any) => {
-      this.id = params.get('id');
-      // console.log('id...', this.id);
-    });
     this.draftService.getSingleDraft(this.id).subscribe((res: any) => {
-      // console.log('res data..', res);
       this.data = res.data;
       this.editorForm.controls['title'].patchValue(res.data.title);
       this.editorForm.controls['description'].patchValue(res.data.description);
+      this.editorForm.controls['content'].patchValue(res.data.content);
       this.editorValue = res.data.content;
-      let imagename = this.data.image;
-      this.imageSrc = imagename;
+      this.imageSrc = this.data.image;
     });
   }
 
   saveEditor() {
-    // console.log('this.file', this.file);
-    if (!this.file) {
-      let data = {
-        title: this.title,
-        content: this.content,
-        image: this.data.image,
-        description: this.description,
+    try {
+      const data = {
+        title: this.title, description: this.description,
+        content: this.content, image: this.imageSrc,
       };
       if (this.editorForm.valid) {
         this.draftService.updateDraft(data, this.id).subscribe((res: any) => {
           Swal.fire(`${res.message}!`, 'Draft Saved SuccessFully', 'success');
-          // console.log('res value saved', res);
           this.resetDraft();
         });
+      } else {
+        console.log(`this.editorForm.valid:   `, this.editorForm.valid);
       }
-    } else {
-      const formData = new FormData();
-      formData.append('title', this.title);
-      formData.append('content', this.content);
-      formData.append('image', this.file);
-      formData.append('description', this.description);
-      if (this.editorForm.valid) {
-        this.draftService.updateDraft(formData, this.id).subscribe((res: any) => {
-          Swal.fire(`${res.message}!`, 'Draft Saved SuccessFully', 'success');
-          // console.log('res value saved', res);
-          this.resetDraft();
-        });
-      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+      // Handle the error as needed
     }
+
   }
 
   publish() {
@@ -134,20 +120,18 @@ export class EditdraftComponent implements OnInit {
     // console.log('file..');
   }
 
-  uploadFile(event: Event) {
-    const element = event.currentTarget as HTMLInputElement;
-    let fileList: FileList | null = element.files;
-    if (fileList) {
-      this.file = fileList[0];
-      const reader = new FileReader();
-      reader.onload = (e) => (this.imageSrc = reader.result);
-      reader.readAsDataURL(this.file);
-
-      // this.renderer.setStyle(Elemen)
-      // console.log('FileUpload -> files', fileList);
+  uploadFile(event: any) {
+    const file: File = event?.target.files[0];
+    this.file = file.name;
+    if (file) {
+      this.userService.uploadImage(file).subscribe((res: any) => {
+        this.imageSrc = res.secure_url;        
+        this.editorForm.controls['image']?.patchValue(res.secure_url);
+        // this.getUserProfile();
+      });
     }
   }
-
+  
   fireEvent() {
     let fire = false;
     Swal.fire({

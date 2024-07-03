@@ -5,7 +5,7 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
 @Component({
   selector: 'app-not-loaded',
   templateUrl: './not-loaded.component.html',
-  styleUrls: ['./not-loaded.component.css'],
+  styleUrls: ['./not-loaded.component.scss'],
 })
 export class NotLoadedComponent implements OnInit {
   @Input() contentLoaded = false;

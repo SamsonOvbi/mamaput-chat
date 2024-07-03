@@ -22,11 +22,13 @@
           <a [routerLink]="['/drafts/draft-details/', data._id]">
             <div class="draft-title">
               <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-              <h1 *ngIf="contentLoaded">                {{ data.title }}              </h1>
+              <h1 *ngIf="contentLoaded"> {{ data.title }} </h1>
             </div>
             <div class="draft-content">
               <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-              <div *ngIf="contentLoaded" [innerHTML]="                  sanitizer.bypassSecurityTrustHtml(data?.description)                "></div>
+              <div *ngIf="contentLoaded"
+                [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.description)                ">
+              </div>
             </div>
             <div class="ml-4 text-gray-500 mb-2">
               <span>{{ data?.createdAt | date }}</span>
@@ -49,6 +51,6 @@
   </div>
 </div>
 
-<div class="no-data-found" *ngIf="noDataFound">
+<div class="flex justify-center mx-auto w-1/2 max-h-[90vh]" *ngIf="noDataFound">
   <img src="/assets/images/no-data-found.png" alt="No Draft Found..!" />
 </div>

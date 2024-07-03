@@ -30,8 +30,6 @@ export class PasswordChangeDialogComponent implements OnInit {
   }
 
   savePassword(): void {
-    // console.log('valid', this.changePassword.value);
-
     if (this.changePassword.valid) {
       this.authService.updatePassword(this.changePassword.value).subscribe({
         next: (res: any) => {

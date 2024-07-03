@@ -1,26 +1,22 @@
-import { Component, Inject, OnInit, AfterViewInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MessageDialogData } from '../dialog-data.interface';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-message-dialog',
-  template: `
-  <div [ngStyle]="{'background-color': backgroundColor}" >
-    <h2>{{ dialogData.message }}</h2>
-  </div>
-  `,
+  templateUrl: `message-dialog.component.html`,
 })
 export class MessageDialogComponent implements OnInit {
-  backgroundColor!: string;
-
   constructor(
-    @Inject(MAT_DIALOG_DATA) public dialogData: MessageDialogData,
     private dialogRef: MatDialogRef<MessageDialogComponent>,
-  ) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public sanitizer: DomSanitizer
+  ) {}
 
-  ngOnInit() {
-    this.backgroundColor = this.dialogData.type === 'success' ? 'green' : 'red';
-    // setTimeout(() => this.dialogRef.close(), 2500);  // Auto-close after 2500ms
+  ngOnInit(): void {}
+  onNoClick(): void {
+    this.dialogRef.close();
   }
+  backgroundColor!: string;
 
 }

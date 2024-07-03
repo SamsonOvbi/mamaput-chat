@@ -9,10 +9,11 @@ import Swal from 'sweetalert2';
 import Quill from 'quill';
 import { BlogData } from '../../models/blog-model';
 import { BlogService } from '../../services/blog.service';
-import { modulesQuill } from '../../../../models/types';
+import { quillConfig } from '../../../../models/types';
 import { DraftService } from '../../../drafts/services/draft.service';
-import { swalFireWarning, swalMixin } from '../../../../shared/constants';
 import { MessageDialogComponent } from 'src/app/shared/dialogs';
+import { UserService } from 'src/app/features/users/services/user.service';
+import { swalFireWarning } from 'src/app/shared/constants';
 
 @Component({
   selector: 'app-writeblog',
@@ -22,9 +23,9 @@ import { MessageDialogComponent } from 'src/app/shared/dialogs';
 })
 
 export class WriteblogComponent implements OnInit, IDeactivateGuard {
-  public modules = modulesQuill;
+  public modules = quillConfig;
   public htmlContent: any = '';
-  public editorValue: any = '';
+  public editorValue: any = ''; 
   editorForm!: FormGroup;
   quill!: Quill;
   public imageSrc: any;
@@ -45,6 +46,7 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
     private renderer: Renderer2,
     private blogService: BlogService,
     private draftService: DraftService,
+    private userService: UserService,
     private router: Router
   ) {
     config.backdrop = 'static';
@@ -63,20 +65,19 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
   initQuillContainer(): void {
     // const container = document.getElementById('quill-editor');
     // if (container) {
-    //   this.quill = new Quill(container, { theme: 'snow', modules: modulesQuill, });
+    //   this.quill = new Quill(container, { theme: 'snow', modules: quillConfig, });
     // } else {
     //   console.error('Failed to find Quill container element');
     // }
   }
   publishBlog() {
     try {
-      const blogData: BlogData = {
-        title: this.title, description: this.description, content: this.content, category: this.category, image: this.file.name,
-        status: this.status, visibility: this.visibility, numReviews: this.getNumReviews,
-        numViews: this.getNumViews,
+      const data: BlogData = {
+        title: this.title, description: this.description, content: this.content, category: this.category, image: this.imageSrc,
+        status: this.status, visibility: this.visibility, numReviews: this.getNumReviews, numViews: this.getNumViews,
       }
       if (this.editorForm.valid) {
-        this.blogService.saveBlogData(blogData).subscribe((res: any) => {
+        this.blogService.saveBlogData(data).subscribe((res: any) => {
           console.log('res value saved', res);
           this.resetBlog();
           Swal.fire({ position: 'center', icon: 'success', title: 'Your Blog Published SuccessFully', showConfirmButton: false, timer: 1500, });
@@ -87,7 +88,6 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
       }
     } catch (error) {
       console.error('An error occurred:', error);
-      // Handle the error as needed
     }
   }
 
@@ -100,9 +100,8 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
   saveAsDraft() {
     try {
       const blogData: BlogData = {
-        title: this.title, description: this.description, content: this.content, category: this.category, image: this.file.name,
-        status: this.status, visibility: this.visibility, numReviews: this.getNumReviews,
-        numViews: this.getNumViews,
+        title: this.title, description: this.description, content: this.content, category: this.category, image: this.imageSrc,
+        status: this.status, visibility: this.visibility, numReviews: this.getNumReviews, numViews: this.getNumViews,
       }
       if (this.editorForm.valid) {
         this.draftService.saveAsDraft(blogData).subscribe((res: any) => {
@@ -164,14 +163,15 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
     // console.log({ files });
   }
 
-  uploadFile(event: Event) {
-    const element = event.currentTarget as HTMLInputElement;
-    let fileList: FileList | null = element.files;
-    if (fileList) {
-      this.file = fileList[0];
-      const reader = new FileReader();
-      reader.onload = (e) => (this.imageSrc = reader.result);
-      reader.readAsDataURL(this.file);
+  uploadFile(event: any) {
+    const file: File = event?.target.files[0];
+    this.file = file.name;
+    if (file) {
+      this.userService.uploadImage(file).subscribe((res: any) => {
+        this.imageSrc = res.secure_url;
+        this.editorForm.controls['image']?.patchValue(res.secure_url);
+        // this.getUserProfile();
+      });
     }
   }
 
@@ -181,8 +181,6 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
       ...swalFireWarning, icon: 'warning',
     }).then((result) => {
       if (result.isConfirmed) {
-        // console.log('isConfirmed...!');
-        // Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
         fire = true;
         return fire;
       } else {

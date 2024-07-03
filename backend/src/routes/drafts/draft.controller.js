@@ -117,17 +117,9 @@ draftContr.deleteDraft = async (req, res, next) => {
 };
 
 draftContr.updateDraft = async (req, res, next) => {
-  const { title, description, content, _image } = req.body;
-  let image = _image;
+  const { title, description, content } = req.body;
+  let image = req.body.image;
   try {
-    if (req.file) {
-      image = req.file.filename;
-    }
-    if (!image) {
-      const error = new Error('No File picked.');
-      error.statusCode = 422;
-      return next(error);
-    }
     const draft = await DraftModel.findById(req.params.id);
     if (!draft) {
       const error = new Error('Could not find post.');
@@ -174,8 +166,8 @@ draftContr.publishDraft = async (req, res, next) => {
 };
 
 const clearImage = (filePath) => {
-  filePath = path.join(__dirname, '../uploads', filePath);
-  fs.unlink(filePath, (err) => console.log(err));
+  // filePath = path.join(__dirname, '../uploads', filePath);
+  // fs.unlink(filePath, (err) => console.log(err));
 };
 
 module.exports = draftContr;

@@ -26,9 +26,6 @@ export class DraftDetailComponent implements OnInit {
   ) { }
   ngOnInit(): void {    
     this.id = this.activatedRouter.snapshot.paramMap.get('id');
-    // this.activatedRouter.paramMap.subscribe((params: any) => {
-    //   this.id = params.get('id');
-    // });
     console.log('id...', this.id);
     this.draftService.getSingleDraft(this.id).subscribe((res: any) => {
       console.log('res data..', res);
