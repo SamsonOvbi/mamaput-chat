@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  // baseUrl: 'https://priyesh-blog-app.herokuapp.com',
+  apiUrl: 'http://localhost:5000',
   baseUrl: '',
 };

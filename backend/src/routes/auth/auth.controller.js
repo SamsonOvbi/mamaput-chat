@@ -42,6 +42,9 @@ authContr.login = asyncHandler(async (req, res, next) => {
   sendTokenResponse(user, 200, res);
 });
 
+// const apiUri = process.env.API_URI
+const apiUri = process.env.PROJECT_URI
+
 authContr.updateDetails = async (req, res, next) => {
   const { username, email } = req.body;
   // Check if username and email are provided
@@ -53,7 +56,7 @@ authContr.updateDetails = async (req, res, next) => {
   let image = req.body.image;
   try {
     if (req.body.file) {
-      image = `${process.env.API_URI}/img/${req.body.file}`;
+      image = `${apiUri}/img/${req.body.file}`;
     }
     const updatedUser = await UserModel.findByIdAndUpdate(
       req.user.id,
