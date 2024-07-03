@@ -22,7 +22,7 @@ import { BlogHeaderComponent } from './components/blog-header/blog-header.compon
 const componentsList = [
   WriteblogComponent, BlogListComponent,
   BlogDetailComponent, EditblogComponent, 
-  BlogBoxComponent, BlogCardComponent, BlogHeaderComponent
+  BlogBoxComponent, BlogCardComponent, BlogHeaderComponent,
 ];
 
 const modulesList = [

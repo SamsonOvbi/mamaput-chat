@@ -2,8 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-// import { SharedService } from 'src/app/shared/services/shared.service';
-// import { environment } from 'src/environments/environment';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { AuthService } from '../../services/auth.service';
 import { SharedService } from '../../../../shared/services/shared.service';
@@ -12,7 +10,7 @@ import { environment } from '../../../../../environments/environment';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;

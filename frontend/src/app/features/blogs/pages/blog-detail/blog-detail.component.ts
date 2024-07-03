@@ -7,7 +7,7 @@ import { environment } from '../../../../../environments/environment';
 @Component({
   selector: 'app-blog-detail',
   templateUrl: './blog-detail.component.html',
-  styleUrls: ['./blog-detail.component.css'],
+  styleUrls: ['./blog-detail.component.scss'],
 })
 export class BlogDetailComponent implements OnInit {
   public data: any;

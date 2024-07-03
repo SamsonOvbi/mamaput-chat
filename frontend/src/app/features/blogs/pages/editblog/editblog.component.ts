@@ -16,8 +16,8 @@ import { UserService } from 'src/app/features/users/services/user.service';
   selector: 'app-editblog',
   templateUrl: './editblog.component.html',
   styleUrls: [
-    './editblog.component.css',
-    '../writeblog/writeblog.component.css',
+    './editblog.component.scss',
+    '../writeblog/writeblog.component.scss',
   ],
 })
 export class EditblogComponent implements OnInit {

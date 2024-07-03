@@ -7,7 +7,7 @@ import { DraftService } from '../../services/draft.service';
 @Component({
   selector: 'app-draft-detail',
   templateUrl: './draft-detail.component.html',
-  styleUrls: ['./draft-detail.component.css'],
+  styleUrls: ['./draft-detail.component.scss'],
 })
 export class DraftDetailComponent implements OnInit {
   public data: any;

@@ -13,7 +13,7 @@ import { swalFireWarning } from 'src/app/shared/constants';
 @Component({
   selector: 'app-editdraft',
   templateUrl: './editdraft.component.html',
-  styleUrls: ['./editdraft.component.css', '../../../blogs/pages/writeblog/writeblog.component.css',],
+  styleUrls: ['./editdraft.component.scss', '../../../blogs/pages/writeblog/writeblog.component.scss',],
 })
 export class EditdraftComponent implements OnInit {
   public modules = quillConfig;

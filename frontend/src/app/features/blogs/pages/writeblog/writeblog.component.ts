@@ -18,7 +18,7 @@ import { swalFireWarning } from 'src/app/shared/constants';
 @Component({
   selector: 'app-writeblog',
   templateUrl: './writeblog.component.html',
-  styleUrls: ['./writeblog.component.css'],
+  styleUrls: ['./writeblog.component.scss'],
   providers: [NgbModalConfig, NgbModal],
 })
 
