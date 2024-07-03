@@ -1,83 +1,38 @@
-# MEAN STACK BLOG APP
+# Overview
 
-## Feature
+Write code for MEAN stack blog. Node.js and Express.js for backend, frontend with Angular@16.2. Allows users to sign up, log in, forgot password, reset password, create blog posts, save drafts, and manage their profiles.
 
-1. Signin ,Singup,ForgotPassword
-2. User can Read all the blogs
-3. User can write the blog only when he/she is logged in
-4. User can save his blog as draft and later he/she can edit or publish his drafts.
-5. User who created the blog can only update delete the blog.
-6. User can update his details like password,profie image,name,email.
-7. Website is responsive
+Backend
+breakdown of backend server setup:
+Environment Configuration: Server loads variables from a .env file using the dotenv package.
+Database Connection: connects to a MongoDB database using the connectDB function from the ./db/connect module.
+Middleware Configuration: The server sets up various middleware functions:
+morgan: Logs HTTP requests and responses (in development mode).
+Static File Serving: The server serves static files from the ./public directory and the built Angular application from the frontend/dist/frontend/ directory.
+Route Configuration: 
+/api/uploads: For handling file uploads (using the multer package).
+/auth: For authentication-related routes (login, signup, etc.).
+/blog: For handling blog post operations.
+/draft: For handling draft operations.
+/api/seeder: For seeding the database (likely for development purposes).
+Error Handling: The server includes a custom error handling middleware that logs errors and sends appropriate error responses.
+The backend uses the ErrorResponse class from the ./utils/errorResponse module to create custom error objects with a status code and a message.
 
-## How to install
+Frontend
+Angular frontend app. 
+Login Component (login.component.ts): This component handles user login functionality. It has a login form and sends a POST request to /auth/login with the user's credentials. If the login is successful, it stores the authentication token in localStorage and navigates to the /landing route.
 
-1. Clone the project.
-2. Go to client folder and do npm i
-3. Go to server folder and do nmp i
-4. Go to server->config folder and make a new file name config.env
-5. Copy the below config.env file and paste
+Data Service (data.service.ts): This service is responsible for making HTTP requests to the backend API. It has methods for:
+Retrieving the authenticated user's data (getMe()).
+Getting all drafts (getAllDraft()).
+Getting blog data (getBlogData()).
+Getting a single blog post (getSingleBlog(id)).
+Write Blog Component (writeblog.component.ts): This component allows authenticated users to create and publish new blog posts or save them as drafts.
 
-```sh
-MONGO_URL:'your mongo atlas url'
-JWT_SECRET="your secret key"
-JWT_EXPIRE=30d
-JWT_COOKIE_EXPIRE=30
+Edit Draft Component (editdraft.component.ts): This component allows users to edit and update their saved drafts.
 
-RESET_PASSWORD_URL=http://localhost:4200/auth/resetPassword
-PROJECT_URL=http://localhost:4200/
+Edit Blog Component (editblog.component.ts): This component allows users to edit and update their published blog posts.
 
-SMTP_HOST=smtp.mailtrap.io
-SMTP_PORT=2525
-SMTP_EMAIL=''
-SMTP_PASSWORD=''
-FROM_EMAIL=noreply@priyeshtesing.com
-FROM_NAME=Mean Stack Blog
+The frontend communicates with the backend API using HTTP requests, sending and receiving data in JSON format. The authentication token is included in the request headers for authenticated routes using the setHeader() method in the data.service.ts.
 
-```
-
-### SCREENSHOTS
-
-## Home
-
-![image](https://user-images.githubusercontent.com/65906348/150398062-0be13052-8cd2-4de4-941d-32e628a768a0.png)
-
-## Read Blogs
-
-![screencapture-localhost-4200-read-2022-01-21-00_04_30](https://user-images.githubusercontent.com/65906348/150400713-208dbe13-f78b-4376-934d-a479b704d300.png)
-
-## Write Blog
-
-![screencapture-localhost-4200-write-2022-01-20-23_55_36](https://user-images.githubusercontent.com/65906348/150399069-cb7ffda7-fd02-4690-bb86-76cb6bd5f590.png)
-
-## Read Single Blog
-
-![screencapture-localhost-4200-read-61e9aa8270054a251c1d6f19-2022-01-21-00_01_44](https://user-images.githubusercontent.com/65906348/150400180-a84ea39f-b17f-4299-a99a-1fea2cd6cde1.png)
-
-## My Profile
-
-![image](https://user-images.githubusercontent.com/65906348/150400821-453984b4-43a6-4ddb-8b7c-52544679c75e.png)
-
-## User Blogs
-
-![image](https://user-images.githubusercontent.com/65906348/150400881-1732596e-effa-4f99-be6b-ae3c01df9bef.png)
-
-## User Draft
-
-![image](https://user-images.githubusercontent.com/65906348/150401282-7a3fd58c-1f72-40f7-87e5-14234315e4af.png)
-
-## Signin
-
-![image](https://user-images.githubusercontent.com/65906348/150398381-f306c575-8c75-411f-b1e4-9505dc20b8cd.png)
-
-## Singup
-
-![image](https://user-images.githubusercontent.com/65906348/150398457-126ef41f-0177-4a54-a094-495669292307.png)
-
-## Reset Password Email
-
-![image](https://user-images.githubusercontent.com/65906348/150398602-d2eb2a8b-6698-42e5-a379-b8be506ab0d6.png)
-
-## Reset Password Page
-
-![image](https://user-images.githubusercontent.com/65906348/150398669-b0d2501b-9448-4fb9-a961-ea155acc4bd8.png)
+codebase implements a blog platform with user authentication, blog post management, draft management, and profile management functionalities. The backend server handles API requests and interacts with the MongoDB database, while the frontend Angular application provides the user interface and communicates with the backend API.
