@@ -1,10 +1,10 @@
 {
-  "name": "Blog_App",
+  "name": "mamaput-chat",
   "version": "1.0.0",
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "description": "Blog And Chat App",
+  "description": "MaMaPut Chat And Blogging App",
   "main": "backend/src/server.js",
   "engines": {
     "node": ">=18 "
