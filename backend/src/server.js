@@ -23,6 +23,8 @@ const draftRoute = require("./routes/drafts/draft.route");
 const uploadRoute = require("./routes/upload/upload.routes");
 const dBaseSeed = require('./db/seeder');
 const blogRoute = require("./routes/blogs/blog.route");
+const { appRateLimiter } = require("./middleware/rate-limiter");
+const { startKeepAliveCron, keepChatAliveCron, keepEshopAliveCron } = require("./utils/keep-alive-cron");
 
 const app = express();
 
@@ -78,6 +80,12 @@ app.use((error, req, res, next) => {
   res.status(status).json({ message: message, data: data });
   next();
 });
+
+startKeepAliveCron();
+keepChatAliveCron();
+keepEshopAliveCron();
+
+app.use(appRateLimiter);
 
 const PORT = process.env.PORT;
 
