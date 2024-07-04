@@ -49,6 +49,7 @@ export class EditblogComponent implements OnInit {
       title: ['', [Validators.required]],
       description: ['', Validators.required],
       content: ['', [Validators.required]],
+      image: [''],
     });
   }
 
@@ -62,65 +63,29 @@ export class EditblogComponent implements OnInit {
       this.editorForm.controls['content'].patchValue(res.data.content);
       this.editorValue = res.data.content;
       this.imageSrc = this.data.image;
+      this.editorForm.controls['image'].patchValue(this.imageSrc);
     });
   }
 
   saveEditor() {
-    const data: BlogData = {
-      title: this.title, description: this.description, content: this.content, category: this.category, image: this.imageSrc,
-      status: this.status, visibility: this.visibility, numReviews: this.getNumReviews,
-      numViews: this.getNumViews,
-    }
     if (this.editorForm.valid) {
-      this.blogService.updateBlog(data, this.id).subscribe((res: any) => {
+      this.blogService.updateBlog(this.editorForm.value, this.id).subscribe((res: any) => {
         Swal.fire({ title: 'Your Blog Published SuccessFully', icon: 'success', position: 'center', showConfirmButton: false, timer: 1500, });
         this.router.navigate(['/blogs/blog-details', res.post._id]);
       });
     }
   }
-
-
-  get title() {
-    return this.editorForm.value['title'];
-  }
-  get description() {
-    return this.editorForm.value['description'];
-  }
-  get content() {
-    return this.editorForm.value['content'];
-  }
-  get category() {
-    return this.editorForm.value['category'] || 'educational';
-  }
-  get status() {
-    return this.editorForm.value['status'] || 'published';
-  }
-  get visibility() {
-    return this.editorForm.value['visibility'] || 'public';
-  }
-  get getNumViews() {
-    return this.numViews++;
-  }
-  get getNumReviews() {
-    return this.numReviews++;
-  }
-
   open(content: any) {
     this.modalService.open(content);
   }
 
   openDialog(): void {
     const dialogOptions = {
-      width: '100%',
-      height: 'auto',
-      data: { title: this.title, content: this.content, thumbnailImage: this.imageSrc, },
+      width: '100%', height: 'auto', data: { ...this.editorForm.value, },
     }
     const dialogRef = this.dialog.open(MessageDialogComponent, dialogOptions);
 
-    dialogRef.afterClosed().subscribe((result) => {
-      // console.log('The dialog was closed');
-      // this.animal = result;
-    });
+    dialogRef.afterClosed().subscribe((result) => { });
   }
 
   handleInputFile(files: FileList) {

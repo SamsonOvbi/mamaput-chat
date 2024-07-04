@@ -55,6 +55,7 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
       title: ['', [Validators.required]],
       description: ['', [Validators.required]],
       content: ['', [Validators.required]],
+      image: [''],
     });
   }
 
@@ -72,12 +73,8 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
   }
   publishBlog() {
     try {
-      const data: BlogData = {
-        title: this.title, description: this.description, content: this.content, category: this.category, image: this.imageSrc,
-        status: this.status, visibility: this.visibility, numReviews: this.getNumReviews, numViews: this.getNumViews,
-      }
       if (this.editorForm.valid) {
-        this.blogService.saveBlogData(data).subscribe((res: any) => {
+        this.blogService.saveBlogData(this.editorForm.value).subscribe((res: any) => {
           console.log('res value saved', res);
           this.resetBlog();
           Swal.fire({ position: 'center', icon: 'success', title: 'Your Blog Published SuccessFully', showConfirmButton: false, timer: 1500, });
@@ -99,12 +96,8 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
 
   saveAsDraft() {
     try {
-      const blogData: BlogData = {
-        title: this.title, description: this.description, content: this.content, category: this.category, image: this.imageSrc,
-        status: this.status, visibility: this.visibility, numReviews: this.getNumReviews, numViews: this.getNumViews,
-      }
       if (this.editorForm.valid) {
-        this.draftService.saveAsDraft(blogData).subscribe((res: any) => {
+        this.draftService.saveAsDraft(this.editorForm.value).subscribe((res: any) => {
           this.resetBlog();
           Swal.fire({
             position: 'center', icon: 'success', title: 'Saved in Draft  SuccessFully', showConfirmButton: false, timer: 1500,
@@ -118,39 +111,13 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
     }
   }
 
-  get title() {
-    return this.editorForm.value['title'];
-  }
-  get description() {
-    return this.editorForm.value['description'];
-  }
-  get content() {
-    return this.editorForm.value['content'];
-  }
-  get category() {
-    return this.editorForm.value['category'] || 'educational';
-  }
-  get status() {
-    return this.editorForm.value['status'] || 'published';
-  }
-  get visibility() {
-    return this.editorForm.value['visibility'] || 'public';
-  }
-  get getNumViews() {
-    return this.numViews++;
-  }
-  get getNumReviews() {
-    return this.numReviews++;
-  }
   open(content: any) {
     this.modalService.open(content);
   }
 
   openDialog(): void {
     const dialogOptions = {
-      width: '100%',
-      height: 'auto',
-      data: { title: this.title, content: this.content, thumbnailImage: this.imageSrc, },
+      width: '100%', height: 'auto', data: { ...this.editorForm.value, },
     }
     const dialogRef = this.dialog.open(MessageDialogComponent, dialogOptions);
 
@@ -201,6 +168,16 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
       }
     }
     return true;
+  }
+
+  get title() {
+    return this.editorForm.value['title'];
+  }
+  get description() {
+    return this.editorForm.value['description'];
+  }
+  get content() {
+    return this.editorForm.value['content'];
   }
 
   onEditorBlured(event: any) {

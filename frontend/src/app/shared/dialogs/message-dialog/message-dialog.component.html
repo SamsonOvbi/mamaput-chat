@@ -1,7 +1,7 @@
 <h1 mat-dialog-title class="flex justify-center">{{ data.title }}</h1>
 <div mat-dialog-content class="mat-typography">
   <div class="dialog-image"></div>
-  <img [src]="data?.thumbnailImage" alt="" />
+  <img [src]="data?.image" alt="" />
   <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.content)"></div>
 </div>
 <div mat-dialog-actions align="end">

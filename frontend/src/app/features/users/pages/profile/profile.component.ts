@@ -61,17 +61,8 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  get email() {
-    return this.editorForm.value['email'];
-  }
-
-  get username() {
-    return this.editorForm.value['username'];
-  }
-
   saveDetails() {
-    const data = { username: this.username, email: this.email, image: this.imageSrc, file: this.file };
-    this.authService.updateUserDetail(data).subscribe({
+    this.authService.updateUserDetail(this.editorForm.value).subscribe({
       next: (res: any) => {
         this.sharedService.setProfileImage(res.data.image);
         const Toast = Swal.mixin({

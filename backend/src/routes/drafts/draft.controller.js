@@ -119,6 +119,7 @@ draftContr.deleteDraft = async (req, res, next) => {
 draftContr.updateDraft = async (req, res, next) => {
   const { title, description, content } = req.body;
   let image = req.body.image;
+  console.error({ req_body: req.body });
   try {
     const draft = await DraftModel.findById(req.params.id);
     if (!draft) {

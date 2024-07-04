@@ -47,13 +47,13 @@ export class HeaderComponent implements OnInit {
     this.isLoggedInFn();
   }
 
-  isLoggedInFn(): void{
+  isLoggedInFn(): void {
     this.authService.isLoggedIn.subscribe((val) => {
       this.loggedIn = val;
       if (this.loggedIn) {
         this.userService.getProfile().subscribe({
           next: (res: any) => {
-            this.sharedService.setProfileImage(res.data.image);
+            this.profileImage = res.data.image;
             this.userName = res.data.username;
           },
           error: (error: any) => {

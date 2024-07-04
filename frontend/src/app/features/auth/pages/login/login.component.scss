@@ -5,6 +5,7 @@
 
 .login-bg {
   margin: 0 auto;
+
   .login-image {
     padding-top: 20px;
     height: 360px;
@@ -35,9 +36,6 @@
 .login-form {
   width: 450px;
   max-width: 450px;
-  /* padding:
-   50px;
-   */
   padding: 0 50px 0 50px;
   margin: 20px auto;
 }
@@ -78,7 +76,7 @@ img {
 
 .register {
   display: flex;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   margin-top: 20px;
 }
 

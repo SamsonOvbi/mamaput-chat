@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { AuthService } from '../../services/auth.service';
-import { SharedService } from '../../../../shared/services/shared.service';
-import { environment } from '../../../../../environments/environment';
+import { environment } from 'src/environments/environment';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-login',
@@ -38,11 +38,7 @@ export class LoginComponent implements OnInit {
       this.http.post(`${this.apiUrl}/auth/login`, this.loginForm.value).subscribe({
         next: (res: any) => {
           const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 2500,
-            timerProgressBar: true,
+            toast: true, position: 'top-end', showConfirmButton: false, timer: 2500, timerProgressBar: true,
           });
           Toast.fire({ icon: 'success', title: 'Signed in successfully', });
           if (res.token) {

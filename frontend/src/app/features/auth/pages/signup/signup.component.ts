@@ -8,7 +8,7 @@ import { environment } from '../../../../../environments/environment';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss', '../login/login.component.css'],
+  styleUrls: ['./signup.component.scss', '../login/login.component.scss'],
 })
 export class SignupComponent implements OnInit {
   signUpForm: FormGroup;

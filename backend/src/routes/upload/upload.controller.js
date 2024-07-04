@@ -9,7 +9,7 @@ const uploadContr = {};
 
 uploadContr.uploadSingleImageToStorage = asyncHandler(async (req, res) => {
   try {
-    let filePath = '';
+    let filePath = '';    
     if (req.file.path) {
       filePath = req.file.path.split('\\');
       filePath = filePath[filePath.length - 1];
@@ -25,10 +25,9 @@ uploadContr.uploadSingleImageToStorage = asyncHandler(async (req, res) => {
 uploadContr.uploadSingleImageToCloudinary = asyncHandler(async (req, res) => {
   if (!req.file) {
     return res.status(400).send("No file provided.");
-  }
+  }  
   try {
     const result = await uploadCloudinaryImage(req.file);
-    console.error({result});
     res.send(result);
   } catch (error) {
     console.error("Upload failed:", error);

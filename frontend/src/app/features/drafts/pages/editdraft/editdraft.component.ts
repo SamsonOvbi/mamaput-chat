@@ -40,6 +40,7 @@ export class EditdraftComponent implements OnInit {
       title: ['', [Validators.required]],
       description: ['', Validators.required],
       content: ['', [Validators.required]],
+      image: [''],
     });
   }
 
@@ -51,18 +52,15 @@ export class EditdraftComponent implements OnInit {
       this.editorForm.controls['description'].patchValue(res.data.description);
       this.editorForm.controls['content'].patchValue(res.data.content);
       this.editorValue = res.data.content;
-      this.imageSrc = this.data.image;
+      this.imageSrc = res.data.image;
+      this.editorForm.controls['image'].patchValue(this.imageSrc);
     });
   }
 
   saveEditor() {
     try {
-      const data = {
-        title: this.title, description: this.description,
-        content: this.content, image: this.imageSrc,
-      };
       if (this.editorForm.valid) {
-        this.draftService.updateDraft(data, this.id).subscribe((res: any) => {
+        this.draftService.updateDraft(this.editorForm.value, this.id).subscribe((res: any) => {
           Swal.fire(`${res.message}!`, 'Draft Saved SuccessFully', 'success');
           this.resetDraft();
         });
@@ -106,7 +104,7 @@ export class EditdraftComponent implements OnInit {
     const dialogOptions = {
       width: '100%',
       height: 'auto',
-      data: { title: this.title, content: this.content, thumbnailImage: this.imageSrc, },
+      data: { ...this.editorForm.value, },
     }
     const dialogRef = this.dialog.open(MessageDialogComponent, dialogOptions);
 
@@ -125,13 +123,13 @@ export class EditdraftComponent implements OnInit {
     this.file = file.name;
     if (file) {
       this.userService.uploadImage(file).subscribe((res: any) => {
-        this.imageSrc = res.secure_url;        
-        this.editorForm.controls['image']?.patchValue(res.secure_url);
+        this.imageSrc = res.secure_url;
+        this.editorForm.controls['image'].patchValue(this.imageSrc);
         // this.getUserProfile();
       });
     }
   }
-  
+
   fireEvent() {
     let fire = false;
     Swal.fire({

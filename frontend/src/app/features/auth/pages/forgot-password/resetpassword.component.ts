@@ -6,7 +6,7 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
 @Component({
   selector: 'app-resetpassword',
   templateUrl: './resetpassword.component.html',
-  styleUrls: ['./resetpassword.component.scss', '../login/login.component.css'],
+  styleUrls: ['./resetpassword.component.scss', '../login/login.component.scss'],
 })
 export class ForgotPasswordComponent implements OnInit {
   public resetEmail: any;
