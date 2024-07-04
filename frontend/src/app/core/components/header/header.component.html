@@ -41,8 +41,8 @@
 
     <div class="profile-drop" [matMenuTriggerFor]="userMenu">
       <div style="display: flex; align-items: end;">
-        <div class="profile-image">
-          <img [src]="profileImage || '/assets/images/avatar.svg'" alt="profile-image" class="profile-image" />
+        <div class="w-[45px] h-[45px] rounded-full">
+          <img [src]="profileImage || '/assets/images/avatar.svg'" alt="profile image" class="w-full h-full rounded-full" />
         </div>
         <span class="mx-2 text-wrap max-w-[120px]">{{userName.split(' ')[0]}}</span>
         <mat-icon>arrow_drop_down</mat-icon>
