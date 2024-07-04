@@ -42,7 +42,7 @@
                   <span class="font-bold text-xs uppercase mb-1">{{ data.category }}</span>
 
                   <p class="truncate hover:whitespace-normal" *ngIf="!fullWidthMode">{{ data.title }}</p>
-                  <div class="truncate text-wrap max-h-[60px]" *ngIf="fullWidthMode">
+                  <div class="truncate text-wrap font-black max-h-[60px]" *ngIf="fullWidthMode">
                     <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
                     <h2 *ngIf="contentLoaded"> {{ data.title }} </h2>
                   </div>
