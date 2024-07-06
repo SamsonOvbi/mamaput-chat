@@ -1,7 +1,14 @@
 <div class="mt-8">
   <div *ngIf="!contentLoaded">
     <div *ngFor="let in of counter(5); let i = index">
+      
       <div class="content" matRipple>
+        <div class="right-div" *ngIf="!rightImage">
+          <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle" [theme]="{
+              width: '88%', height: '100%', 'border-radius': '29px', display: 'flex', 'justify-content': 'centre', margin: '0 auto'
+            }"></ngx-skeleton-loader>
+          <img src="/assets/images/loginBg.png" alt="" *ngIf="contentLoaded" />
+        </div>
         <div class="left-div">
           <div class="pb-2">
             <div class="flex flex-row items-center">
@@ -28,7 +35,7 @@
             </p>
           </div>
         </div>
-        <div class="right-div">
+        <div class="right-div" *ngIf="rightImage">
           <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle" [theme]="{
               width: '88%', height: '100%', 'border-radius': '29px', display: 'flex', 'justify-content': 'centre', margin: '0 auto'
             }"></ngx-skeleton-loader>

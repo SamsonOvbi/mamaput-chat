@@ -12,6 +12,7 @@ export class NotLoadedComponent implements OnInit {
   @Input() noDataFound: boolean = false;
   alertOpt: SweetAlertOptions = {};
   appTitle = '';
+  @Input() rightImage = false;
 
   constructor(public sanitizer: DomSanitizer,) { }
 
