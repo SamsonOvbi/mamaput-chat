@@ -19,10 +19,11 @@ import { BlogBoxComponent } from './components/blog-box/blog-box.component';
 import { BlogCardComponent } from './components/blog-card/blog-card.component';
 import { BlogHeaderComponent } from './components/blog-header/blog-header.component';
 import { WriteFormComponent } from './components/write-form/write-form.component';
+import { WriteHeaderComponent } from './components/write-header/write-header.component';
 
 const componentsList = [
   WriteblogComponent, BlogListComponent,
-  BlogDetailComponent, EditblogComponent, WriteFormComponent,
+  BlogDetailComponent, EditblogComponent, WriteFormComponent, WriteHeaderComponent,
   BlogBoxComponent, BlogCardComponent, BlogHeaderComponent,
 ];
 

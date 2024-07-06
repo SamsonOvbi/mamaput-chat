@@ -1,20 +1,23 @@
-<div class="h-[75vh] flex flex-wrap">
-  <div class="w-full md:w-5/12">
-    <h1 class="hero-text-h1">
-      Publishing Platform for bloggers
-    </h1>
-    <h2 class="hero-text-h2">
-      You can chat too, eventually
-    </h2>
-    <p class="below-hero-text-p justify-start">
-      Transform your thoughts into stunning digital narratives with ease and
-      speed on our innovative online publishing platform
-    </p>
-    <button class="landing-get-started-button" *ngIf="!loggedIn" (click)="navigateToLogin()">
+<div class="h-[70vh] flex flex-wrap flex-grow">
+  <div class="w-full md:w-6/12 ">
+    <div class="flex flex-col">
+      <h2 class="hero-text-h1">
+        Publishing Platform for bloggers
+      </h2>
+      <h2 class="hero-text-h2">
+        You can chat too, eventually
+      </h2>
+      <p class="truncate text-lg text-wrap max-h-[100px] w-full">
+        Transform your thoughts into stunning digital narratives with ease and
+        speed on our innovative online publishing platform
+      </p>
+    </div>
+    <button class="landing-get-started-button mt-12" *ngIf="!loggedIn" (click)="navigateToLogin()">
       Get Started for Free
     </button>
   </div>
-  <div class="w-full md:w-6/12 mx-auto mb-12 -mt-50">
-    <img src="/assets/images/landing-page-l.png" alt="landing-page-l.png" class="p-8 object-contain max-h-[500px] w-[500px]"/>
+  <div class="w-full md:w-5/12 mx-auto mt-20">
+    <img src="/assets/images/landing-page-l.png" alt="landing-page-l.png"
+      class="p-8 object-contain max-h-[500px] w-[350px]" />
   </div>
 </div>

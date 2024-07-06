@@ -3,13 +3,14 @@ import { Title } from '@angular/platform-browser';
 import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
-  selector: 'app-blog-header',
-  templateUrl: './blog-header.component.html'
+  selector: 'app-write-header',
+  templateUrl: './write-header.component.html'
 })
 export class WriteHeaderComponent {
   @Input() drawer: any;
   @Input() category?: string;
-  @Input() totalWrites: any;
+  // @Input() totalWrites: any;
+  @Input() totalItems: any;
 
   @Output() columnsCountChange = new EventEmitter<number>();
 

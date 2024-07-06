@@ -1,14 +1,12 @@
 <!-- <div class="header-padding"></div> -->
 <mat-card class="mb-1 pt-1">
   <div class="flex justify-between">
-    <button mat-button (click)="drawer.toggle()">
-      <!-- <mat-icon>menu</mat-icon> -->
-      <div *ngIf="totalBlogs">{{category | titlecase }} ({{totalBlogs}})</div>
-      <div *ngIf="!totalBlogs">Blogs View</div>
+    <button mat-button>
+      <div *ngIf="totalItems">{{category | titlecase }} ({{totalItems}})</div>
+      <div *ngIf="!totalItems">Blogs View</div>
     </button>
 
     <div class="flex items-center">
-      <!-- <button class="bg-green-600 text-white w-9 h-9 rounded-full"></button> -->
       <button (click)="onColumnsUpdated(1)">
         <mat-icon class="bg-green-600 text-white">view_list</mat-icon>
       </button>

@@ -17,23 +17,23 @@
   flex-direction: column;
   align-items: center;
   word-break: break-word;
-  font-size: 35px;
-  line-height: 46px;
+  font-size: 30px;
+  line-height: 30px;
   font-weight: 700;
   margin: 0;
   height: auto;
-  padding: 48px 15px 6px 15px;
+  padding: 15px 15px 6px 15px;
 }
 .hero-text-h2 {
-  /* align-items: start; */
-  align-items: center;
+  font-size: 24px;
+  line-height: 28px;
 }
 .below-hero-text-p {
   letter-spacing: 2px;
   word-break: break-word;
   font-size: 18px;
+  /* line-height: 20px; */
   font-weight: 300;
-  line-height: 29px;
   height: auto;
   margin-top: 2px;
   padding: 0 8px 0 8px;
