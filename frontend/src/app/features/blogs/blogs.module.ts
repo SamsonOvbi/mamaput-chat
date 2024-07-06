@@ -18,10 +18,11 @@ import { EditblogComponent } from './pages/editblog/editblog.component';
 import { BlogBoxComponent } from './components/blog-box/blog-box.component';
 import { BlogCardComponent } from './components/blog-card/blog-card.component';
 import { BlogHeaderComponent } from './components/blog-header/blog-header.component';
+import { WriteFormComponent } from './components/write-form/write-form.component';
 
 const componentsList = [
   WriteblogComponent, BlogListComponent,
-  BlogDetailComponent, EditblogComponent, 
+  BlogDetailComponent, EditblogComponent, WriteFormComponent,
   BlogBoxComponent, BlogCardComponent, BlogHeaderComponent,
 ];
 

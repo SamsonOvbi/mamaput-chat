@@ -124,7 +124,7 @@ authContr.forgotPassword = async (req, res, next) => {
         { new: true, runValidators: true }
       );
       // Create reset url
-      const resetUrl = `${process.env.RESET_PASSWORD_URL}/${resetToken}`;
+      const resetUrl = `${process.env.RESET_PASSWORD_URI}/${resetToken}`;
       const message = `You are receiving this email because you (or someone else) has requested the reset of a password. 
                        Please make a PUT request to:\n\n <a href=${resetUrl}>Click here</a>`;
       await sendEmail({

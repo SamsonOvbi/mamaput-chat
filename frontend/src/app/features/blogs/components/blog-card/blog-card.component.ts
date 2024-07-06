@@ -44,7 +44,7 @@ export class BlogCardComponent implements OnInit {
     this.titleService.setTitle(`BlogData Card - ${this.sharedService.appTitle}`);
   }
 
-  get paginatedBlogs() {
+  get paginatedData() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     this.contentLoaded = true; 
     this.noDataFound = false;
@@ -55,14 +55,8 @@ export class BlogCardComponent implements OnInit {
     this.currentPage = event.pageIndex + 1;
     this.itemsPerPage = event.pageSize;
   }
-  trackByBlogId(index: any, blog: any) {
-    return blog.id;
-  }
-
-  /** Emits the blog gotten from the cart */
-  // onAddToCart(blog: BlogData): void {
-  onAddToCart(blog: any): void {
-    this.addToCart.emit(blog);
+  trackByDataId(index: any, data: any) {
+    return data.id;
   }
 
 }

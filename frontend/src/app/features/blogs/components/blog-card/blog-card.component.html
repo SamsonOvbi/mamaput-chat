@@ -8,7 +8,7 @@
 
 <div class="max-h-[80vh] overflow-auto">
   <mat-grid-list *ngIf="!error" gutterSize="16" [cols]="cols" [rowHeight]="rowHeight">
-    <mat-grid-tile *ngFor="let data of paginatedBlogs; trackBy: trackByBlogId">
+    <mat-grid-tile *ngFor="let data of paginatedData; trackBy: trackByDataId">
 
       <div *ngIf="contentLoaded">
 

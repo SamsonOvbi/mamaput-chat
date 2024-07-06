@@ -8,8 +8,8 @@ import { DraftService } from '../../services/draft.service';
 import { MessageDialogComponent } from 'src/app/shared/dialogs';
 import { UserService } from 'src/app/features/users/services/user.service';
 import { environment } from 'src/environments/environment';
-import { quillConfig } from 'src/app/models/types';
 import { swalFireWarning } from 'src/app/shared/constants';
+import { quillConfig } from 'src/app/features/blogs/components/write-form/models/quill-editor';
 @Component({
   selector: 'app-editdraft',
   templateUrl: './editdraft.component.html',

@@ -6,11 +6,11 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BlogService } from '../../services/blog.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-import { quillConfig } from 'src/app/models/types';
 import { BlogData } from '../../models/blog-model';
 import { swalFireWarning, swalMixin } from '../../../../shared/constants';
 import { MessageDialogComponent } from 'src/app/shared/dialogs';
 import { UserService } from 'src/app/features/users/services/user.service';
+import { quillConfig } from '../../components/write-form/models/quill-editor';
 
 @Component({
   selector: 'app-editblog',

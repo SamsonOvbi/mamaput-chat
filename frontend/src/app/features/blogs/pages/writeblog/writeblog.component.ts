@@ -9,11 +9,11 @@ import Swal from 'sweetalert2';
 import Quill from 'quill';
 import { BlogData } from '../../models/blog-model';
 import { BlogService } from '../../services/blog.service';
-import { quillConfig } from '../../../../models/types';
 import { DraftService } from '../../../drafts/services/draft.service';
 import { MessageDialogComponent } from 'src/app/shared/dialogs';
 import { UserService } from 'src/app/features/users/services/user.service';
 import { swalFireWarning } from 'src/app/shared/constants';
+import { quillConfig } from '../../components/write-form/models/quill-editor';
 
 @Component({
   selector: 'app-writeblog',
@@ -64,12 +64,12 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
   }
 
   initQuillContainer(): void {
-    // const container = document.getElementById('quill-editor');
-    // if (container) {
-    //   this.quill = new Quill(container, { theme: 'snow', modules: quillConfig, });
-    // } else {
-    //   console.error('Failed to find Quill container element');
-    // }
+    const container = document.getElementById('quill-editor');
+    if (container) {
+      this.quill = new Quill(container, { theme: 'snow', modules: quillConfig, });
+    } else {
+      console.error('Failed to find Quill container element');
+    }
   }
   publishBlog() {
     try {
@@ -136,7 +136,7 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
     if (file) {
       this.userService.uploadImage(file).subscribe((res: any) => {
         this.imageSrc = res.secure_url;
-        this.editorForm.controls['image']?.patchValue(res.secure_url);
+        this.editorForm.controls['image']?.patchValue(this.imageSrc);
         // this.getUserProfile();
       });
     }
@@ -181,17 +181,17 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
   }
 
   onEditorBlured(event: any) {
-    // const quillEditor = document.getElementById('quill-editor');
-    // console.log('Editor blur event', event);
-    // if (quillEditor) {
-    //   const editorInstance = quillEditor.querySelector('.ql-editor') as HTMLElement | null;
-    //   if (editorInstance) {
-    //     this.editorValue = editorInstance.innerText;
-    //     this.editorForm?.get('content')?.setValue(this.editorValue); // Update form control
-    //   }
-    // }
+    const quillEditor = document.getElementById('quill-editor');
     console.log('Editor blur event', event);
-    // this.cdRef.detectChanges();
+    if (quillEditor) {
+      const editorInstance = quillEditor.querySelector('.ql-editor') as HTMLElement | null;
+      if (editorInstance) {
+        this.editorValue = editorInstance.innerText;
+        this.editorForm?.get('content')?.setValue(this.editorValue); // Update form control
+      }
+    }
+    console.log('Editor blur event', event);
+    this.cdRef.detectChanges();
   }
 
 }
