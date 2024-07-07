@@ -82,8 +82,6 @@ app.use((error, req, res, next) => {
 });
 
 startKeepAliveCron();
-keepChatAliveCron();
-keepEshopAliveCron();
 
 app.use(appRateLimiter);
 

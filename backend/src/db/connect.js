@@ -15,9 +15,9 @@ const options = {
 const connectDB = async () => {
   try {
     await mongoose.connect(mongoUri, options);
-    console.log(`connected to mongodb ${atlasLocal}`.cyan.underline.bold);
+    console.log(`connected to MongoDB ${atlasLocal}`.cyan.underline.bold);
   } catch (err) {
-    console.error(`error connecting to mongodb: `.red.bold, err);
+    console.error(`error connecting to MongoDB: `.red.bold, err);
   }
 }
 
