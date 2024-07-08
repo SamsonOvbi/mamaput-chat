@@ -15,7 +15,7 @@
         <div class="w-full">
           <mat-card class="shadow-lg p-2" [ngClass]="{'text-center': !fullWidthMode, }" *ngIf="data">
 
-            <div class="flex flex-row mt-2" style="margin-left: 8px;">
+            <div class="flex flex-row mt-1" style="margin-left: 8px;">
               <div class="h-[30px] w-[30px] rounded-full">
                 <img src="/assets/images/avatar.svg" alt="user image" *ngIf="!data.user || !data.user.image" />
                 <img src="{{ data.user && data.user.image ? data.user.image : '' }}" alt="data?.user?.username"
@@ -29,27 +29,27 @@
               <div> <span>{{ data?.createdAt | date }}</span> </div>
             </div>
 
-            <div [ngClass]="{'flex overflow-x-scroll !important': fullWidthMode}">
-              <div>
-                <img class="mb-1 mx-auto min-w-24"
-                  [ngClass]="{'h-[160px]': !fullWidthMode, 'max-h-[270px] w-[300px]': fullWidthMode}" [src]="data.image"
-                  alt="{{ data.title }}" />
+            <div [ngClass]="{'flex ': fullWidthMode}">
+              <div class="w-full" [ngClass]="{'h-[160px] w-[300px]': !fullWidthMode, 'h-[270px] w-[40%]': fullWidthMode}">
+                <img class="mt-1 mx-auto object-contain"
+                  [ngClass]="{'max-h-[160px] max-w-[300px]': !fullWidthMode, 'h-[100%] w-[100%] min-w-[100%]': fullWidthMode}"
+                  [src]="data.image" alt="{{ data.title }}" />
               </div>
 
               <mat-card-content class="w-full h-[270px]"
-                [ngClass]="{'pl-2 flex flex-col justify-between': fullWidthMode}">
+                [ngClass]="{'max-h-[160px]': !fullWidthMode, 'pl-2 flex flex-col justify-between h-[100%] w-[60%] max-w-[60%]': fullWidthMode}">
                 <div>
-                  <span class="font-bold text-xs uppercase mb-1">{{ data.category }}</span>
+                  <!-- <span class="font-bold text-xs uppercase mb-1">{{ data.category }}</span> -->
 
                   <p class="truncate hover:whitespace-normal" *ngIf="!fullWidthMode">{{ data.title }}</p>
                   <div class="truncate text-wrap font-black max-h-[60px]" *ngIf="fullWidthMode">
                     <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
                     <h2 *ngIf="contentLoaded"> {{ data.title }} </h2>
                   </div>
-                  <p class="truncate text-sm text-wrap max-h-[40px] w-full" *ngIf="fullWidthMode">
+                  <p class="truncate text-sm text-wrap max-h-[40px] w-full" >
                     {{ data.description }}
                   </p>
-                  <div class="truncate text-xs text-wrap h-[80px] " *ngIf="contentLoaded">
+                  <div class="truncate text-xs text-wrap h-[60px] " *ngIf="fullWidthMode">
                     <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.content)"></div>
                   </div>
                 </div>
@@ -69,7 +69,7 @@
                     <span class="text-sm">Write Review</span>
                   </button> -->
                   <a [routerLink]="['/blogs/blog-details/', data._id]">
-                    <span class="text-blue-400 text-lg">Read More</span>
+                    <span class="text-blue-400 text-lg justify-end">Read More</span>
                   </a>
                 </div>
               </mat-card-content>

@@ -28,7 +28,6 @@ export class DraftDetailComponent implements OnInit {
     this.id = this.activatedRouter.snapshot.paramMap.get('id');
     console.log('id...', this.id);
     this.draftService.getSingleDraft(this.id).subscribe((res: any) => {
-      console.log('res data..', res);
       this.data = res.data;
       let imagename = this.data.image;
       this.data.image = imagename;

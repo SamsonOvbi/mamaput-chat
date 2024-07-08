@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { BlogService } from '../../services/blog.service';
-import { environment } from '../../../../../environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-blog-detail',
@@ -28,10 +28,8 @@ export class BlogDetailComponent implements OnInit {
     this.id = this.activatedRouter.snapshot.paramMap.get('id');
     console.log('id...', this.id);
     this.blogService.getSingleBlog(this.id).subscribe((res: any) => {
-      console.log('res data..', res);
       this.data = res.data;
       this.contentLoaded = true;
-      console.log('the value of data', this.data);
     });
   }
 

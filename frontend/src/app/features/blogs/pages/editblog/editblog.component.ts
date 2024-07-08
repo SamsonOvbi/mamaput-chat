@@ -56,7 +56,6 @@ export class EditblogComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.activatedRouter.snapshot.paramMap.get('id');
     this.blogService.getSingleBlog(this.id).subscribe((res: any) => {
-      // console.log('res data..', res);
       this.data = res.data;
       this.editorForm.controls['title'].patchValue(res.data.title);
       this.editorForm.controls['description'].patchValue(res.data.description);
