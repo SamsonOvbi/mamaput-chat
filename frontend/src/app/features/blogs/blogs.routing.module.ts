@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth/helpers/auth.guard';
 import { DeactivateServiceGuard } from '../auth/helpers/deactivate.guard';
-import { QuillModule } from 'ngx-quill';
 
 import { EditblogComponent } from './pages/editblog/editblog.component';
 import { BlogDetailComponent } from './pages/blog-detail/blog-detail.component';
@@ -17,6 +16,6 @@ const routes: Routes = [
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule, QuillModule], 
+  exports: [RouterModule], 
 })
 export class BlogsRoutingModule { }

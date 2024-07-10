@@ -1,0 +1,14 @@
+.editor-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 20xp;
+  padding-top: 20px;
+  /* background-color: blue; */  
+}
+
+.editor-buttons > button {
+  padding-left: 8px;
+  padding-right: 8px;
+}

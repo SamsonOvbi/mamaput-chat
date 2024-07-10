@@ -26,8 +26,7 @@ export class DraftService {
 
   saveAsDraft(data: any) {
     console.log({ data });
-    return this.http.post(`${this.apiUrl}/draft/save-draft`, data, this.authService.setHeader()
-    );
+    return this.http.post(`${this.apiUrl}/draft/save-draft`, data, this.authService.setHeader());
   }
 
   getSingleDraft(id: any) {

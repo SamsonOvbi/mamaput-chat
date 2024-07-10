@@ -1,27 +1,29 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { SharedService } from 'src/app/shared/services/shared.service';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-write-header',
-  templateUrl: './write-header.component.html'
+  templateUrl: './write-header.component.html',
+  styleUrls: ['./write-header.component.scss']
 })
 export class WriteHeaderComponent {
-  @Input() drawer: any;
-  @Input() category?: string;
-  // @Input() totalWrites: any;
-  @Input() totalItems: any;
+  @Output() saveDraft = new EventEmitter<any>();
+  @Output() publish = new EventEmitter<any>();
+  @Output() preview = new EventEmitter<any>();
+  @Output() clear = new EventEmitter<any>();
 
-  @Output() columnsCountChange = new EventEmitter<number>();
-
-  pageSize = 20;
-  pageSizeChoose = [5, 10, 20, 50];
-
-  constructor(
-  ) {  }
-
-  onColumnsUpdated(colsNum: number): void {
-    this.columnsCountChange.emit(colsNum);
+  onSaveDraft() {
+    this.saveDraft.emit();
   }
 
+  onPublish() {
+    this.publish.emit();
+  }
+
+  onPreview() {
+    this.preview.emit();
+  }
+
+  onClear() {
+    this.clear.emit();
+  }
 }

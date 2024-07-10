@@ -1,6 +1,6 @@
-<div class="editor_class">
-  <h2> Write Blog</h2>
-  <form [formGroup]="editorForm">
+<div class="h-[100%]">
+    <h2> Write Form</h2>
+  <form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
     <input type="text" placeholder="Title" formControlName="title" [ngClass]="{
         'error-class': editorForm.controls.title.touched && editorForm.controls.title.errors?.required
       }" />
@@ -9,39 +9,24 @@
       }" placeholder="Write Short description in less then 50 words..">
       </textarea>
 
-    <div class="thumbnailImage h-[40px] justify-center items-center pb-4">
+    <div class="flex flex-row h-[40px] justify-center items-center pb-4 mx-auto">
       <div class="w-[100px]">
-        <img [src]="imageSrc || '/assets/images/avatar.svg'" id="image" #normal />
+        <img [src]="imageSrc || '/assets/images/avatar.svg'" class="object-contain h-[100%] w-[100%]" #normal />
       </div>
-      <div class="w-[400px] mx-1">
+      <div class="flex justify-center w-[350px]">
         <input type="file" name="" accept="image/*" id="" (change)="uploadFile($event)" #file #normal />
-        <button mat-raised-button color="primary" (click)="file.click()" (click)="normal.click()" class="uploadFile">
-          <mat-icon inline="true" class="color-white">file_upload</mat-icon>
-          Choose Thumbnail Image
+        <button mat-raised-button color="primary" (click)="file.click()" (click)="normal.click()" >
+          <mat-icon inline="true" style="background-color: #3f51b5;">file_upload</mat-icon>
+          Choose Image
         </button>
       </div>
     </div>
-    <textarea matInput formControlName="content" id="content" cols="30" rows="8" [ngClass]="{
-      'error-class': editorForm.controls.content.touched && editorForm.controls.content.errors?.required
-    }" placeholder="Write Short content in less then 500 words..">
-    </textarea>
-    <div class=" mb-4">
-      <quill-editor class="ql-editor" formControlName="content" [(ngModel)]="editorValue" [styles]="{ height: '300px' }" 
-        (blur)="onEditorBlured($event)" [modules]="modules">
+
+    <div class="mb-4 mx-auto">
+      <quill-editor id="quill-editor" class="ql-editor flex flex-col" formControlName="content" style="height: 300px;"
+        (blur)="onEditorBlured($event)" >
       </quill-editor>
     </div>
   </form>
 
-  <div class="editor-buttons ">
-    <button mat-raised-button color="primary" (click)="saveAsDraft()">
-      Save As Draft
-    </button>
-    <button mat-raised-button color="warn" (click)="resetBlog()">Reset</button>
-    <button mat-raised-button color="accent" (click)="publishBlog()">
-      Publish
-    </button>
-    <button mat-raised-button color="primary" (click)="openDialog()">
-      Preview
-    </button>
-  </div>
 </div>

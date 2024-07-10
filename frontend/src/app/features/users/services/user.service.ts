@@ -24,7 +24,8 @@ export class UserService {
   uploadImage(fileToUpload: File): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('image', fileToUpload, fileToUpload.name);
-    console.log({ formData });
+    console.log({ fileToUpload });
+    console.log({ uploadImage_formData: formData });
     return this.http.post(`${environment.apiUrl}/upload`, formData, this.authService.setHeader())
   }
   

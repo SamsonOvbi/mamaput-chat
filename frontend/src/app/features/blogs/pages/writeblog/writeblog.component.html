@@ -1,3 +1,4 @@
+
 <div class="editor_class">
   <h2> Write Blog</h2>
   <form [formGroup]="editorForm">
@@ -8,7 +9,7 @@
         'error-class': editorForm.controls.description.touched && editorForm.controls.description.errors?.required
       }" placeholder="Write Short description in less then 50 words..">
       </textarea>
-
+ 
     <div class="thumbnailImage h-[40px] justify-center items-center pb-4">
       <div class="w-[100px]">
         <img [src]="imageSrc || '/assets/images/avatar.svg'" id="image" #normal />
@@ -21,27 +22,24 @@
         </button>
       </div>
     </div>
-    <textarea matInput formControlName="content" id="content" cols="30" rows="8" [ngClass]="{
-      'error-class': editorForm.controls.content.touched && editorForm.controls.content.errors?.required
-    }" placeholder="Write Short content in less then 500 words..">
-    </textarea>
-    <!-- <div class=" mb-4">
-      <quill-editor formControlName="content" [(ngModel)]="editorValue" [styles]="{ height: '300px' }" 
-        (blur)="onEditorBlured($event)" [modules]="modules">
+    
+    <div class="mx-auto">
+      <quill-editor id="quill-editor" class="ql-editor flex flex-col" formControlName="content" style="height: 300px;"
+        (input)="onEditorBlured($event)" >
       </quill-editor>
-    </div> -->
+    </div>
   </form>
 
   <div class="editor-buttons ">
     <button mat-raised-button color="primary" (click)="saveAsDraft()">
       Save As Draft
-    </button>
+    </button> 
     <button mat-raised-button color="warn" (click)="resetBlog()">Reset</button>
     <button mat-raised-button color="accent" (click)="publishBlog()">
       Publish
     </button>
-    <button mat-raised-button color="primary" (click)="openDialog()">
+    <button mat-raised-button color="primary" (click)="openMsgDialog()">
       Preview
     </button>
-  </div>
+  </div> 
 </div>

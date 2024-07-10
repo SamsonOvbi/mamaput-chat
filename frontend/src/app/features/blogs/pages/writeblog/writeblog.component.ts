@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { DraftService } from '../../../drafts/services/draft.service';
 import { MessageDialogComponent } from 'src/app/shared/dialogs';
 import { UserService } from 'src/app/features/users/services/user.service';
 import { swalFireWarning } from 'src/app/shared/constants';
-import { quillConfig } from '../../components/write-form/models/quill-editor';
+import { quillConfig } from '../../components/write-form/models/quill-editor/quill-config';
 
 @Component({
   selector: 'app-writeblog',
@@ -22,10 +22,10 @@ import { quillConfig } from '../../components/write-form/models/quill-editor';
   providers: [NgbModalConfig, NgbModal],
 })
 
-export class WriteblogComponent implements OnInit, IDeactivateGuard {
+export class WriteblogComponent implements OnInit, IDeactivateGuard, OnDestroy {
   public modules = quillConfig;
   public htmlContent: any = '';
-  public editorValue: any = ''; 
+  public editorValue: any = '';
   editorForm!: FormGroup;
   quill!: Quill;
   public imageSrc: any;
@@ -66,18 +66,22 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
   initQuillContainer(): void {
     const container = document.getElementById('quill-editor');
     if (container) {
-      this.quill = new Quill(container, { theme: 'snow', modules: quillConfig, });
+      this.quill = new Quill(container,
+        { modules: quillConfig, placeholder: 'Write Short content in less then 5000 words..', theme: 'snow', });
     } else {
       console.error('Failed to find Quill container element');
     }
   }
+
   publishBlog() {
     try {
+      // if (this.editorForm.valid) {
+      console.log('this.editorForm.value', this.editorForm.value);
       if (this.editorForm.valid) {
         this.blogService.saveBlogData(this.editorForm.value).subscribe((res: any) => {
-          console.log('res value saved', res);
+          // console.log('res value saved', res);
           this.resetBlog();
-          Swal.fire({ position: 'center', icon: 'success', title: 'Your Blog Published SuccessFully', showConfirmButton: false, timer: 1500, });
+          Swal.fire({ title: 'Your Blog Published SuccessFully', icon: 'success', position: 'center', showConfirmButton: false, timer: 1500, });
           this.router.navigate(['/blogs/blog-details', res.post._id]);
         });
       } else {
@@ -86,12 +90,6 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
     } catch (error) {
       console.error('An error occurred:', error);
     }
-  }
-
-  resetBlog() {
-    this.editorForm.reset();
-    this.file = undefined;
-    this.imageSrc = undefined;
   }
 
   saveAsDraft() {
@@ -111,11 +109,17 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
     }
   }
 
+  resetBlog() {
+    this.editorForm.reset();
+    this.file = undefined;
+    this.imageSrc = undefined;
+  }
+
   open(content: any) {
     this.modalService.open(content);
   }
 
-  openDialog(): void {
+  openMsgDialog(): void {
     const dialogOptions = {
       width: '100%', height: 'auto', data: { ...this.editorForm.value, },
     }
@@ -133,10 +137,12 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
   uploadFile(event: any) {
     const file: File = event?.target.files[0];
     this.file = file.name;
+    console.log({ onImageUpload_file: file });
     if (file) {
       this.userService.uploadImage(file).subscribe((res: any) => {
         this.imageSrc = res.secure_url;
         this.editorForm.controls['image']?.patchValue(this.imageSrc);
+        console.log({ this_editorForm_value: this.editorForm.value });
         // this.getUserProfile();
       });
     }
@@ -182,16 +188,18 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
 
   onEditorBlured(event: any) {
     const quillEditor = document.getElementById('quill-editor');
-    console.log('Editor blur event', event);
     if (quillEditor) {
       const editorInstance = quillEditor.querySelector('.ql-editor') as HTMLElement | null;
       if (editorInstance) {
         this.editorValue = editorInstance.innerText;
-        this.editorForm?.get('content')?.setValue(this.editorValue); // Update form control
+        // this.editorForm?.get('content')?.setValue(this.editorValue); // Update form control
+        this.editorForm.controls['content']?.patchValue(this.editorValue);
+        console.log('this.editorForm.value', this.editorForm.value);
       }
     }
-    console.log('Editor blur event', event);
     this.cdRef.detectChanges();
   }
+
+  ngOnDestroy(): void { }
 
 }

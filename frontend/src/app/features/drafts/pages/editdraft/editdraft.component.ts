@@ -9,7 +9,7 @@ import { MessageDialogComponent } from 'src/app/shared/dialogs';
 import { UserService } from 'src/app/features/users/services/user.service';
 import { environment } from 'src/environments/environment';
 import { swalFireWarning } from 'src/app/shared/constants';
-import { quillConfig } from 'src/app/features/blogs/components/write-form/models/quill-editor';
+import { quillConfig } from 'src/app/features/blogs/components/write-form/models/quill-editor/quill-config';
 @Component({
   selector: 'app-editdraft',
   templateUrl: './editdraft.component.html',
@@ -100,7 +100,7 @@ export class EditdraftComponent implements OnInit {
     this.imageSrc = undefined;
   }
 
-  openDialog(): void {
+  openMsgDialog(): void {
     const dialogOptions = {
       width: '100%',
       height: 'auto',

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { QuillModule } from 'ngx-quill';
 
 import { LandingComponent } from './pages/landing/landing.component';
 
@@ -10,6 +9,6 @@ const routes: Routes = [
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule, QuillModule], 
+  exports: [RouterModule,], 
 })
 export class CoreRoutingModule { }

@@ -17,7 +17,7 @@ const componentsList = [
 ];
 const modulesList = [
   CommonModule, MaterialModule, FormsModule, ReactiveFormsModule, 
-  RouterModule.forChild(coreRoutes), CoreRoutingModule,
+  RouterModule.forChild(coreRoutes), CoreRoutingModule, 
 ];
 
 @NgModule({

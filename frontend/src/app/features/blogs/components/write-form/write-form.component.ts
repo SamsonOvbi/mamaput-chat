@@ -1,23 +1,15 @@
-import { ChangeDetectorRef, Component, OnInit, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
 import { IDeactivateGuard } from '../../../auth/helpers/deactivate.guard';
 import Swal from 'sweetalert2';
-import { BlogData } from '../../models/blog-model';
-import { BlogService } from '../../services/blog.service';
-import { DraftService } from '../../../drafts/services/draft.service';
 import { MessageDialogComponent } from 'src/app/shared/dialogs';
 import { UserService } from 'src/app/features/users/services/user.service';
-import { quillConfig } from './models/quill-editor';
 import { swalFireWarning } from 'src/app/shared/constants';
 import Quill from 'quill';
-const Font = Quill.import('formats/font');
-// We do not add Aref Ruqaa since it is the default
-Font.whitelist = ['mirza', 'roboto'];
-Quill.register(Font, true);
+import { quillConfig } from './models/quill-editor/quill-config';
 
 @Component({
   selector: 'app-write-form',
@@ -27,9 +19,12 @@ Quill.register(Font, true);
 })
 
 export class WriteFormComponent implements OnInit, IDeactivateGuard {
+  @Input() initialData: any;
+  @Output() formSubmit = new EventEmitter<any>();
+
   public modules = quillConfig;
   public htmlContent: any = '';
-  public editorValue: any = '';
+  public editorValue: any = 'Write Short content in less then 500 words..';
   editorForm!: FormGroup;
   quill!: Quill;
   public imageSrc: any;
@@ -41,17 +36,12 @@ export class WriteFormComponent implements OnInit, IDeactivateGuard {
   numReviews = 0;
 
   constructor(
-    private activatedRouter: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
     config: NgbModalConfig,
     private modalService: NgbModal,
     private _fb: FormBuilder,
     public dialog: MatDialog,
-    private renderer: Renderer2,
-    private blogService: BlogService,
-    private draftService: DraftService,
     private userService: UserService,
-    private router: Router
   ) {
     config.backdrop = 'static';
     config.keyboard = false;
@@ -64,36 +54,39 @@ export class WriteFormComponent implements OnInit, IDeactivateGuard {
   }
 
   ngOnInit(): void {
-    this.initQuillContainer();
+    // this.initQuillContainer();
+    if (this.initialData) {
+      this.editorForm.patchValue(this.initialData);
+      this.imageSrc = this.initialData.image;
+    }
+  }
+
+  onSubmit() {
+    try {
+      if (this.editorForm.valid) {
+        const formData: any = { ...this.editorForm.value, image: this.imageSrc, };
+        this.formSubmit.emit(formData);
+        console.log({ onSubmit_formData: formData });
+        this.editorForm.patchValue(formData);
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  }
+
+  onClear() {
+    this.editorForm.reset();
+    this.file = undefined;
+    this.imageSrc = undefined;
   }
 
   initQuillContainer(): void {
     const container = document.getElementById('quill-editor');
     if (container) {
-      this.quill = new Quill(container, { theme: 'snow', modules: quillConfig, });
+      this.quill = new Quill(container,
+        { modules: quillConfig, placeholder: 'Write Short content in less then 5000 words..', theme: 'snow', });
     } else {
       console.error('Failed to find Quill container element');
-    }
-  }
-  publishBlog() {
-    try {
-      const data: BlogData = {
-        title: this.title, description: this.description, content: this.content, category: this.category, image: this.imageSrc,
-        status: this.status, visibility: this.visibility, numReviews: this.getNumReviews, numViews: this.getNumViews,
-      }
-      if (this.editorForm.valid) {
-        this.blogService.saveBlogData(data).subscribe((res: any) => {
-          console.log('res value saved', res);
-          this.resetBlog();
-          Swal.fire({ position: 'center', icon: 'success', title: 'Your Blog Published SuccessFully', showConfirmButton: false, timer: 1500, });
-          this.router.navigate(['/blogs/blog-details', res.post._id]);
-        });
-      } else {
-        console.log(`this.editorForm.valid:   `, this.editorForm.valid);
-      }
-    } catch (error) {
-      console.error('An error occurred:', error);
-      // Handle the error as needed
     }
   }
 
@@ -103,60 +96,13 @@ export class WriteFormComponent implements OnInit, IDeactivateGuard {
     this.imageSrc = undefined;
   }
 
-  saveAsDraft() {
-    try {
-      const data: BlogData = {
-        title: this.title, description: this.description, content: this.content, category: this.category, image: this.imageSrc,
-        status: this.status, visibility: this.visibility, numReviews: this.getNumReviews, numViews: this.getNumViews,
-      }
-      if (this.editorForm.valid) {
-        this.draftService.saveAsDraft(this.editorForm.value).subscribe((res: any) => {
-          this.resetBlog();
-          Swal.fire({
-            position: 'center', icon: 'success', title: 'Saved in Draft  SuccessFully', showConfirmButton: false, timer: 1500,
-          });
-          this.router.navigate(['/profile/draft']);
-        });
-      }
-      console.log(this.editorForm.value);
-    } catch (error) {
-      console.error('An error occurred:', error);
-    }
-  }
-
-  get title() {
-    return this.editorForm.value['title'];
-  }
-  get description() {
-    return this.editorForm.value['description'];
-  }
-  get content() {
-    return this.editorForm.value['content'];
-  }
-  get category() {
-    return this.editorForm.value['category'] || 'educational';
-  }
-  get status() {
-    return this.editorForm.value['status'] || 'published';
-  }
-  get visibility() {
-    return this.editorForm.value['visibility'] || 'public';
-  }
-  get getNumViews() {
-    return this.numViews++;
-  }
-  get getNumReviews() {
-    return this.numReviews++;
-  }
   open(content: any) {
     this.modalService.open(content);
   }
 
-  openDialog(): void {
+  onPreview() {
     const dialogOptions = {
-      width: '100%',
-      height: 'auto',
-      data: { title: this.title, content: this.content, thumbnailImage: this.imageSrc, },
+      width: '100%', height: 'auto', data: { ...this.editorForm.value, },
     }
     const dialogRef = this.dialog.open(MessageDialogComponent, dialogOptions);
 
@@ -175,7 +121,8 @@ export class WriteFormComponent implements OnInit, IDeactivateGuard {
     if (file) {
       this.userService.uploadImage(file).subscribe((res: any) => {
         this.imageSrc = res.secure_url;
-        this.editorForm.controls['image']?.patchValue(res.secure_url);
+        this.editorForm.controls['image']?.patchValue(this.imageSrc);
+        console.log({ uploadFile_this_editorForm: this.editorForm.value });
         // this.getUserProfile();
       });
     }
@@ -209,14 +156,26 @@ export class WriteFormComponent implements OnInit, IDeactivateGuard {
     return true;
   }
 
+  get title() {
+    return this.editorForm.value['title'];
+  }
+  get description() {
+    return this.editorForm.value['description'];
+  }
+  get content() {
+    return this.editorForm.value['content'];
+  }
+
   onEditorBlured(event: any) {
     const quillEditor = document.getElementById('quill-editor');
     console.log('Editor blur event', event);
     if (quillEditor) {
+      console.log({ onSubmit_this_editorValue: this.editorValue });
       const editorInstance = quillEditor.querySelector('.ql-editor') as HTMLElement | null;
       if (editorInstance) {
         this.editorValue = editorInstance.innerText;
         this.editorForm?.get('content')?.setValue(this.editorValue); // Update form control
+        console.log({ onSubmit_this_editorValue: this.editorValue });
       }
     }
     console.log('Editor blur event', event);

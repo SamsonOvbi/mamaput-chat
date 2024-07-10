@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material.module';
-import { QuillModule } from 'ngx-quill';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
@@ -18,6 +17,7 @@ import { InterceptorService } from './features/auth/helpers/interceptor.service'
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { CommDialogModule } from './features/dialogs/comm-dialog.module';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent, ],

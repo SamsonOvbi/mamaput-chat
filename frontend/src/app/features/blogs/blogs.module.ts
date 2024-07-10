@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { QuillModule } from 'ngx-quill';
 import { SharedNavBarModule } from '../../shared/shared-navbar.module';
 import { MaterialModule } from '../../shared/material.module';
 import { BlogsRoutingModule } from './blogs.routing.module';
@@ -22,14 +21,14 @@ import { WriteFormComponent } from './components/write-form/write-form.component
 import { WriteHeaderComponent } from './components/write-header/write-header.component';
 
 const componentsList = [
-  WriteblogComponent, BlogListComponent,
-  BlogDetailComponent, EditblogComponent, WriteFormComponent, WriteHeaderComponent,
+  WriteblogComponent, BlogListComponent, BlogDetailComponent, EditblogComponent,
   BlogBoxComponent, BlogCardComponent, BlogHeaderComponent,
+  WriteFormComponent, WriteHeaderComponent,
 ];
 
 const modulesList = [
   CommonModule, BlogsRoutingModule, FormsModule, ReactiveFormsModule,
-  QuillModule, MaterialModule, HttpClientModule,
+  MaterialModule, HttpClientModule,
   SweetAlert2Module, NgxSkeletonLoaderModule, SharedNavBarModule,
   CoreModule, SharedModule,
 ];

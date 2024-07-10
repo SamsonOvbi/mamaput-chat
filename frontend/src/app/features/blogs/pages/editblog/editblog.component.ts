@@ -10,7 +10,7 @@ import { BlogData } from '../../models/blog-model';
 import { swalFireWarning, swalMixin } from '../../../../shared/constants';
 import { MessageDialogComponent } from 'src/app/shared/dialogs';
 import { UserService } from 'src/app/features/users/services/user.service';
-import { quillConfig } from '../../components/write-form/models/quill-editor';
+import { quillConfig } from '../../components/write-form/models/quill-editor/quill-config';
 
 @Component({
   selector: 'app-editblog',
@@ -78,7 +78,7 @@ export class EditblogComponent implements OnInit {
     this.modalService.open(content);
   }
 
-  openDialog(): void {
+  openMsgDialog(): void {
     const dialogOptions = {
       width: '100%', height: 'auto', data: { ...this.editorForm.value, },
     }

@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { QuillModule } from 'ngx-quill';
 import { SharedNavBarModule } from '../../shared/shared-navbar.module';
 import { MaterialModule } from '../../shared/material.module';
 import { CoreModule } from 'src/app/core/core.module';
@@ -19,7 +18,7 @@ const componentsList = [
 
 const modulesList = [
   CommonModule, DraftsRoutingModule, FormsModule, ReactiveFormsModule,
-  QuillModule, MaterialModule, HttpClientModule,
+  MaterialModule, HttpClientModule,
   SweetAlert2Module, NgxSkeletonLoaderModule, SharedNavBarModule,
   CoreModule,
 ];

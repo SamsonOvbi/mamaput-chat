@@ -24,7 +24,7 @@ const uploadRoute = require("./routes/upload/upload.routes");
 const dBaseSeed = require('./db/seeder');
 const blogRoute = require("./routes/blogs/blog.route");
 const { appRateLimiter } = require("./middleware/rate-limiter");
-const { startKeepAliveCron, keepChatAliveCron, keepEshopAliveCron } = require("./utils/keep-alive-cron");
+const { startKeepAliveCron } = require("./utils/keep-alive-cron");
 
 const app = express();
 
@@ -41,7 +41,6 @@ let root = path.join(__dirname, "../../frontend/dist/frontend/");
  * @param {string} dir - The directory path where the static files are located.
  */
 app.use(express.static(root));
-app.use(express.static(`${__dirname}/src/uploads`));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -82,7 +81,6 @@ app.use((error, req, res, next) => {
 });
 
 startKeepAliveCron();
-
 app.use(appRateLimiter);
 
 const PORT = process.env.PORT;
