@@ -8,29 +8,25 @@ import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-blog-card',
-  templateUrl: './blog-card.component.html',
-  styleUrls: ['./blog-card.component.scss']
+  templateUrl: './dispay-card.component.html',
+  styleUrls: ['./dispay-card.component.scss']
 })
-export class BlogCardComponent implements OnInit {
+export class DisplayCardComponent implements OnInit {
   contentLoaded = false;
   noDataFound = true;
-  // @Input() blogs!: BlogData[];
   @Input() blogs!: any;
+  @Input() totalBlogs!: number;
+
   @Input() showSlides = true;
   @Input() fullWidthMode = false;
   @Input() cols = 1;
   @Input() rowHeight = ROW_HEIGHT[this.cols];
-
-  //Pass event to parent component
-  // @Output() addToCart = new EventEmitter<BlogData>();
-  @Output() addToCart = new EventEmitter<any>();
-  @Input() loading?: boolean;
   @Input() error?: boolean;
 
   currentPage = 1;
-  itemsPerPage = 20;
-  @Input() totalBlogs!: number; 
+  itemsPerPage = 20;  
   apiUrl = environment.apiUrl;
+  today = new Date()
 
   constructor(
     private titleService: Title,
@@ -41,12 +37,12 @@ export class BlogCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.totalBlogs = this.blogs.length;
-    this.titleService.setTitle(`BlogData Card - ${this.sharedService.appTitle}`);
+    this.titleService.setTitle(`DisplayData Card - ${this.sharedService.appTitle}`);
   }
 
   get paginatedData() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    this.contentLoaded = true; 
+    this.contentLoaded = true;
     this.noDataFound = false;
     return this.blogs.slice(startIndex, startIndex + this.itemsPerPage);
   }

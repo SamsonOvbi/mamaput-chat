@@ -19,8 +19,7 @@ export class AuthService {
 
 setHeader(): any {
   if (localStorage.getItem('token')) {
-    let token = localStorage.getItem('token');
-    // let headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return { headers: headers };
   } else {

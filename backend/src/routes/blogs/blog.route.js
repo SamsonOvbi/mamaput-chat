@@ -23,5 +23,6 @@ blogRoute.get("/", blogContr.getAllBlogData);
 blogRoute.get("/:id", blogContr.getSingleBlog);
 blogRoute.delete("/:id", isAuth, blogContr.deleteBlogData);
 blogRoute.put("/:id", isAuth, blogContr.updateBlog);
+blogRoute.post("/return-to-draft/:id", isAuth, blogContr.returnToDraft);
 
 module.exports = blogRoute;

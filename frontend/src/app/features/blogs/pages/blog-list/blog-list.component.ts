@@ -7,7 +7,7 @@ import { Subscription, delay } from 'rxjs';
 import { MessageDialogService } from 'src/app/shared/dialogs/message-dialog/message-dialog.service';
 import { environment } from 'src/environments/environment';
 import { BlogData } from '../../models/blog-model';
-import { BlogBoxComponent } from '../../components/blog-box/blog-box.component';
+import { DisplayBoxComponent } from '../../components/dispay-box/dispay-box.component';
 
 @Component({
   selector: 'app-blog-list',
@@ -16,7 +16,7 @@ import { BlogBoxComponent } from '../../components/blog-box/blog-box.component';
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BlogListComponent implements OnInit, OnDestroy {
-  @ViewChild('blogBox') blogBox!: BlogBoxComponent;
+  @ViewChild('blogBox') blogBox!: DisplayBoxComponent;
   blogsList!: BlogData[];
   // blogsList!: any;
   showSlides = true;

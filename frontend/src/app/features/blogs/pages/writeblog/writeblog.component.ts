@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { IDeactivateGuard } from '../../../auth/helpers/deactivate.guard';
 import Swal from 'sweetalert2';
 import Quill from 'quill';
@@ -13,7 +13,7 @@ import { DraftService } from '../../../drafts/services/draft.service';
 import { MessageDialogComponent } from 'src/app/shared/dialogs';
 import { UserService } from 'src/app/features/users/services/user.service';
 import { swalFireWarning } from 'src/app/shared/constants';
-import { quillConfig } from '../../components/write-form/models/quill-editor/quill-config';
+import { quillConfig } from '../../components/write-form/models/quill-config';
 
 @Component({
   selector: 'app-writeblog',
@@ -27,6 +27,7 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard, OnDestroy {
   public htmlContent: any = '';
   public editorValue: any = '';
   editorForm!: FormGroup;
+  configData: any;
   quill!: Quill;
   public imageSrc: any;
   public file: any;
@@ -35,6 +36,10 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard, OnDestroy {
   contentLoaded = false;
   numViews = 0;
   numReviews = 0;
+  blogSubscription: Subscription = Subscription.EMPTY;
+  draftSubscription: Subscription = Subscription.EMPTY;
+  dialogSubscription: Subscription = Subscription.EMPTY;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private activatedRouter: ActivatedRoute,
@@ -60,30 +65,23 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.initQuillContainer();
   }
 
-  initQuillContainer(): void {
-    const container = document.getElementById('quill-editor');
-    if (container) {
-      this.quill = new Quill(container,
-        { modules: quillConfig, placeholder: 'Write Short content in less then 5000 words..', theme: 'snow', });
-    } else {
-      console.error('Failed to find Quill container element');
-    }
+  onFormSubmit(data: any) {
+    this.editorForm.patchValue(data);
+    console.log('this.editorForm.value', this.editorForm.value);
   }
 
   publishBlog() {
     try {
-      // if (this.editorForm.valid) {
-      console.log('this.editorForm.value', this.editorForm.value);
       if (this.editorForm.valid) {
-        this.blogService.saveBlogData(this.editorForm.value).subscribe((res: any) => {
+        this.blogSubscription = this.blogService.saveBlogData(this.editorForm.value).subscribe((res: any) => {
           // console.log('res value saved', res);
           this.resetBlog();
           Swal.fire({ title: 'Your Blog Published SuccessFully', icon: 'success', position: 'center', showConfirmButton: false, timer: 1500, });
           this.router.navigate(['/blogs/blog-details', res.post._id]);
         });
+        this.subscriptions.push(this.blogSubscription);
       } else {
         console.log(`this.editorForm.valid:   `, this.editorForm.valid);
       }
@@ -95,15 +93,16 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard, OnDestroy {
   saveAsDraft() {
     try {
       if (this.editorForm.valid) {
-        this.draftService.saveAsDraft(this.editorForm.value).subscribe((res: any) => {
+        this.draftSubscription = this.draftService.saveAsDraft(this.editorForm.value).subscribe((res: any) => {
           this.resetBlog();
           Swal.fire({
             position: 'center', icon: 'success', title: 'Saved in Draft  SuccessFully', showConfirmButton: false, timer: 1500,
           });
           this.router.navigate(['/profile/draft']);
         });
+        this.subscriptions.push(this.draftSubscription);
       }
-      console.log(this.editorForm.value);
+      // console.log(this.editorForm.value);
     } catch (error) {
       console.error('An error occurred:', error);
     }
@@ -125,28 +124,16 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard, OnDestroy {
     }
     const dialogRef = this.dialog.open(MessageDialogComponent, dialogOptions);
 
-    dialogRef.afterClosed().subscribe((result) => {
+    this.dialogSubscription = dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
     });
+    this.subscriptions.push(this.dialogSubscription);
   }
 
   handleInputFile(files: FileList) {
     // console.log({ files });
   }
 
-  uploadFile(event: any) {
-    const file: File = event?.target.files[0];
-    this.file = file.name;
-    console.log({ onImageUpload_file: file });
-    if (file) {
-      this.userService.uploadImage(file).subscribe((res: any) => {
-        this.imageSrc = res.secure_url;
-        this.editorForm.controls['image']?.patchValue(this.imageSrc);
-        console.log({ this_editorForm_value: this.editorForm.value });
-        // this.getUserProfile();
-      });
-    }
-  }
 
   fireEvent() {
     let fire = false;
@@ -186,20 +173,8 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard, OnDestroy {
     return this.editorForm.value['content'];
   }
 
-  onEditorBlured(event: any) {
-    const quillEditor = document.getElementById('quill-editor');
-    if (quillEditor) {
-      const editorInstance = quillEditor.querySelector('.ql-editor') as HTMLElement | null;
-      if (editorInstance) {
-        this.editorValue = editorInstance.innerText;
-        // this.editorForm?.get('content')?.setValue(this.editorValue); // Update form control
-        this.editorForm.controls['content']?.patchValue(this.editorValue);
-        console.log('this.editorForm.value', this.editorForm.value);
-      }
-    }
-    this.cdRef.detectChanges();
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
-
-  ngOnDestroy(): void { }
 
 }

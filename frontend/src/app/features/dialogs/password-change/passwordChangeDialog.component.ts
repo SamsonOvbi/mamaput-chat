@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { AuthService } from '../../auth/services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'password-change',
@@ -16,6 +17,9 @@ export class PasswordChangeDialogComponent implements OnInit {
   changePassword: FormGroup;
   public error: string = '';
   showError = false;
+  authSubscription: Subscription = Subscription.EMPTY;
+  private subscriptions: Subscription[] = [];
+
   constructor(
     public dialogRef: MatDialogRef<PasswordChangeDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -28,10 +32,14 @@ export class PasswordChangeDialogComponent implements OnInit {
       confirmPassword: ['', Validators.required],
     });
   }
+  
+  ngOnInit(): void {
+    // throw new Error('Method not implemented.');
+  }
 
   savePassword(): void {
     if (this.changePassword.valid) {
-      this.authService.updatePassword(this.changePassword.value).subscribe({
+      this.authSubscription = this.authService.updatePassword(this.changePassword.value).subscribe({
         next: (res: any) => {
           const Toast = Swal.mixin({
             toast: true,
@@ -56,6 +64,7 @@ export class PasswordChangeDialogComponent implements OnInit {
           this.dialogRef.close(this.changePassword.value);
         }
     });
+    this.subscriptions.push(this.authSubscription);
     }
   }
   get newPassword() {
@@ -66,7 +75,8 @@ export class PasswordChangeDialogComponent implements OnInit {
     return this.changePassword.value['confirmPassword'];
   }
 
-  ngOnInit(): void {
-    // throw new Error('Method not implemented.');
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
+
 }

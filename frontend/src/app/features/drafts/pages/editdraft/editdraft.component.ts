@@ -1,7 +1,7 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { DraftService } from '../../services/draft.service';
@@ -9,21 +9,20 @@ import { MessageDialogComponent } from 'src/app/shared/dialogs';
 import { UserService } from 'src/app/features/users/services/user.service';
 import { environment } from 'src/environments/environment';
 import { swalFireWarning } from 'src/app/shared/constants';
-import { quillConfig } from 'src/app/features/blogs/components/write-form/models/quill-editor/quill-config';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-editdraft',
   templateUrl: './editdraft.component.html',
   styleUrls: ['./editdraft.component.scss', '../../../blogs/pages/writeblog/writeblog.component.scss',],
 })
 export class EditdraftComponent implements OnInit {
-  public modules = quillConfig;
-  public htmlContent: any = '';
-  public editorValue: any = '';
+  editorValue: any = '';
   editorForm: FormGroup;
-  public imageSrc: any;
-  public file: any;
-  public data: any;
-  public id: string | null | undefined;
+  configData: any;
+  imageSrc: any;
+  file: any;
+  data: any;
+  id: string | null | undefined;
   contentLoaded = false;
   apiUrl = environment.apiUrl;
   constructor(
@@ -34,7 +33,9 @@ export class EditdraftComponent implements OnInit {
     private renderer: Renderer2,
     private draftService: DraftService,
     private userService: UserService,
-    private activatedRouter: ActivatedRoute
+    private activatedRouter: ActivatedRoute,
+    private router: Router,
+    private location: Location,
   ) {
     this.editorForm = this._fb.group({
       title: ['', [Validators.required]],
@@ -57,12 +58,19 @@ export class EditdraftComponent implements OnInit {
     });
   }
 
+  onFormSubmit(data: any) {
+    // console.log('Form submitted:', data);
+    this.editorForm.patchValue(data);
+    console.log('this.editorForm.value', this.editorForm.value);
+  }
+
   saveEditor() {
     try {
       if (this.editorForm.valid) {
         this.draftService.updateDraft(this.editorForm.value, this.id).subscribe((res: any) => {
           Swal.fire(`${res.message}!`, 'Draft Saved SuccessFully', 'success');
           this.resetDraft();
+          this.location.back();
         });
       } else {
         console.log(`this.editorForm.valid:   `, this.editorForm.valid);
@@ -75,42 +83,23 @@ export class EditdraftComponent implements OnInit {
   }
 
   publish() {
-    this.draftService.publishDraft(this.id).subscribe((res) => { });
-  }
-
-  get title() {
-    return this.editorForm.value['title'];
-  }
-
-  get content() {
-    return this.editorForm.value['content'];
-  }
-
-  get description() {
-    return this.editorForm.value['description'];
+    this.draftService.publishDraft(this.id).subscribe((res) => { 
+      Swal.fire({ title: 'Your Draft Published SuccessFully', icon: 'success', position: 'center', showConfirmButton: false, timer: 1500, });
+      this.location.back();
+    });    
   }
 
   open(content: any) {
     this.modalService.open(content);
   }
 
-  resetDraft() {
-    this.editorForm.reset();
-    this.file = undefined;
-    this.imageSrc = undefined;
-  }
-
   openMsgDialog(): void {
     const dialogOptions = {
-      width: '100%',
-      height: 'auto',
-      data: { ...this.editorForm.value, },
+      width: '100%', height: 'auto', data: { ...this.editorForm.value, },
     }
     const dialogRef = this.dialog.open(MessageDialogComponent, dialogOptions);
 
     dialogRef.afterClosed().subscribe((result) => {
-      // console.log('The dialog was closed');
-      // this.animal = result;
     });
   }
 
@@ -118,17 +107,6 @@ export class EditdraftComponent implements OnInit {
     // console.log('file..');
   }
 
-  uploadFile(event: any) {
-    const file: File = event?.target.files[0];
-    this.file = file.name;
-    if (file) {
-      this.userService.uploadImage(file).subscribe((res: any) => {
-        this.imageSrc = res.secure_url;
-        this.editorForm.controls['image'].patchValue(this.imageSrc);
-        // this.getUserProfile();
-      });
-    }
-  }
 
   fireEvent() {
     let fire = false;
@@ -148,6 +126,12 @@ export class EditdraftComponent implements OnInit {
     return fire;
   }
 
+  resetDraft() {
+    this.editorForm.reset();
+    this.file = undefined;
+    this.imageSrc = undefined;
+  }
+
   canExit() {
     if (this.editorForm.dirty) {
       if (confirm('Are you sure you want to leave')) {
@@ -159,9 +143,8 @@ export class EditdraftComponent implements OnInit {
     return true;
   }
 
-  onEditorBlured(event: any) {
-    // Handle blur event if needed
-    console.log('Editor blur event', event);
+  get content() {
+    return this.editorForm.value['content'];
   }
 
 }

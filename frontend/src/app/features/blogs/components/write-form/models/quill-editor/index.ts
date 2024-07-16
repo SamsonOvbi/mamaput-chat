@@ -1,3 +1,12 @@
+// // Add fonts to whitelist
+// import Quill from 'quill';
+// const Font = Quill.import('formats/font');
+// // We do not add Aref Ruqaa since it is the default
+// Font.whitelist = [
+//   "roboto", "lato", "futura", "times new roman"
+// ];
+// Quill.register(Font, true);
+
 // export const quillConfig = {
 //   toolbar: [
 //     ['bold', 'italic', 'underline', 'strike'],
@@ -15,3 +24,8 @@
 //     ['clean']
 //   ]
 // };
+
+// const quill = new Quill('#editor', {
+//   modules: quillConfig,
+//   theme: 'snow',
+// });

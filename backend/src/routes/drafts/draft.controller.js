@@ -73,25 +73,6 @@ draftContr.saveDraft = async (req, res, next) => {
   }
 };
 
-// draftContr.saveDraft = async (req, res, next) => {
-//   const { content, title, description, image } = req.body;
-//   if (!content || !title || !description || !image) {
-//     const error = new Error('Missing required fields.');
-//     error.statusCode = 422;
-//     return next(error);
-//   }
-//   try {
-//     const draft = new DraftModel({ title, content, description, image, user: req.user.id });
-//     await draft.save();
-//     await UserModel.findByIdAndUpdate(req.user.id, { $push: { drafts: draft._id } }, { new: true });
-//     res.status(201).json({ message: 'Draft Published Successfully', draft });
-//   } catch (err) {
-//     console.error({ error: err });
-//     if (!err.statusCode) { err.statusCode = 500; }
-//     next(err);
-//   }
-// };
-
 draftContr.deleteDraft = async (req, res, next) => {
   try {
     const draft = await DraftModel.findById(req.params.id);
@@ -119,11 +100,10 @@ draftContr.deleteDraft = async (req, res, next) => {
 draftContr.updateDraft = async (req, res, next) => {
   const { title, description, content } = req.body;
   let image = req.body.image;
-  console.error({ req_body: req.body });
   try {
     const draft = await DraftModel.findById(req.params.id);
     if (!draft) {
-      const error = new Error('Could not find post.');
+      const error = new Error('Could not find draft.');
       error.statusCode = 404;
       return next(error);
     }

@@ -71,4 +71,8 @@ export class BlogService {
     return this.http.put(`${this.apiUrl}/blog/${id}`, data, this.authService.setHeader());
   }
 
+  returnToDraft(data: any, id: any) {
+    return this.http.post(`${this.apiUrl}/blog/return-to-draft/${id}`, data, this.authService.setHeader());
+  }
+
 }

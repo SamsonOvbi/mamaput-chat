@@ -1,4 +1,3 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -14,12 +13,14 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2022",
+    "target": "es2022", 
     "module": "es2020",
     "lib": [
       "es2018", 
       "dom"
-    ] 
+    ],
+    "types": ["@ckeditor/ckeditor5-build-classic"],
+    "noImplicitAny": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -28,6 +29,9 @@
     "strictTemplates": true,
     "allowSyntheticDefaultImports": true
   },
-  "noImplicitAny": false
-
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts"
+  ],
+  
 }

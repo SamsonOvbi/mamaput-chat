@@ -1,5 +1,6 @@
 // import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 
@@ -8,8 +9,11 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
   templateUrl: './resetpassword.component.html',
   styleUrls: ['./resetpassword.component.scss', '../login/login.component.scss'],
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent implements OnInit, OnDestroy {
   public resetEmail: any;
+  authSubscription: Subscription = Subscription.EMPTY;
+  private subscriptions: Subscription[] = [];
+
   constructor(private authService: AuthService) { }
   ngOnInit(): void { }
 
@@ -17,14 +21,20 @@ export class ForgotPasswordComponent implements OnInit {
     let data = {
       email: this.resetEmail,
     };
-    this.authService.forgotPassword(data).subscribe({
+    this.authSubscription = this.authService.forgotPassword(data).subscribe({
       next: (res: any) => {
         Swal.fire({ icon: 'success', title: 'SUCCESS', text: `${res.data}`, });
       },
       error: (error: any) => {
         Swal.fire({ icon: 'error', title: 'Something Went Wrong', text: `${error.message}`, });
       }
-  });
+    });
+    this.subscriptions.push(this.authSubscription);
     // console.log('resetEmail', data);
   }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
 }

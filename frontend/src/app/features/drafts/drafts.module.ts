@@ -11,16 +11,17 @@ import { DraftsRoutingModule } from './drafts-routing.module';
 
 import { EditdraftComponent } from '../drafts/pages/editdraft/editdraft.component';
 import { DraftDetailComponent } from './pages/draft-detail/draft-detail.component';
+import { BlogsModule } from '../blogs/blogs.module';
 
 const componentsList = [
-  DraftDetailComponent, EditdraftComponent,
+  DraftDetailComponent, EditdraftComponent, 
 ];
 
 const modulesList = [
   CommonModule, DraftsRoutingModule, FormsModule, ReactiveFormsModule,
   MaterialModule, HttpClientModule,
   SweetAlert2Module, NgxSkeletonLoaderModule, SharedNavBarModule,
-  CoreModule,
+  CoreModule, BlogsModule,
 ];
 
 @NgModule({

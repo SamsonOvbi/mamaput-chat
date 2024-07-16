@@ -2,11 +2,13 @@ const PostModel = require("./blog.model");
 const path = require("path");
 const fs = require("fs");
 const UserModel = require("../auth/user.model");
+const DraftModel = require("../drafts/draft.model");
 
 const blogContr = {};
 
 blogContr.postBlog = async (req, res, next) => {
   const { content, title, description, image } = req.body;
+  console.log('req.body', req.body);
   if (!content || !title || !description || !image) {
     const error = new Error("Missing required fields.");
     error.statusCode = 422;
@@ -107,6 +109,7 @@ blogContr.updateBlog = async (req, res, next) => {
   let image = req.body.image;
   try {
     let post = await PostModel.findById(id);
+    console.log({ 'req.params.id': req.params.id });
     if (!post) {
       const error = new Error("Could not find post.");
       error.statusCode = 404;
@@ -129,6 +132,27 @@ blogContr.updateBlog = async (req, res, next) => {
       message: "PostModel updated!",
       post: result,
     });
+  } catch (err) {
+    console.error({ error: err });
+    if (!err.statusCode) { err.statusCode = 500; }
+    next(err);
+  }
+};
+
+blogContr.returnToDraft = async (req, res, next) => {
+  try {    
+    const post = await PostModel.findById(req.params.id);    
+    if (!post) {
+      const error = new Error('Post Not Found');
+      error.statusCode = 404;
+      return next(error);
+    }
+    const { content, title, description, image } = post;
+    const draft = new DraftModel({ title, content, description, image, user: req.user.id });
+    await draft.save();
+    await UserModel.findByIdAndUpdate(req.user.id, { $push: { drafts: draft._id }, $pull: { posts: post._id } });
+    await PostModel.findByIdAndRemove(req.params.id);
+    res.status(201).json({ message: 'Blog Returned to Draft Successfully', draft });
   } catch (err) {
     console.error({ error: err });
     if (!err.statusCode) { err.statusCode = 500; }

@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, ElementRef, HostListener, OnInit, Renderer2, } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { SweetAlertOptions } from 'sweetalert2';
 import { AuthService } from '../../../features/auth/services/auth.service';
 import { SharedService } from '../../../shared/services/shared.service';
@@ -13,13 +13,16 @@ import { UserService } from 'src/app/features/users/services/user.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   public loggedIn: boolean = false;
   public drop: boolean = false;
   public routerOutlet: boolean = true;
   public profileImage: string = '';
   public userName: string = '';
   public appTitle = '';
+  sharedSubscription: Subscription = Subscription.EMPTY;
+  authSubscription: Subscription = Subscription.EMPTY;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private elementRef: ElementRef,
@@ -38,9 +41,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.appTitle = this.sharedService.appTitle;
     this.sharedService.setRouterOutlet(this.route.url);
-    this.sharedService.showNavar.subscribe((val) => {
-      this.routerOutlet = val;
-    });
+    this.sharedSubscription = this.sharedService.showNavar.subscribe((val) => { this.routerOutlet = val; });
+    this.subscriptions.push(this.sharedSubscription);
     this.alertOpt = { title: 'Success!', text: 'Saved successfuly', toast: false, allowOutsideClick: false, };
     this.authService.checkLogin();
 
@@ -48,7 +50,7 @@ export class HeaderComponent implements OnInit {
   }
 
   isLoggedInFn(): void {
-    this.authService.isLoggedIn.subscribe((val) => {
+    this.authSubscription = this.authService.isLoggedIn.subscribe((val) => {
       this.loggedIn = val;
       if (this.loggedIn) {
         this.userService.getProfile().subscribe({
@@ -62,9 +64,11 @@ export class HeaderComponent implements OnInit {
         });
       }
     });
-    this.sharedService.profileImageUrl.subscribe((res) => {
+    this.subscriptions.push(this.authSubscription);
+    this.sharedSubscription = this.sharedService.profileImageUrl.subscribe((res) => {
       this.profileImage = res;
     });
+    this.subscriptions.push(this.sharedSubscription);
   }
 
   ngAfterViewInit() {
@@ -87,4 +91,9 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authService.logOut();
   }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
 }

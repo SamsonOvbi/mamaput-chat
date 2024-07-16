@@ -9,11 +9,11 @@
         <div class="left-div">
           <div class="writer-info-container">
             <div class="info">
-              <div class="profile-image">
+              <div class="h-[20px] w-[20px] rounded-full">
                 <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle"
                   [theme]="{ width: '20px', height: '20px' }"></ngx-skeleton-loader>
                 <img src="/assets/images/secure_login.svg" alt="" *ngIf="!myDraft.image" />
-                <img src="{{ myDraft.image }}" alt="" *ngIf="contentLoaded && myDraft.image" />
+                <img src="{{ myDraft.image }}" alt="" *ngIf="contentLoaded && myDraft.image" class="h-full w-full rounded-full"/>
               </div>
               <ngx-skeleton-loader *ngIf="!contentLoaded" class="writer-name"></ngx-skeleton-loader>
               <h4 class="writer-name" *ngIf="contentLoaded"> {{ myDraft?.username }} </h4>

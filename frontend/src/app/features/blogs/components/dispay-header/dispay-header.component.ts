@@ -4,9 +4,9 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-blog-header',
-  templateUrl: './blog-header.component.html'
+  templateUrl: './dispay-header.component.html'
 })
-export class BlogHeaderComponent {
+export class DisplayHeaderComponent {
   @Input() drawer: any;
   @Input() category?: string;
   @Input() totalBlogs: any;
@@ -20,7 +20,7 @@ export class BlogHeaderComponent {
     private titleService: Title,
     private sharedService: SharedService
   ) {
-    // this.titleService.setTitle(`Blog Header - ${this.sharedService.appTitle}`);
+    // this.titleService.setTitle(`Display Header - ${this.sharedService.appTitle}`);
   }
 
   onColumnsUpdated(colsNum: number): void {

@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { BlogService } from '../../services/blog.service';
 import { environment } from 'src/environments/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-blog-detail',
   templateUrl: './blog-detail.component.html',
   styleUrls: ['./blog-detail.component.scss'],
 })
-export class BlogDetailComponent implements OnInit {
+export class BlogDetailComponent implements OnInit, OnDestroy {
   public data: any;
   public id: string | null | undefined;
   contentLoaded = false;
@@ -18,6 +19,9 @@ export class BlogDetailComponent implements OnInit {
     'justify-content': 'center', 'margin-bottom': '26px'
   };
   public apiUrl = environment.apiUrl;
+  today = new Date();
+  blogSubscription: Subscription = Subscription.EMPTY;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private activatedRouter: ActivatedRoute,
@@ -27,10 +31,15 @@ export class BlogDetailComponent implements OnInit {
   ngOnInit(): void {    
     this.id = this.activatedRouter.snapshot.paramMap.get('id');
     console.log('id...', this.id);
-    this.blogService.getSingleBlog(this.id).subscribe((res: any) => {
+    this.blogSubscription = this.blogService.getSingleBlog(this.id).subscribe((res: any) => {
       this.data = res.data;
       this.contentLoaded = true;
     });
+    this.subscriptions.push(this.blogSubscription);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
 }

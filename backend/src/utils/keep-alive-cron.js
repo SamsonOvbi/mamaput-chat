@@ -11,7 +11,7 @@ function keepEshopAliveCron() {
     console.log('Sending mamaput-eshop-1 keep-alive ping to the API');
     axios.get('https://mamaput-eshop-1.onrender.com/keep-alive')
       .then(response => {
-        console.log('Keep-alive ping successful:', response.status);
+        console.log('mamaput-eshop-1 keep-alive ping successful:', response.status);
       })
       .catch(error => {
         console.error('Error sending keep-alive ping:', error);
@@ -24,7 +24,7 @@ function keepChatAliveCron() {
     console.log('Sending mamaput-chat keep-alive ping to the API');
     axios.get('https://mamaput-chat.onrender.com/keep-alive')
       .then(response => {
-        console.log('Keep-alive ping successful:', response.status);
+        console.log('mamaput-chat keep-alive ping successful:', response.status);
       })
       .catch(error => {
         console.error('Error sending keep-alive ping:', error);

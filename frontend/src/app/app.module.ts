@@ -18,6 +18,7 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { CommDialogModule } from './features/dialogs/comm-dialog.module';
 import { QuillModule } from 'ngx-quill';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent, ],
@@ -30,6 +31,7 @@ import { QuillModule } from 'ngx-quill';
     BrowserAnimationsModule,
     MaterialModule,
     QuillModule.forRoot(),
+    CKEditorModule,
     NgxSkeletonLoaderModule,
     HttpClientModule,
     SweetAlert2Module.forRoot(),

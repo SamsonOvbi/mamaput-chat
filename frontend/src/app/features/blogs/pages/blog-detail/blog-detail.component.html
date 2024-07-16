@@ -1,4 +1,4 @@
-<div class="container mb-4">
+<div class="container">
   <div class="pb-2">
     <div class="flex flex-row items-center">
       <div class="h-[20px] w-[20px] rounded-full">
@@ -10,28 +10,30 @@
       </div>
       <ngx-skeleton-loader *ngIf="!contentLoaded" class="m-0 ml-1"></ngx-skeleton-loader>
       <h4 class="m-0 ml-1" *ngIf="contentLoaded"> {{ data?.user?.username }} </h4>
+      <div class="ml-2 text-gray-500">
+        <span>{{ data?.createdAt | date }}</span>
+      </div>
     </div>
   </div>
 
   <ngx-skeleton-loader *ngIf="!contentLoaded" [theme]="ngxLoaderTheme"></ngx-skeleton-loader>
-  <h1 class="flex justify-center w-4/5 capitalize font-black mx-auto text-4xl leading-9" *ngIf="contentLoaded">
+  <h1 class="flex justify-center w-full capitalize font-bold mx-auto text-2xl" *ngIf="contentLoaded">
     {{ data?.title }}
   </h1>
   <div class="flex flex-row">
     <div class="h-[50%] mx-auto w-[38%]">
       <ngx-skeleton-loader *ngIf="!contentLoaded" appearance="circle"
         [theme]="{ ngxLoaderTheme, height: '240px' }"></ngx-skeleton-loader>
-      <img class="h-[100%] w-[100%] min-w-[100%]" src="{{ data?.image }}" alt="imagename" *ngIf="contentLoaded" />
+      <img class="h-[100%] w-[100%] min-w-[100%] object-contain" src="{{ data?.image }}" alt="imagename"
+        *ngIf="contentLoaded" />
     </div>
     <div class="mt-4"></div>
     <div class="flex flex-col w-[60%]">
       <ngx-skeleton-loader count="5" *ngIf="!contentLoaded" [theme]="ngxLoaderTheme"> </ngx-skeleton-loader>
-      <div class="mainContent font-bold" *ngIf="contentLoaded">
+      <div class="mainContent font-bold text-lg" *ngIf="contentLoaded">
         <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.description)"></div>
       </div>
-      <div class="ml-4 text-gray-500 mb-2">
-        <span>{{ data?.createdAt | date }}</span>
-      </div>
+
       <ngx-skeleton-loader count="5" *ngIf="!contentLoaded" [theme]="ngxLoaderTheme"> </ngx-skeleton-loader>
       <div class="mainContent h-[50vh] overflow-y-auto" *ngIf="contentLoaded">
         <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.content)"></div>

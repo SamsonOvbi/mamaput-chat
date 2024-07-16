@@ -13,6 +13,7 @@ export class ResetPasswordComponent implements OnInit {
   newPasswordHide: boolean = true;
   confirmPasswordHide: boolean = true;
   token: any;
+  
   constructor(
     private _fb: FormBuilder,
     private dialog: MatDialog,
@@ -29,7 +30,6 @@ export class ResetPasswordComponent implements OnInit {
     const dialogOptions = { width: '50%', height: 'auto', backdropClass: 'bgClass', data: { token: this.token }, }
     const dialogRef = this.dialog.open(ResetPasswordDialogComponent, dialogOptions);
     dialogRef.afterClosed().subscribe((result) => {
-      // console.log('closed password dialog', result);
       result ? this.router.navigate(['/auth/login']) : this.router.navigate(['/landing']);
     });
   }

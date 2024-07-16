@@ -1,15 +1,12 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { IDeactivateGuard } from '../../../auth/helpers/deactivate.guard';
-import Swal from 'sweetalert2';
-import { MessageDialogComponent } from 'src/app/shared/dialogs';
 import { UserService } from 'src/app/features/users/services/user.service';
-import { swalFireWarning } from 'src/app/shared/constants';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import Quill from 'quill';
-import { quillConfig } from './models/quill-editor/quill-config';
+import { quillConfig } from './models/quill-config';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-write-form',
@@ -18,29 +15,29 @@ import { quillConfig } from './models/quill-editor/quill-config';
   providers: [NgbModalConfig, NgbModal],
 })
 
-export class WriteFormComponent implements OnInit, IDeactivateGuard {
+export class WriteFormComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() initialData: any;
+  // @Input() writeDataIn: any;
+  @Input() configData: any;
+  // @Input() writeOptions: any;
   @Output() formSubmit = new EventEmitter<any>();
+  // @Output() writeDataOut = new EventEmitter<any>();
 
-  public modules = quillConfig;
-  public htmlContent: any = '';
-  public editorValue: any = 'Write Short content in less then 500 words..';
+  editorPlaceholder: any = 'Write Short content in less then 5000 words..';
   editorForm!: FormGroup;
+  previousData!: any;
   quill!: Quill;
-  public imageSrc: any;
-  public file: any;
-  public data: any;
-  public id: string | null | undefined;
-  contentLoaded = false;
-  numViews = 0;
-  numReviews = 0;
+  public Editor = ClassicEditor;
+  editorInstance: any;
+  imageSrc: any;
+  file: any;
+  formSubscription: Subscription = Subscription.EMPTY;
+  uploadSubscription: Subscription = Subscription.EMPTY;
+  private subscriptions: Subscription[] = [];
 
   constructor(
-    private cdRef: ChangeDetectorRef,
     config: NgbModalConfig,
-    private modalService: NgbModal,
     private _fb: FormBuilder,
-    public dialog: MatDialog,
     private userService: UserService,
   ) {
     config.backdrop = 'static';
@@ -54,132 +51,106 @@ export class WriteFormComponent implements OnInit, IDeactivateGuard {
   }
 
   ngOnInit(): void {
-    // this.initQuillContainer();
     if (this.initialData) {
       this.editorForm.patchValue(this.initialData);
       this.imageSrc = this.initialData.image;
+      this.imageSrc = this.imageSrc || '/assets/images/avatar.svg';
+      console.log('this.editorForm.value', this.editorForm.value);
+    }
+
+    this.initCKEditor();
+    // this.initQuillContainer();
+    this.initWriteForm();
+  }
+
+  ngAfterViewInit(): void {  }
+
+  initWriteForm() {
+    this.formSubscription = this.editorForm.valueChanges.pipe(
+      debounceTime(100), distinctUntilChanged()
+    ).subscribe(formValue => {
+      this.formSubmit.emit(formValue);
+    });
+    this.subscriptions.push(this.formSubscription);
+  }
+
+  // initQuillContainer(): void {
+  //   const container = document.getElementById('quill-editor');
+  //   if (container) {
+  //     this.quill = new Quill(container,
+  //       { modules: quillConfig, placeholder: this.editorPlaceholder, theme: 'snow', }
+  //     );
+  //     if (this.initialData.description) {
+  //       this.quill.clipboard.dangerouslyPasteHTML(this.initialData.description);
+  //     }
+  //     // Update the form control value when Quill content changes
+  //     this.quill.on('text-change', () => {
+  //       const description = this.quill.root.innerHTML;
+  //       // this.editorForm.controls.description.setValue(description);
+  //       this.editorForm.patchValue({ description: description });
+  //     });
+  //   } else {
+  //     console.error('Failed to find Quill container element');
+  //   }
+  // }
+
+  initCKEditor() {
+    const editorElement = document.getElementById('ck-editor');
+    if (editorElement) {
+      ClassicEditor.create(editorElement)
+        .then((editor) => {
+          this.editorInstance = editor;
+          this.onReady(editor);
+          if (this.initialData.content) {
+            editor.setData(this.initialData.content);
+          }
+        })
+        .catch((error) => {
+          console.error('An error occurred:', error);
+        });
+    } else {
+      console.error('CKEditor element not found');
     }
   }
 
-  onSubmit() {
+
+  onReady(editor: any) {
     try {
-      if (this.editorForm.valid) {
-        const formData: any = { ...this.editorForm.value, image: this.imageSrc, };
-        this.formSubmit.emit(formData);
-        console.log({ onSubmit_formData: formData });
-        this.editorForm.patchValue(formData);
-      }
+      editor.editing.view.change((writer: any) => {
+        writer.setStyle('height', '300px', editor.editing.view.document.getRoot());
+      });
+      // Capture text changes and update form
+      editor.model.document.on('change:data', () => {
+        const content = editor.getData();
+        if (this.previousData !== content) {
+          this.editorForm.patchValue({ content: content }, { emitEvent: false });
+          this.previousData = content;
+        }
+      });
     } catch (error) {
       console.error('An error occurred:', error);
     }
-  }
 
-  onClear() {
-    this.editorForm.reset();
-    this.file = undefined;
-    this.imageSrc = undefined;
-  }
-
-  initQuillContainer(): void {
-    const container = document.getElementById('quill-editor');
-    if (container) {
-      this.quill = new Quill(container,
-        { modules: quillConfig, placeholder: 'Write Short content in less then 5000 words..', theme: 'snow', });
-    } else {
-      console.error('Failed to find Quill container element');
-    }
-  }
-
-  resetBlog() {
-    this.editorForm.reset();
-    this.file = undefined;
-    this.imageSrc = undefined;
-  }
-
-  open(content: any) {
-    this.modalService.open(content);
-  }
-
-  onPreview() {
-    const dialogOptions = {
-      width: '100%', height: 'auto', data: { ...this.editorForm.value, },
-    }
-    const dialogRef = this.dialog.open(MessageDialogComponent, dialogOptions);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-    });
-  }
-
-  handleInputFile(files: FileList) {
-    // console.log({ files });
   }
 
   uploadFile(event: any) {
     const file: File = event?.target.files[0];
     this.file = file.name;
     if (file) {
-      this.userService.uploadImage(file).subscribe((res: any) => {
+      this.uploadSubscription = this.userService.uploadImage(file).subscribe((res: any) => {
         this.imageSrc = res.secure_url;
-        this.editorForm.controls['image']?.patchValue(this.imageSrc);
-        console.log({ uploadFile_this_editorForm: this.editorForm.value });
+        this.editorForm.controls['image']?.patchValue(res.secure_url);
         // this.getUserProfile();
       });
+      this.subscriptions.push(this.uploadSubscription);
     }
   }
 
-  fireEvent() {
-    let fire = false;
-    Swal.fire({
-      ...swalFireWarning, icon: 'warning',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        fire = true;
-        return fire;
-      } else {
-        fire = false;
-        return false;
-      }
-    });
-    return fire;
-  }
-
-  canExit() {
-    if (this.title !== null || this.description !== null) {
-      if (
-        this.title.length > 0 || this.description.length > 0 || this.content.length > 0
-      ) {
-        const confResult = confirm('Are you sure you want to leave? All the Changes will be discarded');
-        return confResult ? true : false;
-      }
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    if (this.editorInstance) {
+      this.editorInstance.destroy();
     }
-    return true;
-  }
-
-  get title() {
-    return this.editorForm.value['title'];
-  }
-  get description() {
-    return this.editorForm.value['description'];
-  }
-  get content() {
-    return this.editorForm.value['content'];
-  }
-
-  onEditorBlured(event: any) {
-    const quillEditor = document.getElementById('quill-editor');
-    console.log('Editor blur event', event);
-    if (quillEditor) {
-      console.log({ onSubmit_this_editorValue: this.editorValue });
-      const editorInstance = quillEditor.querySelector('.ql-editor') as HTMLElement | null;
-      if (editorInstance) {
-        this.editorValue = editorInstance.innerText;
-        this.editorForm?.get('content')?.setValue(this.editorValue); // Update form control
-        console.log({ onSubmit_this_editorValue: this.editorValue });
-      }
-    }
-    console.log('Editor blur event', event);
-    this.cdRef.detectChanges();
   }
 
 }

@@ -40,7 +40,7 @@ export class DraftService {
   }
 
   updateDraft(data: any, id: any) {
-    console.log({ data });
+    // console.log({ data });
     return this.http.put(`${this.apiUrl}/draft/update-draft/${id}`, data, this.authService.setHeader()
     );
   }

@@ -17,18 +17,17 @@ export class UserService {
     private http: HttpClient, private router: Router,
     private authService: AuthService,
   ) { };
- 
+
   /*
   Get User Blog
    */
   uploadImage(fileToUpload: File): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('image', fileToUpload, fileToUpload.name);
-    console.log({ fileToUpload });
-    console.log({ uploadImage_formData: formData });
+    console.log({ fileToUpload }); console.log({ uploadImage_formData: formData });
     return this.http.post(`${environment.apiUrl}/upload`, formData, this.authService.setHeader())
   }
-  
+
   getProfile(): Observable<any> {
     return this.http.get(`${this.apiUrl}/user/profile`, this.authService.setHeader());
   }

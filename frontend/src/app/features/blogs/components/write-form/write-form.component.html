@@ -1,6 +1,5 @@
 <div class="h-[100%]">
-    <h2> Write Form</h2>
-  <form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="editorForm">
     <input type="text" placeholder="Title" formControlName="title" [ngClass]="{
         'error-class': editorForm.controls.title.touched && editorForm.controls.title.errors?.required
       }" />
@@ -8,24 +7,24 @@
         'error-class': editorForm.controls.description.touched && editorForm.controls.description.errors?.required
       }" placeholder="Write Short description in less then 50 words..">
       </textarea>
+      <!-- <quill-editor id="quill-editor" class="ql-editor flex flex-col mx-auto" formControlName="description" style="height: 75px;">
+      </quill-editor> -->
 
-    <div class="flex flex-row h-[40px] justify-center items-center pb-4 mx-auto">
+    <div class="flex flex-row h-[40px] justify-center items-center my-3">
       <div class="w-[100px]">
-        <img [src]="imageSrc || '/assets/images/avatar.svg'" class="object-contain h-[100%] w-[100%]" #normal />
+        <img [src]="imageSrc" id="image" #normal />
       </div>
-      <div class="flex justify-center w-[350px]">
+      <div class="w-[250px] mx-1">
         <input type="file" name="" accept="image/*" id="" (change)="uploadFile($event)" #file #normal />
-        <button mat-raised-button color="primary" (click)="file.click()" (click)="normal.click()" >
-          <mat-icon inline="true" style="background-color: #3f51b5;">file_upload</mat-icon>
+        <button mat-raised-button color="primary" (click)="file.click()" (click)="normal.click()" class="uploadFile">
+          <mat-icon inline="true" class="color-white">file_upload</mat-icon>
           Choose Image
         </button>
       </div>
     </div>
 
-    <div class="mb-4 mx-auto">
-      <quill-editor id="quill-editor" class="ql-editor flex flex-col" formControlName="content" style="height: 300px;"
-        (blur)="onEditorBlured($event)" >
-      </quill-editor>
+    <div class="mx-auto">
+      <ckeditor id="ck-editor" [editor]="Editor" formControlName="content" (ready)="onReady($event)"></ckeditor>
     </div>
   </form>
 

@@ -13,13 +13,13 @@ import { ROW_HEIGHT } from '../../models/types';
 
 @Component({
   selector: 'app-blog-box',
-  templateUrl: './blog-box.component.html',
-  styleUrls: ['./blog-box.component.scss']
+  templateUrl: './dispay-box.component.html',
+  styleUrls: ['./dispay-box.component.scss']
 })
-export class BlogBoxComponent implements OnInit, OnChanges, OnDestroy {
+export class DisplayBoxComponent implements OnInit, OnChanges, OnDestroy {
   @Input() blogsList!: BlogData[];
   @Input() blogsSearch!: BlogData[];
-  blogs!: BlogData[];
+  blogData!: BlogData[];
 
   @Input() showSlides!: boolean;
   @ViewChild(MatDrawer) drawer!: MatDrawer;
@@ -38,7 +38,6 @@ export class BlogBoxComponent implements OnInit, OnChanges, OnDestroy {
   maxValue = 2000;
   appTitle = '';
 
-  loading = true;
   error = false;
   playInterval = 3000;
   changes!: SimpleChanges;
@@ -56,26 +55,8 @@ export class BlogBoxComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
-    // this.appTitle = this.sharedService.appTitle;
-    // this.titleService.setTitle(`BlogData Box - ${this.appTitle}`);
-  }
-
-  onAddToCart(blog: BlogData) {
-    let message;
-    // const { _id, image, name, slug, price } = blog;
-    // const item = { _id, image, name, slug, price, quantity: 1 };
-    // this.cartSubscription = this.cartService.addItem(item).subscribe({
-    //   next: (blogName) => {
-    //     message = `Item added to the cart:   ${blogName}`;
-    //     this.messageDialogService.openMessageDlg({ message: message, type: 'success' });
-    //   },
-    //   error: (err: any) => {
-    //     message = `${err.message} \n BlogData Not added`;
-    //     this.messageDialogService.openMessageDlg({ message: message, type: 'error' });
-    //   },
-
-    // });
-    this.subscriptions.push(this.cartSubscription);
+    this.appTitle = this.sharedService.appTitle;
+    this.titleService.setTitle(`Display Box - ${this.appTitle}`);
   }
 
   /**
@@ -89,8 +70,8 @@ export class BlogBoxComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.blogsSearch || changes.blogsList) {
-      this.blogs = changes.blogsSearch?.currentValue || changes.blogsList?.currentValue;
-      this.totalBlogs = this.blogsSearch?.length || this.blogsList?.length;      
+      this.blogData = changes.blogsSearch?.currentValue || changes.blogsList?.currentValue;
+      this.totalBlogs = this.blogsSearch?.length || this.blogsList?.length;
     }
   }
 

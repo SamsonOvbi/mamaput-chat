@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +10,8 @@ import { BlogData } from '../../models/blog-model';
 import { swalFireWarning, swalMixin } from '../../../../shared/constants';
 import { MessageDialogComponent } from 'src/app/shared/dialogs';
 import { UserService } from 'src/app/features/users/services/user.service';
-import { quillConfig } from '../../components/write-form/models/quill-editor/quill-config';
+import { quillConfig } from '../../components/write-form/models/quill-config';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-editblog',
@@ -20,11 +21,12 @@ import { quillConfig } from '../../components/write-form/models/quill-editor/qui
     '../writeblog/writeblog.component.scss',
   ],
 })
-export class EditblogComponent implements OnInit {
+export class EditblogComponent implements OnInit, OnDestroy {
   public modules = quillConfig;
   public htmlContent: any = '';
   public editorValue: any = '';
   editorForm: FormGroup;
+  configData: any;
   public imageSrc: any;
   public file: any;
   public data: any;
@@ -33,6 +35,9 @@ export class EditblogComponent implements OnInit {
   apiUrl = environment.apiUrl;
   numViews = 0;
   numReviews = 0;
+  blogSubscription: Subscription = Subscription.EMPTY;
+  dialogSubscription: Subscription = Subscription.EMPTY;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     config: NgbModalConfig,
@@ -55,7 +60,7 @@ export class EditblogComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.activatedRouter.snapshot.paramMap.get('id');
-    this.blogService.getSingleBlog(this.id).subscribe((res: any) => {
+    this.blogSubscription = this.blogService.getSingleBlog(this.id).subscribe((res: any) => {
       this.data = res.data;
       this.editorForm.controls['title'].patchValue(res.data.title);
       this.editorForm.controls['description'].patchValue(res.data.description);
@@ -64,14 +69,31 @@ export class EditblogComponent implements OnInit {
       this.imageSrc = this.data.image;
       this.editorForm.controls['image'].patchValue(this.imageSrc);
     });
+    this.subscriptions.push(this.blogSubscription);
+  }
+
+  onFormSubmit(data: any) {
+    this.editorForm.patchValue(data);
+    console.log('this.editorForm.value', this.editorForm.value);
   }
 
   saveEditor() {
     if (this.editorForm.valid) {
-      this.blogService.updateBlog(this.editorForm.value, this.id).subscribe((res: any) => {
+      this.blogSubscription = this.blogService.updateBlog(this.editorForm.value, this.id).subscribe((res: any) => {
         Swal.fire({ title: 'Your Blog Published SuccessFully', icon: 'success', position: 'center', showConfirmButton: false, timer: 1500, });
         this.router.navigate(['/blogs/blog-details', res.post._id]);
       });
+      this.subscriptions.push(this.blogSubscription);
+    }
+  }
+  returnToDraft() {
+    if (this.editorForm.valid) {
+      this.blogSubscription = this.blogService.returnToDraft(this.editorForm.value, this.id).subscribe((res: any) => {
+        Swal.fire({ title: 'Your Blog Returned To Draft', icon: 'success', position: 'center', showConfirmButton: false, timer: 1500, });
+        console.log({ 'res.draft._id': res.draft._id });
+        this.router.navigate(['/profile/draft']);
+      });
+      this.subscriptions.push(this.blogSubscription);
     }
   }
   open(content: any) {
@@ -84,23 +106,12 @@ export class EditblogComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(MessageDialogComponent, dialogOptions);
 
-    dialogRef.afterClosed().subscribe((result) => { });
+    this.dialogSubscription = dialogRef.afterClosed().subscribe((result) => { });
+    this.subscriptions.push(this.dialogSubscription);
   }
 
   handleInputFile(files: FileList) {
     // console.log('file..');
-  }
-
-  uploadFile(event: any) {
-    const file: File = event?.target.files[0];
-    this.file = file.name;
-    if (file) {
-      this.userService.uploadImage(file).subscribe((res: any) => {
-        this.imageSrc = res.secure_url;
-        this.editorForm.controls['image']?.patchValue(res.secure_url);
-        // this.getUserProfile();
-      });
-    }
   }
 
   fireEvent() {
@@ -135,9 +146,12 @@ export class EditblogComponent implements OnInit {
     return true;
   }
 
-  onEditorBlured(event: any) {
-    // Handle blur event if needed
-    console.log('Editor blur event', event);
+  get content() {
+    return this.editorForm.value['content'];
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
 }

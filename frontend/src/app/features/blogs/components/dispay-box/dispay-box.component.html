@@ -3,6 +3,6 @@
   (columnsCountChange)="onColumnsCountUpdate($event)">
 </app-blog-header>
 
-<app-blog-card [blogs]="blogs" [showSlides]="showSlides" [totalBlogs]="totalBlogs" [fullWidthMode]="cols === 1" [cols]="cols"
-  [rowHeight]="rowHeight" (addToCart)="onAddToCart($event)">
+<app-blog-card [blogs]="blogData" [showSlides]="showSlides" [totalBlogs]="totalBlogs" [fullWidthMode]="cols === 1" [cols]="cols"
+  [rowHeight]="rowHeight">
 </app-blog-card>
