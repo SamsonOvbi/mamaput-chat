@@ -1,0 +1,21 @@
+
+*,
+:root {
+  --nav-icon-width: 50px;
+  --nav-border-width: 8px;
+}
+html,
+body {
+  /* height: auto; */
+  /* height: 100%; */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #f9f4f0;
+}

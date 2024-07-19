@@ -4,4 +4,3 @@ export const environment = {
   apiUrl: '',
   baseUrl: 'https://mamaput-chat.onrender.com',
 };
- 

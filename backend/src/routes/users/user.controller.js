@@ -32,7 +32,6 @@ userContr.myBlogs = async (req, res, next) => {
     if (!blog) {
       return res.status(400).json({ success: false, message: "Blog Not Found", });
     }
-    console.error({ blog });
     res.status(200).json({ success: true, blog, });
   } catch (err) {
     console.error({ error: err });

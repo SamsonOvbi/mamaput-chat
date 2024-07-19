@@ -43,7 +43,8 @@
             "allowedCommonJsDependencies": [
               "quill",
               "quill-delta",
-              "sweetalert2"
+              "sweetalert2",
+              "@ckeditor/ckeditor5-build-classic"
             ]
           },
           "configurations": {
