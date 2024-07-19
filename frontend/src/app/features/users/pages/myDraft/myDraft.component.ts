@@ -15,6 +15,7 @@ import { swalFireWarning, swalMixin } from '../../../../shared/constants';
 })
 export class MyDraftComponent implements OnInit {
   public contentLoaded = false;
+  rightImage= true;
   public myDraft: any;
   public apiUrl = environment.apiUrl;
   public noDataFound: boolean = false;

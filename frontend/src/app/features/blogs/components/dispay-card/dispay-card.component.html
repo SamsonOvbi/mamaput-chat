@@ -1,7 +1,9 @@
-<div class="flex flex-row justify-between ml-2 h-12 items-center">
-  <span class="text-sm text-black" *ngIf="showSlides">Latest Blogs</span>
-  <span class="text-sm text-black" *ngIf="!showSlides">Popular Blogs</span>
-  <mat-paginator [length]="totalBlogs" [pageSize]="itemsPerPage"
+<div class="flex flex-row justify-between ml-2 h-[48px] items-center">
+  <div class="text-sm text-black w-[100px]">
+    <span *ngIf="showSlides">Latest Blogs</span>
+    <span *ngIf="!showSlides">Popular Blogs</span>
+  </div>
+  <mat-paginator  [length]="totalBlogs" [pageSize]="itemsPerPage"
     [pageSizeOptions]="[5, 10, 20, 50]" (page)="handlePageEvent($event)">
   </mat-paginator>
 </div>
@@ -13,7 +15,7 @@
       <div *ngIf="contentLoaded">
         <div class="w-full">
           <mat-card class="shadow-lg" [ngClass]="{'text-center': !fullWidthMode, }" *ngIf="data">
-            <div class="flex flex-row items-center" style="margin-left: 8px;">
+            <div class="flex flex-row items-center mt-1" style="margin-left: 8px;">
               <div class="h-[25px] w-[25px] rounded-full">
                 <img src="/assets/images/avatar.svg" alt="user image" *ngIf="!data.user || !data.user.image" />
                 <img src="{{ data.user && data.user.image ? data.user.image : '' }}" alt="data?.user?.username"

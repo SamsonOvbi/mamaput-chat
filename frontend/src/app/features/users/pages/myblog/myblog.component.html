@@ -1,6 +1,6 @@
 <div class="mt-8">
   <div *ngIf="!contentLoaded">
-    <app-not-loaded [contentLoaded]="contentLoaded"></app-not-loaded>
+    <app-not-loaded [rightImage]=rightImage [contentLoaded]="contentLoaded"></app-not-loaded>
   </div>
 
   <div *ngIf="contentLoaded">

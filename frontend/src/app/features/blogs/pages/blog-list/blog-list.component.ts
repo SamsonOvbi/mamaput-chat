@@ -21,6 +21,7 @@ export class BlogListComponent implements OnInit, OnDestroy {
   // blogsList!: any;
   showSlides = true;
   loading = true;
+  rightImage = false;
   error = false;
   playInterval = 3000;
 

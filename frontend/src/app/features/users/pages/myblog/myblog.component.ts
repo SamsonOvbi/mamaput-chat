@@ -14,6 +14,7 @@ import { swalFireWarning, swalMixin } from '../../../../shared/constants';
 })
 export class MyblogComponent implements OnInit {
   public contentLoaded = false;
+  rightImage= true;
   public myBlog: any;
   public apiUrl = environment.apiUrl;
   public noDataFound: boolean = false;

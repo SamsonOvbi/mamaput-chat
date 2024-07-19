@@ -1,16 +1,7 @@
-<!-- <div *ngIf="!loading; else result" class="p-4 flex ">
-  <app-blog-box #blogBox [blogsList]="blogsList" [showSlides]="showSlides"></app-blog-box>
-</div>
-
-<ng-template #result class="p-4 flex ">
-  <div *ngIf="!contentLoaded">
-    <app-not-loaded [contentLoaded]="contentLoaded"></app-not-loaded>
-  </div>  
-</ng-template>  -->
 
 <div *ngIf="loading; else result">
   <div *ngIf="!contentLoaded">
-    <app-not-loaded [contentLoaded]="contentLoaded"></app-not-loaded>
+    <app-not-loaded [rightImage]=rightImage [contentLoaded]="contentLoaded"></app-not-loaded>
   </div>  
 </div>
 

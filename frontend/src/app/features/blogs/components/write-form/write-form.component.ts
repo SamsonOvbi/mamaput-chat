@@ -17,11 +17,8 @@ import { Subscription } from 'rxjs';
 
 export class WriteFormComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() initialData: any;
-  // @Input() writeDataIn: any;
   @Input() configData: any;
-  // @Input() writeOptions: any;
   @Output() formSubmit = new EventEmitter<any>();
-  // @Output() writeDataOut = new EventEmitter<any>();
 
   editorPlaceholder: any = 'Write Short content in less then 5000 words..';
   editorForm!: FormGroup;
