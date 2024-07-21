@@ -3,8 +3,8 @@
     <span *ngIf="showSlides">Latest Blogs</span>
     <span *ngIf="!showSlides">Popular Blogs</span>
   </div>
-  <mat-paginator  [length]="totalBlogs" [pageSize]="itemsPerPage"
-    [pageSizeOptions]="[5, 10, 20, 50]" (page)="handlePageEvent($event)">
+  <mat-paginator [length]="totalBlogs" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 20, 50]"
+    (page)="handlePageEvent($event)">
   </mat-paginator>
 </div>
 
@@ -15,7 +15,7 @@
       <div *ngIf="contentLoaded">
         <div class="w-full">
           <mat-card class="shadow-lg" [ngClass]="{'text-center': !fullWidthMode, }" *ngIf="data">
-            <div class="flex flex-row items-center mt-1" style="margin-left: 8px;">
+            <div class="flex flex-row items-center mt-2 ml-6 md:ml-2">
               <div class="h-[25px] w-[25px] rounded-full">
                 <img src="/assets/images/avatar.svg" alt="user image" *ngIf="!data.user || !data.user.image" />
                 <img src="{{ data.user && data.user.image ? data.user.image : '' }}" alt="data?.user?.username"
@@ -27,14 +27,14 @@
 
             <div [ngClass]="{'flex ': fullWidthMode}">
               <div class="w-full"
-                [ngClass]="{'h-[160px] w-[300px]': !fullWidthMode, 'h-[180px] mx-auto w-[37%] max-w-[37%]': fullWidthMode}">
+                [ngClass]="{'h-[160px] w-[300px]': !fullWidthMode, 'h-[160px] mx-auto w-[30%] max-w-[30%]': fullWidthMode}">
                 <img class="mt-1 mx-auto object-contain"
                   [ngClass]="{'max-h-[160px] max-w-[300px]': !fullWidthMode, 'h-[100%] max-w-[100%]': fullWidthMode}"
                   [src]="data.image" alt="{{ data.title }}" />
               </div>
 
               <mat-card-content class="w-full h-[270px]"
-                [ngClass]="{'max-h-[160px]': !fullWidthMode, 'flex flex-col justify-between h-auto w-[60%] max-w-[60%]': fullWidthMode}">
+                [ngClass]="{'max-h-[160px]': !fullWidthMode, 'flex flex-col justify-between h-auto w-[68%] max-w-[68%]': fullWidthMode}">
                 <div>
                   <!-- <span class="font-bold text-xs uppercase mb-1">{{ data.category }}</span> -->
 

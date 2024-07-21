@@ -22,7 +22,7 @@ export class WriteFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
   editorPlaceholder: any = 'Write Short content in less then 5000 words..';
   editorForm!: FormGroup;
-  previousData!: any;
+  previousDataLen!: any;
   quill!: Quill;
   public Editor = ClassicEditor;
   editorInstance: any;
@@ -56,7 +56,6 @@ export class WriteFormComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this.initCKEditor();
-    // this.initQuillContainer();
     this.initWriteForm();
   }
 
@@ -70,26 +69,6 @@ export class WriteFormComponent implements OnInit, AfterViewInit, OnDestroy {
     });
     this.subscriptions.push(this.formSubscription);
   }
-
-  // initQuillContainer(): void {
-  //   const container = document.getElementById('quill-editor');
-  //   if (container) {
-  //     this.quill = new Quill(container,
-  //       { modules: quillConfig, placeholder: this.editorPlaceholder, theme: 'snow', }
-  //     );
-  //     if (this.initialData.description) {
-  //       this.quill.clipboard.dangerouslyPasteHTML(this.initialData.description);
-  //     }
-  //     // Update the form control value when Quill content changes
-  //     this.quill.on('text-change', () => {
-  //       const description = this.quill.root.innerHTML;
-  //       // this.editorForm.controls.description.setValue(description);
-  //       this.editorForm.patchValue({ description: description });
-  //     });
-  //   } else {
-  //     console.error('Failed to find Quill container element');
-  //   }
-  // }
 
   initCKEditor() {
     const editorElement = document.getElementById('ck-editor');
@@ -119,9 +98,10 @@ export class WriteFormComponent implements OnInit, AfterViewInit, OnDestroy {
       // Capture text changes and update form
       editor.model.document.on('change:data', () => {
         const content = editor.getData();
-        if (this.previousData !== content) {
+        const length = content.length
+        if (this.previousDataLen !== length) {
           this.editorForm.patchValue({ content: content }, { emitEvent: false });
-          this.previousData = content;
+          this.previousDataLen = length;
         }
       });
     } catch (error) {
