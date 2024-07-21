@@ -11,70 +11,70 @@
 <div class="max-h-[80vh] overflow-auto">
   <mat-grid-list *ngIf="!error" gutterSize="12" [cols]="cols" [rowHeight]="rowHeight">
     <mat-grid-tile *ngFor="let data of paginatedData; trackBy: trackByDataId">
+      <mat-card class="shadow-lg" [ngClass]="{'text-center w-full': !fullWidthMode, }" *ngIf="contentLoaded && data">
+        <div class="flex flex-row items-center mt-2 ml-6 md:ml-2">
+          <div class="h-[25px] w-[25px] rounded-full">
+            <img src="/assets/images/avatar.svg" alt="user image" *ngIf="!data.user || !data.user.image" />
+            <img src="{{ data.user && data.user.image ? data.user.image : '' }}" alt="data?.user?.username"
+              *ngIf="contentLoaded && data.user && data.user.image" class="h-full w-full rounded-full" />
+          </div>
+          <a class="mx-2 text-sm" *ngIf="contentLoaded"> {{ data?.user?.username }} </a>
+          <span class="text-xs">{{ data?.createdAt | date }}</span>
+        </div>
+
+        <div [ngClass]="{'flex ': fullWidthMode}">
+          <div class="w-full"
+            [ngClass]="{'h-[160px] w-[300px]': !fullWidthMode, 'h-[160px] mx-auto w-[30%] max-w-[30%]': fullWidthMode}">
+            <img class="mt-1 mx-auto object-contain"
+              [ngClass]="{'max-h-[80%] max-w-[100%]': !fullWidthMode, 'max-h-[100%] max-w-[100%]': fullWidthMode}"
+              [src]="data.image" alt="{{ data.title }}" />
+          </div>
+
+          <mat-card-content class="h-[270px]"
+            [ngClass]="{'w-full max-h-[160px]': !fullWidthMode, 'flex flex-col justify-between h-auto w-[68%] max-w-[68%]': fullWidthMode}">
+            <div>
+              <!-- <span class="font-bold text-xs uppercase mb-1">{{ data.category }}</span> -->
+
+              <p class="truncate hover:whitespace-normal" *ngIf="!fullWidthMode">{{ data.title }}</p>
+              <div class="truncate text-sm text-wrap font-black max-h-[60px]" *ngIf="fullWidthMode">
+                <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
+                <span *ngIf="contentLoaded" class="text-lg font-bold">{{ data.title }}</span>
+              </div>
+              <p class="truncate text-sm text-wrap max-h-[40px] w-full">
+                {{ data.description }}
+              </p>
+              <div class="truncate text-xs text-wrap h-[50px] max-w-[100%]" *ngIf="fullWidthMode">
+                <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.content)"></div>
+              </div>
+            </div>
+
+            <!-- <div class="flex justify-between mx-1">
+              <button class="text-blue-700 hover:text-blue-900 " (click)="onUpVote()">
+                <mat-icon class="mr-1">up_vote</mat-icon>
+                <span class="text-sm">({{upVotes}})</span>
+              </button>
+              <button class="text-blue-700 hover:text-blue-900 " (click)="onDownVote()">
+                <mat-icon class="mr-1">down_vote</mat-icon>
+                <span class="text-sm">({{downVotes}})</span>
+              </button>
+              <button class="text-blue-700 hover:text-blue-900 " (click)="onWriteReview()">
+                <mat-icon class="mr-1">write_review</mat-icon>
+                <span class="text-sm">Write Review</span>
+              </button>
+            </div> -->
+            <div class="flex flex-row mx-auto justify-between items-center max-w-[100%]">
+              <app-rating [rating]="data.rating" [numReviews]="data.numReviews"></app-rating>
+              <a [routerLink]="['/blogs/blog-details/', data._id]">
+                <span class="text-blue-400 text-sm font-bold">Read More</span>
+              </a>
+            </div>
+          </mat-card-content>
+        </div>
+      </mat-card>
 
       <div *ngIf="contentLoaded">
         <div class="w-full">
-          <mat-card class="shadow-lg" [ngClass]="{'text-center': !fullWidthMode, }" *ngIf="data">
-            <div class="flex flex-row items-center mt-2 ml-6 md:ml-2">
-              <div class="h-[25px] w-[25px] rounded-full">
-                <img src="/assets/images/avatar.svg" alt="user image" *ngIf="!data.user || !data.user.image" />
-                <img src="{{ data.user && data.user.image ? data.user.image : '' }}" alt="data?.user?.username"
-                  *ngIf="contentLoaded && data.user && data.user.image" class="h-full w-full rounded-full" />
-              </div>
-              <a class="mx-2 text-sm" *ngIf="contentLoaded"> {{ data?.user?.username }} </a>
-              <span class="text-xs">{{ data?.createdAt | date }}</span>
-            </div>
 
-            <div [ngClass]="{'flex ': fullWidthMode}">
-              <div class="w-full"
-                [ngClass]="{'h-[160px] w-[300px]': !fullWidthMode, 'h-[160px] mx-auto w-[30%] max-w-[30%]': fullWidthMode}">
-                <img class="mt-1 mx-auto object-contain"
-                  [ngClass]="{'max-h-[160px] max-w-[300px]': !fullWidthMode, 'h-[100%] max-w-[100%]': fullWidthMode}"
-                  [src]="data.image" alt="{{ data.title }}" />
-              </div>
-
-              <mat-card-content class="w-full h-[270px]"
-                [ngClass]="{'max-h-[160px]': !fullWidthMode, 'flex flex-col justify-between h-auto w-[68%] max-w-[68%]': fullWidthMode}">
-                <div>
-                  <!-- <span class="font-bold text-xs uppercase mb-1">{{ data.category }}</span> -->
-
-                  <p class="truncate hover:whitespace-normal" *ngIf="!fullWidthMode">{{ data.title }}</p>
-                  <div class="truncate text-sm text-wrap font-black max-h-[60px]" *ngIf="fullWidthMode">
-                    <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-                    <span *ngIf="contentLoaded" class="text-lg font-bold">{{ data.title }}</span>
-                  </div>
-                  <p class="truncate text-sm text-wrap max-h-[40px] w-full">
-                    {{ data.description }}
-                  </p>
-                  <div class="truncate text-xs text-wrap h-[50px]" *ngIf="fullWidthMode">
-                    <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.content)"></div>
-                  </div>
-                </div>
-
-                <!-- <div class="flex justify-between mx-1">
-                  <button class="text-blue-700 hover:text-blue-900 " (click)="onUpVote()">
-                    <mat-icon class="mr-1">up_vote</mat-icon>
-                    <span class="text-sm">({{upVotes}})</span>
-                  </button>
-                  <button class="text-blue-700 hover:text-blue-900 " (click)="onDownVote()">
-                    <mat-icon class="mr-1">down_vote</mat-icon>
-                    <span class="text-sm">({{downVotes}})</span>
-                  </button>
-                  <button class="text-blue-700 hover:text-blue-900 " (click)="onWriteReview()">
-                    <mat-icon class="mr-1">write_review</mat-icon>
-                    <span class="text-sm">Write Review</span>
-                  </button>
-                </div> -->
-                <div class="flex flex-row justify-between items-center">
-                  <app-rating [rating]="data.rating" [numReviews]="data.numReviews"></app-rating>
-                  <a [routerLink]="['/blogs/blog-details/', data._id]">
-                    <span class="text-blue-400 text-sm font-bold">Read More</span>
-                  </a>
-                </div>
-              </mat-card-content>
-            </div>
-
-          </mat-card>
         </div>
       </div>
     </mat-grid-tile>
