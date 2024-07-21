@@ -1,0 +1,283 @@
+please make the switch to column mode only if viewport width <= 420px. please center the img and <mat-card-content> for all other viewports
+
+
+<mat-card class="shadow-lg w-full" *ngIf="fullWidthMode && contentLoaded && data">
+  <div class="flex flex-col sm:flex-row items-center">
+    <div class="flex flex-row justify-center items-center mt-3 w-full">
+      <div class="h-[25px] w-[25px] rounded-full">
+        <img src="/assets/images/avatar.svg" alt="user image" *ngIf="!data.user || !data.user.image" />
+        <img src="{{ data.user && data.user.image ? data.user.image : '' }}" alt="data?.user?.username"
+          *ngIf="data.user && data.user.image" class="h-full w-full rounded-full" />
+      </div>
+      <a class="mx-2 text-sm"> {{ data?.user?.username }} </a>
+      <span class="text-xs">{{ data?.createdAt | date }}</span>
+    </div>
+
+    <div class="flex flex-col sm:flex-row justify-center items-center w-full mt-3">
+      <div class="w-full sm:w-[30%] flex justify-center items-center mb-3 sm:mb-0 px-2">
+        <img class="object-contain max-h-[160px] max-w-full"
+          [src]="data.image" alt="{{ data.title }}" />
+      </div>
+
+      <mat-card-content class="flex flex-col justify-between w-full sm:w-[67%] px-4 sm:px-2">
+        <div>
+          <div class="text-sm text-wrap font-black max-h-[60px]">
+            <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
+            <span *ngIf="contentLoaded" class="text-lg font-bold">{{ data.title }}</span>
+          </div>
+          <p class="text-sm text-wrap max-h-[40px] w-full">
+            {{ data.description }}
+          </p>
+          <div class="text-xs text-wrap h-[50px] max-w-[90%]">
+            <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.content)"></div>
+          </div>
+        </div>
+
+        <div class="flex flex-row justify-between items-center max-w-[100%] mt-2">
+          <app-rating [rating]="data.rating" [numReviews]="data.numReviews"></app-rating>
+          <a [routerLink]="['/blogs/blog-details/', data._id]">
+            <span class="text-blue-400 text-sm font-bold">Read More</span>
+          </a>
+        </div>
+      </mat-card-content>
+    </div>
+  </div>
+</mat-card>
+
+
+some pictures in ngIf=fullWidthMode card are pushed to left by <mat-card-content> for viewport width < 1024px until thy are compeletely push off the page. please center the img and <mat-card-content> for all viewports
+
+<mat-card class="shadow-lg w-full" *ngIf="fullWidthMode && contentLoaded && data">
+  <div class="flex flex-col items-center">
+    <div class="flex flex-row justify-center items-center mt-3 w-full">
+      <div class="h-[25px] w-[25px] rounded-full">
+        <img src="/assets/images/avatar.svg" alt="user image" *ngIf="!data.user || !data.user.image" />
+        <img src="{{ data.user && data.user.image ? data.user.image : '' }}" alt="data?.user?.username"
+          *ngIf="data.user && data.user.image" class="h-full w-full rounded-full" />
+      </div>
+      <a class="mx-2 text-sm"> {{ data?.user?.username }} </a>
+      <span class="text-xs">{{ data?.createdAt | date }}</span>
+    </div>
+
+    <div class="flex flex-col lg:flex-row justify-center items-center w-full mt-3">
+      <div class="w-full lg:w-[30%] flex justify-center items-center mb-3 lg:mb-0">
+        <img class="object-contain max-h-[160px] max-w-full"
+          [src]="data.image" alt="{{ data.title }}" />
+      </div>
+
+      <mat-card-content class="flex flex-col justify-between w-full lg:w-[67%] px-4 lg:px-0">
+        <div>
+          <div class="text-sm text-wrap font-black max-h-[60px]">
+            <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
+            <span *ngIf="contentLoaded" class="text-lg font-bold">{{ data.title }}</span>
+          </div>
+          <p class="text-sm text-wrap max-h-[40px] w-full">
+            {{ data.description }}
+          </p>
+          <div class="text-xs text-wrap h-[50px] max-w-[90%]">
+            <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.content)"></div>
+          </div>
+        </div>
+
+        <div class="flex flex-row justify-between items-center max-w-[100%] mt-2">
+          <app-rating [rating]="data.rating" [numReviews]="data.numReviews"></app-rating>
+          <a [routerLink]="['/blogs/blog-details/', data._id]">
+            <span class="text-blue-400 text-sm font-bold">Read More</span>
+          </a>
+        </div>
+      </mat-card-content>
+    </div>
+  </div>
+</mat-card>
+
+
+some pictures in ngIf=fullWidthMode card are pushed to left by <mat-card-content> for viewport width < 1024px until thy are compeletely push off the page. please center the img and <mat-card-content> for all viewports
+
+<mat-card class="shadow-lg w-full" *ngIf="fullWidthMode && contentLoaded && data">
+  <div class="flex flex-col sm:flex-row">
+    <div class="flex flex-row justify-center items-center mt-3 w-full sm:w-auto">
+      <div class="h-[25px] w-[25px] rounded-full">
+        <img src="/assets/images/avatar.svg" alt="user image" *ngIf="!data.user || !data.user.image" />
+        <img src="{{ data.user && data.user.image ? data.user.image : '' }}" alt="data?.user?.username"
+          *ngIf="data.user && data.user.image" class="h-full w-full rounded-full" />
+      </div>
+      <a class="mx-2 text-sm"> {{ data?.user?.username }} </a>
+      <span class="text-xs">{{ data?.createdAt | date }}</span>
+    </div>
+
+    <div class="flex flex-col sm:flex-row justify-between w-full mt-3 sm:mt-0">
+      <div class="w-full sm:w-[30%] flex justify-center items-center mb-3 sm:mb-0">
+        <img class="object-contain max-h-[160px] max-w-full"
+          [src]="data.image" alt="{{ data.title }}" />
+      </div>
+
+      <mat-card-content class="flex flex-col justify-between w-full sm:w-[67%]">
+        <div>
+          <div class="truncate text-sm text-wrap font-black max-h-[60px]">
+            <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
+            <span *ngIf="contentLoaded" class="text-lg font-bold">{{ data.title }}</span>
+          </div>
+          <p class="truncate text-sm text-wrap max-h-[40px] w-full">
+            {{ data.description }}
+          </p>
+          <div class="truncate text-xs text-wrap h-[50px] max-w-[90%]">
+            <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.content)"></div>
+          </div>
+        </div>
+
+        <div class="flex flex-row justify-between items-center max-w-[100%] mt-2">
+          <app-rating [rating]="data.rating" [numReviews]="data.numReviews"></app-rating>
+          <a [routerLink]="['/blogs/blog-details/', data._id]">
+            <span class="text-blue-400 text-sm font-bold">Read More</span>
+          </a>
+        </div>
+      </mat-card-content>
+    </div>
+  </div>
+</mat-card>
+
+// !fullWidthMode an fullWidthMode
+<div class="max-h-[80vh] overflow-auto mt-10">
+  <mat-grid-list *ngIf="!error" gutterSize="12" [cols]="cols" [rowHeight]="rowHeight">
+    <mat-grid-tile *ngFor="let data of paginatedData; trackBy: trackByDataId" class="w-full">
+      
+      <!-- Card for !fullWidthMode -->
+      <mat-card class="shadow-lg text-center w-full" *ngIf="!fullWidthMode && contentLoaded && data">
+        <div class="flex flex-row justify-center items-center mt-3">
+          <div class="h-[25px] w-[25px] rounded-full">
+            <img src="/assets/images/avatar.svg" alt="user image" *ngIf="!data.user || !data.user.image" />
+            <img src="{{ data.user && data.user.image ? data.user.image : '' }}" alt="data?.user?.username"
+              *ngIf="data.user && data.user.image" class="h-full w-full rounded-full" />
+          </div>
+          <a class="mx-2 text-sm"> {{ data?.user?.username }} </a>
+          <span class="text-xs">{{ data?.createdAt | date }}</span>
+        </div>
+
+        <div class="h-[300px]">
+          <div class="h-[160px] w-[300px]">
+            <img class="mt-1 mx-auto items-center object-contain h-[50%] max-h-[50%] w-[50%]"
+              [src]="data.image" alt="{{ data.title }}" />
+          </div>
+
+          <mat-card-content class="w-full max-h-[160px]">
+            <div>
+              <p class="truncate hover:whitespace-normal">{{ data.title }}</p>
+              <p class="truncate text-sm text-wrap max-h-[40px] w-full">
+                {{ data.description }}
+              </p>
+            </div>
+
+            <div class="flex flex-row mx-auto justify-between items-center max-w-[100%]">
+              <app-rating [rating]="data.rating" [numReviews]="data.numReviews"></app-rating>
+              <a [routerLink]="['/blogs/blog-details/', data._id]">
+                <span class="text-blue-400 text-sm font-bold">Read More</span>
+              </a>
+            </div>
+          </mat-card-content>
+        </div>
+      </mat-card>
+
+      <!-- Card for fullWidthMode -->
+      <mat-card class="shadow-lg" *ngIf="fullWidthMode && contentLoaded && data">
+        <div class="flex flex-row justify-center items-center mt-3">
+          <div class="h-[25px] w-[25px] rounded-full">
+            <img src="/assets/images/avatar.svg" alt="user image" *ngIf="!data.user || !data.user.image" />
+            <img src="{{ data.user && data.user.image ? data.user.image : '' }}" alt="data?.user?.username"
+              *ngIf="data.user && data.user.image" class="h-full w-full rounded-full" />
+          </div>
+          <a class="mx-2 text-sm"> {{ data?.user?.username }} </a>
+          <span class="text-xs">{{ data?.createdAt | date }}</span>
+        </div>
+
+        <div class="flex flex-row justify-between">
+          <div class="h-[160px] w-[30%] max-w-[30%]">
+            <img class="mt-1 mx-auto items-center object-contain max-h-[100%] w-[100%] min-w-[100%]"
+              [src]="data.image" alt="{{ data.title }}" />
+          </div>
+
+          <mat-card-content class="flex flex-col justify-between h-auto w-[67%] max-w-[67%]">
+            <div>
+              <div class="truncate text-sm text-wrap font-black max-h-[60px]">
+                <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
+                <span *ngIf="contentLoaded" class="text-lg font-bold">{{ data.title }}</span>
+              </div>
+              <p class="truncate text-sm text-wrap max-h-[40px] w-full">
+                {{ data.description }}
+              </p>
+              <div class="truncate text-xs text-wrap h-[50px] max-w-[90%]">
+                <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.content)"></div>
+              </div>
+            </div>
+
+            <div class="flex flex-row mx-auto justify-between items-center max-w-[100%]">
+              <app-rating [rating]="data.rating" [numReviews]="data.numReviews"></app-rating>
+              <a [routerLink]="['/blogs/blog-details/', data._id]">
+                <span class="text-blue-400 text-sm font-bold">Read More</span>
+              </a>
+            </div>
+          </mat-card-content>
+        </div>
+      </mat-card>
+
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+<div class="flex justify-center mx-auto w-1/2 max-h-[90vh]" *ngIf="noDataFound">
+  <img src="/assets/images/no-data-found.png" alt="No Blog Found..!" />
+</div>
+
+Put them in same <mat-grid-list> and <mat-grid-tile and put ngIf=!fullWidthMode in 1 mat-card and ngIf=fullWidthMode in anothr mat-card
+pictures in ngIf=!fullWidthMode card are tilted to right for viewport width < 648px. please center them for all viewports
+
+
+<div class="max-h-[80vh] overflow-auto mt-10">
+  <mat-grid-list *ngIf="!error" gutterSize="12" [cols]="cols" [rowHeight]="rowHeight">
+    <mat-grid-tile *ngFor="let data of paginatedData; trackBy: trackByDataId" class="w-full">
+      
+      <!-- Card for !fullWidthMode -->
+      <mat-card class="shadow-lg text-center w-full" *ngIf="!fullWidthMode && contentLoaded && data">
+        <div class="flex flex-row justify-center items-center mt-3">
+          <div class="h-[25px] w-[25px] rounded-full">
+            <img src="/assets/images/avatar.svg" alt="user image" *ngIf="!data.user || !data.user.image" />
+            <img src="{{ data.user && data.user.image ? data.user.image : '' }}" alt="data?.user?.username"
+              *ngIf="data.user && data.user.image" class="h-full w-full rounded-full" />
+          </div>
+          <a class="mx-2 text-sm"> {{ data?.user?.username }} </a>
+          <span class="text-xs">{{ data?.createdAt | date }}</span>
+        </div>
+
+        <div class="flex flex-col items-center h-[300px]">
+          <div class="h-[160px] w-full flex justify-center items-center">
+            <img class="mt-1 object-contain max-h-[100%] max-w-[100%]"
+              [src]="data.image" alt="{{ data.title }}" />
+          </div>
+
+          <mat-card-content class="w-full max-h-[160px]">
+            <ediv>
+              <p class="truncate hover:whitespace-normal">{{ data.title }}</p>
+              <p class="truncate text-sm text-wrap max-h-[40px] w-full">
+                {{ data.description }}
+              </p>
+            </ediv>
+
+            <div class="flex flex-row mx-auto justify-between items-center max-w-[100%]">
+              <app-rating [rating]="data.rating" [numReviews]="data.numReviews"></app-rating>
+              <a [routerLink]="['/blogs/blog-details/', data._id]">
+                <span class="text-blue-400 text-sm font-bold">Read More</span>
+              </a>
+            </div>
+          </mat-card-content>
+        </div>
+      </mat-card>
+
+      <!-- Card for fullWidthMode (unchanged) -->
+      <mat-card class="shadow-lg" *ngIf="fullWidthMode && contentLoaded && data">
+        <!-- ... (fullWidthMode card content remains unchanged) ... -->
+      </mat-card>
+
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+<div class="flex justify-center mx-auto w-1/2 max-h-[90vh]" *ngIf="noDataFound">
+  <img src="/assets/images/no-data-found.png" alt="No Blog Found..!" />
+</div>
