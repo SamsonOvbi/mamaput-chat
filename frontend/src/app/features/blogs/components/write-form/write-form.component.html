@@ -7,8 +7,9 @@
         'error-class': editorForm.controls.description.touched && editorForm.controls.description.errors?.required
       }" placeholder="Write Short description in less then 50 words..">
       </textarea>
-      <!-- <quill-editor id="quill-editor" class="ql-editor flex flex-col mx-auto" formControlName="description" style="height: 75px;">
-      </quill-editor> -->
+      <!-- <div class="mx-auto">
+        <ckeditor id="desrip-ck-editor" [editor]="Editor" formControlName="content" (ready)="onReady($event)"></ckeditor>
+      </div> -->
 
     <div class="flex flex-row h-[40px] justify-center items-center my-3">
       <div class="w-[100px]">

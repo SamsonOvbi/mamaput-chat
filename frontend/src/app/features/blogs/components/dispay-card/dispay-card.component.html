@@ -21,13 +21,11 @@
               *ngIf="data.user && data.user.image" class="h-full w-full rounded-full" />
           </div>
           <a class="mx-2 text-sm"> {{ data?.user?.username }} </a>
-          <span class="text-xs">{{ data?.createdAt | date }}</span>
         </div>
 
-        <div class="flex flex-col items-center h-[300px]">
-          <div class="h-[160px] w-[300px]">
-            <img class="mt-1 mx-auto items-center object-contain h-[90%] max-h-[90%] w-[90%]"
-              [src]="data.image" alt="{{ data.title }}" />
+        <div class="flex flex-col items-center h-[240px]">
+          <div class="h-[100px] w-[240px] object-contain">
+            <img class="h-[90%] mx-auto w-[80%] rounded-lg" [src]="data.image" alt="{{ data.title }}" />
           </div>
 
           <mat-card-content class="w-full max-h-[160px]">
@@ -37,9 +35,11 @@
                 {{ data.description }}
               </p>
             </div>
-
+            <div class="text-xs ml-2 text-gray-500 mb-2">
+              <span>{{ data?.createdAt | date }}</span>
+            </div>
             <div class="flex flex-row mx-auto justify-between items-center max-w-[100%]">
-              <app-rating [rating]="data.rating" [numReviews]="data.numReviews"></app-rating>
+              <app-rating *ngIf="cols !== 4" [rating]="data.rating" [numReviews]="data.numReviews"></app-rating>
               <a [routerLink]="['/blogs/blog-details/', data._id]">
                 <span class="text-blue-400 text-sm font-bold">Read More</span>
               </a>
@@ -49,7 +49,7 @@
       </mat-card>
 
       <!-- Card for fullWidthMode -->
-      <mat-card class="shadow-lg" *ngIf="fullWidthMode && contentLoaded && data">
+      <mat-card class="shadow-lg flex-auto" *ngIf="fullWidthMode && contentLoaded && data">
         <div class="flex flex-row justify-center items-center mt-3">
           <div class="h-[25px] w-[25px] rounded-full">
             <img src="/assets/images/avatar.svg" alt="user image" *ngIf="!data.user || !data.user.image" />
@@ -57,27 +57,27 @@
               *ngIf="data.user && data.user.image" class="h-full w-full rounded-full" />
           </div>
           <a class="mx-2 text-sm"> {{ data?.user?.username }} </a>
-          <span class="text-xs">{{ data?.createdAt | date }}</span>
         </div>
 
-        <div class="flex flex-row justify-between">
-          <div class="h-[160px] w-[30%] max-w-[30%]">
-            <img class="mt-1 mx-auto items-center object-contain max-h-[100%] w-[100%] min-w-[100%]"
-              [src]="data.image" alt="{{ data.title }}" />
+        <div  class="flex flex-row justify-between">
+          <div class="w-[30%] h-[160px] object-contain">
+            <img class="h-[90%] mx-auto w-[95%] rounded-lg" [src]="data.image" alt="{{ data.title }}" />
           </div>
 
-          <mat-card-content class="flex flex-col justify-between h-auto w-[67%] max-w-[67%]">
+          <mat-card-content class="flex flex-col justify-between h-auto w-[70%] max-w-[70%]">
             <div>
-              <div class="truncate text-sm text-wrap font-black max-h-[60px]">
-                <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-                <span *ngIf="contentLoaded" class="text-lg font-bold">{{ data.title }}</span>
+              <div class="truncate text-lg text-wrap font-bold max-h-[60px]">
+                <span>{{ data.title }}</span>
               </div>
               <p class="truncate text-sm text-wrap max-h-[40px] w-full">
                 {{ data.description }}
               </p>
-              <div class="truncate text-xs text-wrap h-[50px] max-w-[100%]">
-                <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.content)"></div>
+              <div class="text-xs ml-2 text-gray-500 mb-2">
+                <span>{{ data?.createdAt | date }}</span>
               </div>
+              <!-- <div class="truncate text-xs text-wrap max-h-[50px]">
+                <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.content)"></div>
+              </div> -->
             </div>
 
             <div class="flex flex-row mx-auto justify-between items-center max-w-[100%]">
