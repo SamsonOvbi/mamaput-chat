@@ -9,7 +9,7 @@
           <div class="login-form">
             <div class="logo text-center mb-1">
               <a routerLink="/">
-                <img class=" max-h-[250px]" src="/assets/images/blog1.png" alt="blog1.png" class="inline-block" />
+                <img class="inline-block max-h-[150px]" src="/assets/images/blog1.png" alt="blog1.png"/>
               </a>
             </div>
             <div class="flex justify-center items-center h-[40vh]">
@@ -29,7 +29,7 @@
                     <mat-error *ngIf="loginForm.controls.password?.errors?.required">Password is required</mat-error>
                   </mat-form-field>
                 </div>
-                <div class="rember-forgot flex justify-end">
+                <div class="flex justify-center mb-2">
                   <a routerLink="/auth/forgot">Forgot Password?</a>
                 </div>
                 <div class="flex justify-center">

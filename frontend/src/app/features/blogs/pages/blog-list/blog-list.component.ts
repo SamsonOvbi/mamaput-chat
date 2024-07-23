@@ -50,6 +50,7 @@ export class BlogListComponent implements OnInit, OnDestroy {
   }
 
   private getBlogData() {
+    // this.loading = true;
     this.blogsSubscription = this.blogService.getBlogData().pipe(delay(100)).subscribe({
       next: (res: any) => {
         this.blogsList = res.data.data;

@@ -1,23 +1,33 @@
-<div class="h-[75vh] flex flex-wrap flex-grow">
-  <div class="w-full md:w-6/12 ">
-    <div class="flex flex-col">
-      <h1 class="font-black text-4xl text-black">
-        Publishing Platform for bloggers
-      </h1>
-      <h2 class="font-black text-3xl text-black">
-        You can chat too, eventually
-      </h2>
-      <p class="truncate text-lg text-wrap max-h-[120px] w-full">
-        Transform your thoughts into stunning digital narratives with ease and
-        speed on our innovative online publishing platform
-      </p>
+<div class="h-[80vh] w-full flex flex-wrap items-center justify-center mt-0">
+  <!-- <div class="h-[75vh] flex flex-wrap flex-grow"> -->
+  <div class="w-full max-w-4xl flex flex-col md:flex-row items-center">
+    <div class="w-full md:w-1/2 px-1">
+      <!-- <div class="w-full md:w-6/12 "> -->
+      <div class="flex flex-col"> 
+        <h1 class="font-black text-4xl text-black text-center">
+          Publishing Platform for bloggers
+        </h1>
+        <h2 class="font-black text-3xl text-black text-center">
+          You can chat too, eventually
+        </h2>
+        <p class="truncate text-lg text-wrap text-center max-h-[120px] w-full">
+          Transform your thoughts into stunning digital narratives with ease and
+          speed on our innovative online publishing platform
+        </p>
+      </div>
+      <button class="landing-get-started-button mt-12" *ngIf="!loggedIn" (click)="navigateToLogin()">
+        Get Started for Free
+      </button>
     </div>
-    <button class="landing-get-started-button mt-12" *ngIf="!loggedIn" (click)="navigateToLogin()">
-      Get Started for Free
-    </button>
-  </div>
-  <div class="w-full md:w-5/12 mx-auto mt-20">
-    <img src="/assets/images/landing-page-l.png" alt="landing-page-l.png" class="p-8 object-contain max-h-[500px] w-[350px]"/>
+    <div style="margin-top: 8px;"></div>
+    <div class="md:block w-1/2">
+      <div class="flex justify-center items-center h-full">
+        <img src="/assets/images/landing-page-l.png" alt="landing-page-l.png" class="max-w-full h-auto" />
+      </div>
+    </div>
+    <!-- <div class="w-full md:w-5/12 mx-auto mt-20">
+      <img src="/assets/images/landing-page-l.png" alt="landing-page-l.png"
+        class="p-8 object-contain max-h-[500px] w-[350px]" />
+    </div> -->
   </div>
 </div>
- 
